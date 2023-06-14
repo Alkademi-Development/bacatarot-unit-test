@@ -15,6 +15,7 @@ import { takeScreenshot } from '#root/commons/utils/fileUtils';
 import { fileURLToPath } from 'url';
 import { captureConsoleErrors } from '#root/commons/utils/generalUtils';
 import { thrownAnError } from '#root/commons/utils/generalUtils';
+import moment from 'moment-timezone';
 
 /**
  * Get the user data for authentication
@@ -43,10 +44,11 @@ describe("Login", () => {
                 console.error(`Terjadi kesalahan dalam membuat folder screenshoot:`, error);
             }
         });
-        await takeScreenshot(driver, path.resolve(`${screenshootFilePath}/${(this.test?.parent.tests.findIndex(test => test.title === this.currentTest.title)) + 1}.png`));
+        let fileNamePath = path.resolve(`${screenshootFilePath}/${(this.test?.parent.tests.findIndex(test => test.title === this.currentTest.title)) + 1 + '-' + moment().tz("Asia/Jakarta").format("YYYY-MM-DD_HH-mm-ss")}.png`);
+        await takeScreenshot(driver, fileNamePath);
         addContext(this, {
             title: 'Screenshoot-Test-Results',
-            value: path.relative(fileURLToPath(import.meta.url), path.resolve(`${screenshootFilePath}/${(this.test?.parent.tests.findIndex(test => test.title === this.currentTest.title)) + 1}.png`))
+            value: path.relative(fileURLToPath(import.meta.url), fileNamePath)
         });
         await driver.sleep(3000);
         await driver.quit();
