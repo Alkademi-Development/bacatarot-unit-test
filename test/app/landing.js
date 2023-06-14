@@ -24,7 +24,7 @@ if (process.platform === 'win32') {
     screenshootFilePath = path.resolve(`./screenshoot/test/${screenshootFilePath.split("/test/")[1].replaceAll(".js", "")}`);
 }
 
-describe("Test", () => {
+describe("Landing", () => {
 
     after(async function () {
         console.log(`${' '.repeat(4)}Screenshoots test berhasil di buat, berada di folder: ${screenshootFilePath} `);
@@ -48,10 +48,16 @@ describe("Test", () => {
 
     BROWSERS.forEach(browser => {
 
-        it(`Test - from browser ${browser}`, async () => {
+        it(`Go to app or landing page from browser ${browser}`, async () => {
 
             try {
 
+                driver = await goToApp(browser, appHost);
+
+                // Expect same url as appHost
+                let currentPageUrl = await driver.getCurrentUrl();
+
+                expect(currentPageUrl).to.equal(appHost);
 
             } catch (error) {
                 expect.fail(error);

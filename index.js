@@ -739,8 +739,11 @@ Pilih dari nomor yang tersedia: `), inputTypeTest => {
                                 rl.question('Tentukan folder path penyimpanan untuk file test e.g path/path : ', async inputPathFolder => {
             
                                     if(inputPathFolder.trim().toLowerCase().includes('.') || inputPathFolder.trim().toLowerCase().includes('\\')) {
-                                        console.log(clc.bold(clc.red('Tidak boleh adan tanda titik atau semacamnya, ikut instruksi! ')));
+                                        console.log(clc.bold(clc.red('Tidak boleh ada tanda titik atau semacamnya, ikut instruksi! ')));
                                         askInputPathFolder()
+                                    } else if (inputPathFolder.trim().toLowerCase() === '') {
+                                        console.log(clc.bold(clc.red('Path wajib di isi, tidak boleh kosong!')));
+                                        askInputPathFolder();
                                     } else {
                                         // Mencari file test yang membutuhkan account untuk authentication
                                         let authenticationFound = TEST_NEED_AUTHENTICATION.some((item) =>
