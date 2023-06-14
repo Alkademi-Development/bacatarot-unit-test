@@ -1,6 +1,6 @@
 import supertest from 'supertest';
 
-const request = supertest(process.env.SERVICES_API + 'v1/');
+const request = supertest(process.env.SERVICES_API + 'v0.5.0/');
 
 const paramsRequest = {
     sApp: 'S-App-Authorization',

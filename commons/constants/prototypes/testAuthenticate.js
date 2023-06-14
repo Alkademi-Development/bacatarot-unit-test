@@ -44,7 +44,7 @@ describe("Login", () => {
                 console.error(`Terjadi kesalahan dalam membuat folder screenshoot:`, error);
             }
         });
-        let fileNamePath = path.resolve(`${screenshootFilePath}/${(this.test?.parent.tests.findIndex(test => test.title === this.currentTest.title)) + 1 + '-' + moment().tz("Asia/Jakarta").format("YYYY-MM-DD_HH-mm-ss")}.png`);
+        let fileNamePath = path.resolve(`${screenshootFilePath}/${(this.test?.parent.tests.findIndex(test => test.title === this.currentTest.title)) + 1 + '-' + this.currentTest?.state != 'failed' ? '[passed]-' +  moment().tz("Asia/Jakarta").format("YYYY-MM-DD_HH-mm-ss") : '[failed]-' +  moment().tz("Asia/Jakarta").format("YYYY-MM-DD_HH-mm-ss") }.png`);
         await takeScreenshot(driver, fileNamePath);
         addContext(this, {
             title: 'Screenshoot-Test-Results',
