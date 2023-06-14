@@ -53,6 +53,19 @@ describe("Landing", () => {
             try {
 
                 driver = await goToApp(browser, appHost);
+                await driver.manage().window().maximize();
+
+                // Aksi menunggu response halaman ter-load semua
+                await driver.wait(async function () {
+                    const isNetworkIdle = await driver.executeScript(function () {
+                      const performanceEntries = window.performance.getEntriesByType('resource');
+                      return performanceEntries.every(function (entry) {
+                        return entry.responseEnd > 0;
+                      });
+                    });
+                  
+                    return isNetworkIdle;
+                }, 10000); 
 
                 // Expect same url as appHost
                 let currentPageUrl = await driver.getCurrentUrl();
