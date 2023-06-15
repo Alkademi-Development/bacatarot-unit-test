@@ -77,10 +77,18 @@ after that you must copy the path of that driver file saved it before and enter 
 - `screenshoot` ( untuk hasil screenshoot-an dari setiap hasil test yg telah selesai di jalankan )
 
 ## File Path Tests
-1. APP
-   - app/landing
-
-2. API
+<table>
+  <tbody>
+    <tr>
+      <th align="center">APP</th>
+      <th align="right">API</th>
+    </tr>
+    <tr>
+      <td style="color: green;">app/landing</td>
+      <td>None</td>
+    </tr>
+  </tbody>
+</table>
 
 ## NOTES
 - di sarankan apabila membuat sebuah tester itu harus menggunakan trycatch agar bisa mendapatkan expect.fail() apabila terjadi kesalahan dari sisi client
