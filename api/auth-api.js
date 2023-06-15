@@ -11,8 +11,8 @@ const signIn = async (dataRequest) => {
     
         return res;
       } catch (err) {
-        console.error(err);
         console.error(clc.red(clc.bold('Oops!, Something went wrong')));
+        console.error(err);
         process.exit();
     }
 }
