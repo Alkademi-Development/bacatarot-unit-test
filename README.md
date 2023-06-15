@@ -43,10 +43,12 @@ after that you must copy the path of that driver file saved it before and enter 
 
 ## Guidelines Commands & Flags
 - `npm test` or `npm test <test-name>` ( untuk menjalankan semua test / menjalankan test yg lebih spesifik )
-- `npm run remove-failed-screenshots` ( untuk menghapus semua file test screenshoot yang gagal dari hasil test yang telah di jalankan )
-- `npm run remove-failed-reports` ( untuk menghapus semua file test report yang gagal dari hasil test yang telah di jalankan )
-- `npm run restore-git-failed-screenshots` ( untuk men-discard semua perubahan file test screenshoot yang gagal dari hasil test yang telah di jalankan )
-- `npm run restore-git-failed-reports` ( untuk men-discard semua perubahan file test report yang gagal dari hasil test yang telah di jalankan )
+- `npm run remove-failed-screenshots` ( untuk menghapus semua file screenshoot test yang gagal dari hasil test yang telah di jalankan )
+- `npm run remove-failed-reports` ( untuk menghapus semua file report test yang gagal dari hasil test yang telah di jalankan )
+- `npm run restore-git-screenshots` ( untuk men-discard semua perubahan file screenshoot test dari hasil test yang telah di jalankan )
+- `npm run restore-git-failed-screenshots` ( untuk men-discard semua perubahan file screenshoot test yang gagal dari hasil test yang telah di jalankan )
+- `npm run restore-git-reports` ( untuk men-discard semua perubahan file report test dari hasil test yang telah di jalankan )
+- `npm run restore-git-failed-reports` ( untuk men-discard semua perubahan file report test yang gagal dari hasil test yang telah di jalankan )
 - `--parellel` ( untuk akan membagi tes ke dalam beberapa proses yang berjalan secara bersamaan untuk meningkatkan kecepatan eksekusi tes. )
 - `--grep <pattern>` ( Menjalankan hanya tes yang cocok dengan pola yang diberikan. Contoh penggunaan: --grep "login". )
 - `--invert` ( Membalikkan pola pencarian saat menggunakan --grep. Ini akan menjalankan semua tes kecuali yang cocok dengan pola yang diberikan. )
@@ -69,7 +71,7 @@ after that you must copy the path of that driver file saved it before and enter 
 - `commons` ( untuk kebutuhan helpers dan semacamnya )
 - `helpers` ( berbeda dengan commons, folder ini berfungsi untuk kebutuhan helpers feature dr app. misal seperti crud )
 - `test` ( berisi file-file test )
-- `testReports` ( berisi hasil test reports )
+- `testReports` ( berisi hasil report tests )
 - `screenshoot` ( untuk hasil screenshoot-an dari setiap hasil test yg telah selesai di jalankan )
 
 ## NOTES
