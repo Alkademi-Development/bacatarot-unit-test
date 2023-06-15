@@ -10,10 +10,10 @@ const git = simpleGit();
 
 async function askRemoveFailedScreenshoots() {
 
-    rl.question("Apakah anda yakin ingin discard semua perubahan file reports ? (Y/t) ", inputConfirm => {
+    rl.question(clc.bold(clc.yellow("⚠  Apakah anda yakin ingin discard semua perubahan file screenshoot yang gagal ? (Y/t) ")), inputConfirm => {
 
         if(inputConfirm.trim().toLowerCase() === 't') {
-            console.log(clc.bold(clc.green("\nOke, terimakasih telah mengkonfirmasi. Semua perubahan file report test tidak jadi di discard 👌\n")));
+            console.log(clc.bold(clc.green("\nOke, terimakasih telah mengkonfirmasi. Semua perubahan file screenshoot test yg gagal tidak jadi di discard 👌\n")));
             rl.close();
         } else if(!TEXT_CONFIRM.includes(inputConfirm)) {
             console.log(clc.red('Input tidak valid, tolong masukkan sesuai instruksi'));
@@ -26,19 +26,18 @@ async function askRemoveFailedScreenshoots() {
                   console.error('Terjadi kesalahan:', err);
                   return;
                 }
-              
                 
                 status.files.forEach(file => {
-                    if(file.path.includes("testReports")) files.push(file.path);
-                })
+                    if(file.path.includes("screenshoot/test") && file.path.includes("[failed]")) files.push(file.path);
+                });
                 
                 if(files.length > 0) {
                     
                     async function discardChanges(files) {
                         try {
                           await git.clean('f', files);
-                          console.log('Changes file test report failed discarded successfully.');
-                          console.log(clc.bold(clc.green("Oke, terimakasih telah mengkonfirmasi semua perubahan file report hasil test telah berhasil di discard 👌\n")));
+                          console.log('Changes file test screenshoot failed discarded successfully.');
+                          console.log(clc.bold(clc.green("Oke, terimakasih telah mengkonfirmasi semua perubahan file screenshoot hasil test yang gagal telah berhasil di discard 👌\n")));
                         } catch (error) {
                           console.error('Error occurred while discarding changes:', error);
                         }
@@ -46,7 +45,7 @@ async function askRemoveFailedScreenshoots() {
                     discardChanges(files);
     
                 } else {
-                    console.log(clc.bold(clc.red("\nMaaf, sepertinya perubahan file report test failed tidak di temukan 🤔\n")));
+                    console.log(clc.bold(clc.red("\nMaaf, sepertinya perubahan file screenshoot test failed tidak di temukan 🤔\n")));
                 }
     
                 rl.close();

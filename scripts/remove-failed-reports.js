@@ -8,7 +8,7 @@ import { TEXT_CONFIRM } from '#root/commons/constants/input';
 
 async function askRemoveFailedScreenshoots() {
 
-    rl.question("Apakah anda yakin ingin menghapus semua file report yang gagal ? (Y/t) ", inputConfirm => {
+    rl.question(clc.bold(clc.yellow("⚠  Apakah anda yakin ingin menghapus semua file report yang gagal ? (Y/t) ")), inputConfirm => {
 
         if(inputConfirm.trim().toLowerCase() === 't') {
             console.log(clc.bold(clc.green("\nOke, terimakasih telah mengkonfirmasi file reports test yg gagal tidak jadi di hapus 👌\n")));

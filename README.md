@@ -45,10 +45,12 @@ after that you must copy the path of that driver file saved it before and enter 
 - `npm test` or `npm test <test-name>` ( untuk menjalankan semua test / menjalankan test yg lebih spesifik )
 - `npm run remove-failed-screenshots` ( untuk menghapus semua file screenshoot test yang gagal dari hasil test yang telah di jalankan )
 - `npm run remove-failed-reports` ( untuk menghapus semua file report test yang gagal dari hasil test yang telah di jalankan )
-- `npm run restore-git-screenshots` ( untuk men-discard semua perubahan file screenshoot test dari hasil test yang telah di jalankan )
-- `npm run restore-git-failed-screenshots` ( untuk men-discard semua perubahan file screenshoot test yang gagal dari hasil test yang telah di jalankan )
-- `npm run restore-git-reports` ( untuk men-discard semua perubahan file report test dari hasil test yang telah di jalankan )
-- `npm run restore-git-failed-reports` ( untuk men-discard semua perubahan file report test yang gagal dari hasil test yang telah di jalankan )
+- `npm run discard-git-results-test` ( untuk men-discard semua perubahan file results test dari hasil test yang telah di jalankan )
+- `npm run discard-git-results-failed-test` ( untuk men-discard semua perubahan file results test yang gagal dari hasil test yang telah di jalankan )
+- `npm run discard-git-screenshots` ( untuk men-discard semua perubahan file screenshoot test dari hasil test yang telah di jalankan )
+- `npm run discard-git-failed-screenshots` ( untuk men-discard semua perubahan file screenshoot test yang gagal dari hasil test yang telah di jalankan )
+- `npm run discard-git-reports` ( untuk men-discard semua perubahan file report test dari hasil test yang telah di jalankan )
+- `npm run discard-git-failed-reports` ( untuk men-discard semua perubahan file report test yang gagal dari hasil test yang telah di jalankan )
 - `--parellel` ( untuk akan membagi tes ke dalam beberapa proses yang berjalan secara bersamaan untuk meningkatkan kecepatan eksekusi tes. )
 - `--grep <pattern>` ( Menjalankan hanya tes yang cocok dengan pola yang diberikan. Contoh penggunaan: --grep "login". )
 - `--invert` ( Membalikkan pola pencarian saat menggunakan --grep. Ini akan menjalankan semua tes kecuali yang cocok dengan pola yang diberikan. )
@@ -83,3 +85,4 @@ after that you must copy the path of that driver file saved it before and enter 
 ## NOTES
 - di sarankan apabila membuat sebuah tester itu harus menggunakan trycatch agar bisa mendapatkan expect.fail() apabila terjadi kesalahan dari sisi client
 - untuk pengetesan di env yg berbeda itu bisa dengan membuat beberapa branch saja. jadi semisal, ada branch : master, production, staging, development, local
+- Biasakan untuk merapikan hasil / results dari test yang telah di jalankan ketika telah membuat code testnya (cukup results yang di butuhkan saja). ⚠  Jangan di biarkan hasil / results datanya menumpuk, karena akan memengaruhi space / penyimpanan project. Bisa gunakan / jalankan scripts yang telah di sediakan sebelum melakukkan commit, jadi bisa menghilang kan beberapa resourcecs results yang tidak di butuhkan. misal cukup hanya ingin mendapatkan results yg berhasil nya saja, cukup jalankan perintah `npm run discard-git-results-failed-test` maka akan menghapus semua resources results yg gagal.  

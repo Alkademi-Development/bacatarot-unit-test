@@ -6,12 +6,14 @@
   "scripts": {
     "test": "mocha --no-timeouts --charts --code --reporter mochawesome --require mochawesome/register",
     "start": "node index.js",
-    "remove-failed-screenshoots": "node scripts/remove-failed-screenshoots",
-    "restore-git-screenshoots": "node scripts/restore-git-screenshoots",
-    "restore-git-failed-screenshoots": "node scripts/restore-git-failed-screenshoots",
     "remove-failed-reports": "node scripts/remove-failed-reports",
-    "restore-git-reports": "node scripts/restore-git-reports",
-    "restore-git-failed-reports": "node scripts/restore-git-failed-reports"
+    "remove-failed-screenshoots": "node scripts/remove-failed-screenshoots",
+    "discard-git-results-test": "node scripts/discard-git-results-test",
+    "discard-git-results-failed-test": "node scripts/discard-git-results-failed-test",
+    "discard-git-screenshoots": "node scripts/discard-git-screenshoots",
+    "discard-git-failed-screenshoots": "node scripts/discard-git-failed-screenshoots",
+    "discard-git-reports": "node scripts/discard-git-reports",
+    "discard-git-failed-reports": "node scripts/discard-git-failed-reports"
   },
   "author": "",
   "license": "ISC",
