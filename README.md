@@ -43,6 +43,8 @@ after that you must copy the path of that driver file saved it before and enter 
 
 ## Guidelines Commands & Flags
 - `npm test` or `npm test <test-name>` ( untuk menjalankan semua test / menjalankan test yg lebih spesifik )
+- `npm run remove-failed-screenshots` ( untuk menghapus semua file test screenshoot yang gagal dari hasil test yang telah di jalankan )
+- `npm run remove-failed-reports` ( untuk menghapus semua file test screenshoot yang gagal dari hasil test yang telah di jalankan )
 - `--parellel` ( untuk akan membagi tes ke dalam beberapa proses yang berjalan secara bersamaan untuk meningkatkan kecepatan eksekusi tes. )
 - `--grep <pattern>` ( Menjalankan hanya tes yang cocok dengan pola yang diberikan. Contoh penggunaan: --grep "login". )
 - `--invert` ( Membalikkan pola pencarian saat menggunakan --grep. Ini akan menjalankan semua tes kecuali yang cocok dengan pola yang diberikan. )
