@@ -7,7 +7,9 @@
     "test": "mocha --no-timeouts --charts --code --reporter mochawesome --require mochawesome/register",
     "start": "node index.js",
     "remove-failed-screenshoots": "node scripts/remove-failed-screenshoots",
-    "remove-failed-reports": "node scripts/remove-failed-reports"
+    "restore-git-failed-screenshoots": "node scripts/restore-git-failed-screenshoots",
+    "remove-failed-reports": "node scripts/remove-failed-reports",
+    "restore-git-failed-reports": "node scripts/restore-git-failed-reports"
   },
   "author": "",
   "license": "ISC",
@@ -26,6 +28,7 @@
     "mochawesome-merge": "^4.3.0",
     "moment-timezone": "^0.5.43",
     "selenium-webdriver": "^4.9.2",
+    "simple-git": "^3.19.0",
     "supertest": "^6.3.3",
     "vite": "^4.3.8",
     "yargs": "^17.7.2"
