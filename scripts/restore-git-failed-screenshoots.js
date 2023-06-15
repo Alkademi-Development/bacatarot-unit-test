@@ -21,38 +21,36 @@ async function askRemoveFailedScreenshoots() {
         } else {
             let files = [];
 
-            const getFilesRecursively = (directory) => {
-                const filesInDirectory = fs.readdirSync(directory);
-                for (const file of filesInDirectory) {
-                    const absolute = path.join(directory, file);
-                    if (fs.statSync(absolute).isDirectory()) {
-                        getFilesRecursively(absolute);
-                    } else {
-                        if(absolute.includes("[failed]")) files.push(absolute);
-                    }
+            git.status((err, status) => {
+                if (err) {
+                  console.error('Terjadi kesalahan:', err);
+                  return;
                 }
-            };
-            
-            getFilesRecursively(path.resolve('./screenshoot/test'))
-
-            if(files.length > 0) {
                 
-                async function discardChanges(files) {
-                    try {
-                      await git.clean('f', files);
-                      console.log('Changes file test screenshoot failed discarded successfully.');
-                      console.log(clc.bold(clc.green("Oke, terimakasih telah mengkonfirmasi semua perubahan file screenshoot hasil test yang gagal telah berhasil di hapus 👌\n")));
-                    } catch (error) {
-                      console.error('Error occurred while discarding changes:', error);
+                status.files.forEach(file => {
+                    if(file.path.includes("screenshoot/test") && file.path.includes("[failed]")) files.push(file.path);
+                });
+                
+                if(files.length > 0) {
+                    
+                    async function discardChanges(files) {
+                        try {
+                          await git.clean('f', files);
+                          console.log('Changes file test screenshoot failed discarded successfully.');
+                          console.log(clc.bold(clc.green("Oke, terimakasih telah mengkonfirmasi semua perubahan file screenshoot hasil test yang gagal telah berhasil di discard 👌\n")));
+                        } catch (error) {
+                          console.error('Error occurred while discarding changes:', error);
+                        }
                     }
+                    discardChanges(files);
+    
+                } else {
+                    console.log(clc.bold(clc.red("\nMaaf, sepertinya perubahan file screenshoot test failed tidak di temukan 🤔\n")));
                 }
-                discardChanges(files);
+    
+                rl.close();
+            });
 
-            } else {
-                console.log(clc.bold(clc.red("\nMaaf, sepertinya perubahan file screenshoot test failed tidak di temukan 🤔\n")));
-            }
-
-            rl.close();
 
         }
 
