@@ -84,7 +84,7 @@ after that you must copy the path of that driver file saved it before and enter 
       <th align="right">API</th>
     </tr>
     <tr>
-      <td style="color: green;">app/landing</td>
+      <td style="color: green;"><strong>app/landing<strong></td>
       <td>None</td>
     </tr>
   </tbody>
