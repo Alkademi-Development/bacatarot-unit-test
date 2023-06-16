@@ -1,15 +1,13 @@
-import { describe, afterEach, before } from 'mocha';
-import { Builder, By, Key, until, logging, Capabilities } from 'selenium-webdriver';
+import { describe, afterEach } from 'mocha';
+import { By, until } from 'selenium-webdriver';
 import addContext from 'mochawesome/addContext.js';
-import assert from 'assert';
 import { expect } from "chai";
 import yargs from 'yargs';
 import fs from 'fs';
 import path from 'path';
 import { BROWSERS } from '#root/commons/constants/browser';
 import { getUserAccount } from '#root/commons/utils/userUtils';
-import { enterDashboard } from '#root/commons/utils/dashboardUtils';
-import { goToApp } from '#root/commons/utils/appUtils';
+import { goToApp, loginToApp } from '#root/commons/utils/appUtils';
 import { appHost } from '#root/api/app-token';
 import { takeScreenshot } from '#root/commons/utils/fileUtils';
 import { fileURLToPath } from 'url';
@@ -44,7 +42,7 @@ describe("Login", () => {
                 console.error(`Terjadi kesalahan dalam membuat folder screenshoot:`, error);
             }
         });
-        let fileNamePath = path.resolve(`${screenshootFilePath}/${(this.test?.parent.tests.findIndex(test => test.title === this.currentTest.title)) + 1 + '-' + this.currentTest?.state != 'failed' ? '[passed]-' +  moment().tz("Asia/Jakarta").format("YYYY-MM-DD_HH-mm-ss") : '[failed]-' +  moment().tz("Asia/Jakarta").format("YYYY-MM-DD_HH-mm-ss") }.png`);
+        let fileNamePath = path.resolve(`${screenshootFilePath}/${this.currentTest?.state != 'failed' ? (this.test?.parent.tests.findIndex(test => test.title === this.currentTest.title)) + 1 + '-[passed]-' + moment().tz("Asia/Jakarta").format("YYYY-MM-DD_HH-mm-ss") : (this.test?.parent.tests.findIndex(test => test.title === this.currentTest.title)) + 1 + '-[failed]-' + moment().tz("Asia/Jakarta").format("YYYY-MM-DD_HH-mm-ss") }.png`);
         await takeScreenshot(driver, fileNamePath);
         addContext(this, {
             title: 'Screenshoot-Test-Results',
@@ -72,6 +70,18 @@ describe("Login", () => {
                     it(`Test Super Admin - from browser ${browser}`, async () => {
 
                         try {
+                            // Aksi masuk ke dalam halaman browser
+                            driver = await goToApp(browser, appHost);
+                            await driver.manage().window().maximize();
+
+                            // Aksi menunggu mengisi form login untuk melakukan authentication
+                            await loginToApp(driver, user, browser, appHost);
+
+                            // Results
+                            const cookies = await driver.manage().getCookies();
+                            let userData = cookies.find(cookie => cookie.name === 'user');
+
+                            expect(userData).to.not.equal(userData);
 
                         } catch (error) {
                             expect.fail(error);
@@ -112,6 +122,18 @@ describe("Login", () => {
                     it(`Test Other - from browser ${browser}`, async () => {
 
                         try {
+                            // Aksi masuk ke dalam halaman browser
+                            driver = await goToApp(browser, appHost);
+                            await driver.manage().window().maximize();
+
+                            // Aksi menunggu mengisi form login untuk melakukan authentication
+                            await loginToApp(driver, user, browser, appHost);
+
+                            // Results
+                            let userData = await driver.executeScript("return window.localStorage.getItem('user_data')");
+                            userData = await JSON.parse(userData);
+
+                            expect(parseInt(userData.id)).to.greaterThan(0);
 
                         } catch (error) {
                             expect.fail(error);

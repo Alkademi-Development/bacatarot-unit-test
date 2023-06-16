@@ -5,9 +5,9 @@
     "passes": 1,
     "pending": 0,
     "failures": 0,
-    "start": "2023-06-14T10:46:17.691Z",
-    "end": "2023-06-14T10:46:25.192Z",
-    "duration": 7501,
+    "start": "2023-06-16T11:17:55.731Z",
+    "end": "2023-06-16T11:18:03.456Z",
+    "duration": 7725,
     "testsRegistered": 1,
     "passPercent": 100,
     "pendingPercent": 0,
@@ -18,7 +18,7 @@
   },
   "results": [
     {
-      "uuid": "706704b6-b478-4114-95c9-e4d2b07e5e2d",
+      "uuid": "3a1a85e5-264d-4e42-a163-9ac01ba006c8",
       "title": "",
       "fullFile": "D:\\allproject\\alkademik\\research-unit-test-bacatarot\\test\\app\\landing.js",
       "file": "\\test\\app\\landing.js",
@@ -27,7 +27,7 @@
       "tests": [],
       "suites": [
         {
-          "uuid": "4c81dbb7-f3fb-4132-b81b-aa26b2f6fe8f",
+          "uuid": "976dca0d-f1e5-4f2c-a0c3-cbceeb848455",
           "title": "Landing",
           "fullFile": "D:\\allproject\\alkademik\\research-unit-test-bacatarot\\test\\app\\landing.js",
           "file": "\\test\\app\\landing.js",
@@ -46,8 +46,8 @@
               "context": null,
               "code": "console.log(`${' '.repeat(4)}Screenshoots test berhasil di buat, berada di folder: ${screenshootFilePath} `);",
               "err": {},
-              "uuid": "20879bf4-cabb-4d59-aeed-02d12bb07c4c",
-              "parentUUID": "4c81dbb7-f3fb-4132-b81b-aa26b2f6fe8f",
+              "uuid": "5a2256ab-efcf-496c-9d2a-3e0d1933e6b0",
+              "parentUUID": "976dca0d-f1e5-4f2c-a0c3-cbceeb848455",
               "isHook": true,
               "skipped": false
             },
@@ -55,7 +55,7 @@
               "title": "\"after each\" hook in \"Landing\"",
               "fullTitle": "Landing \"after each\" hook in \"Landing\"",
               "timedOut": false,
-              "duration": 3903,
+              "duration": 4102,
               "state": null,
               "speed": null,
               "pass": false,
@@ -64,8 +64,8 @@
               "context": null,
               "code": "fs.mkdir(screenshootFilePath, { recursive: true }, (error) => {\n    if (error) {\n        console.error(`Terjadi kesalahan dalam membuat folder screenshoot:`, error);\n    }\n});\nlet fileNamePath = path.resolve(`${screenshootFilePath}/${this.currentTest?.state != 'failed' ? (this.test?.parent.tests.findIndex(test => test.title === this.currentTest.title)) + 1 + '-[passed]-' + moment().tz(\"Asia/Jakarta\").format(\"YYYY-MM-DD_HH-mm-ss\") : (this.test?.parent.tests.findIndex(test => test.title === this.currentTest.title)) + 1 + '-[failed]-' + moment().tz(\"Asia/Jakarta\").format(\"YYYY-MM-DD_HH-mm-ss\") }.png`);\nawait takeScreenshot(driver, fileNamePath);\naddContext(this, {\n    title: 'Screenshoot-Test-Results',\n    value: path.relative(fileURLToPath(import.meta.url), fileNamePath)\n});\nawait driver.sleep(3000);\nawait driver.quit();",
               "err": {},
-              "uuid": "690288b5-7895-474f-bc49-995cbe79cd93",
-              "parentUUID": "4c81dbb7-f3fb-4132-b81b-aa26b2f6fe8f",
+              "uuid": "0e987abc-60d8-4c52-ac21-ffda513bb561",
+              "parentUUID": "976dca0d-f1e5-4f2c-a0c3-cbceeb848455",
               "isHook": true,
               "skipped": false
             }
@@ -75,29 +75,29 @@
               "title": "Go to app or landing page from browser firefox",
               "fullTitle": "Landing Go to app or landing page from browser firefox",
               "timedOut": false,
-              "duration": 3589,
+              "duration": 3616,
               "state": "passed",
               "speed": "slow",
               "pass": true,
               "fail": false,
               "pending": false,
-              "context": "{\n  \"title\": \"Screenshoot-Test-Results\",\n  \"value\": \"..\\\\..\\\\..\\\\screenshoot\\\\test\\\\app\\\\landing\\\\1-[passed]-2023-06-14_17-46-21.png\"\n}",
+              "context": "{\n  \"title\": \"Screenshoot-Test-Results\",\n  \"value\": \"..\\\\..\\\\..\\\\screenshoot\\\\test\\\\app\\\\landing\\\\1-[passed]-2023-06-16_18-17-59.png\"\n}",
               "code": "try {\n                driver = await goToApp(browser, appHost);\n                await driver.manage().window().maximize();\n                // Aksi menunggu response halaman ter-load semua\n                await driver.wait(async function () {\n                    const isNetworkIdle = await driver.executeScript(function () {\n                      const performanceEntries = window.performance.getEntriesByType('resource');\n                      return performanceEntries.every(function (entry) {\n                        return entry.responseEnd > 0;\n                      });\n                    });\n                  \n                    return isNetworkIdle;\n                }, 10000); \n                // Expect same url as appHost\n                let currentPageUrl = await driver.getCurrentUrl();\n                expect(currentPageUrl).to.equal(appHost);\n            } catch (error) {\n                expect.fail(error);\n            }",
               "err": {},
-              "uuid": "4590d222-91f3-4dd2-ae99-278ad47419f6",
-              "parentUUID": "4c81dbb7-f3fb-4132-b81b-aa26b2f6fe8f",
+              "uuid": "9c0e154f-956e-4d51-bd24-eee7ffd4fd82",
+              "parentUUID": "976dca0d-f1e5-4f2c-a0c3-cbceeb848455",
               "isHook": false,
               "skipped": false
             }
           ],
           "suites": [],
           "passes": [
-            "4590d222-91f3-4dd2-ae99-278ad47419f6"
+            "9c0e154f-956e-4d51-bd24-eee7ffd4fd82"
           ],
           "failures": [],
           "pending": [],
           "skipped": [],
-          "duration": 3589,
+          "duration": 3616,
           "root": false,
           "rootEmpty": false,
           "_timeout": 0
