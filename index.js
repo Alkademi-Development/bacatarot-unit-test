@@ -756,7 +756,7 @@ Pilih dari nomor yang tersedia: `), inputTypeTest => {
                                         } else if (authenticationFound && parseInt(inputTypeTest) === 2) {
                                             fs2.ensureDir(inputPathFolder)
                                                 .then(() => {
-                                                    const targetFilePath = path.join('test/' + inputPathFolder, 'testAuthenticate.js');
+                                                    const targetFilePath = path.resolve('./test/' + path.join(inputPathFolder, 'testAuthenticate.js'));
                                                     return fs2.copy(path.resolve('./commons/constants/prototypes/testAuthenticate.js'), targetFilePath);
                                                 })
                                                 .then(() => {
@@ -771,7 +771,7 @@ Pilih dari nomor yang tersedia: `), inputTypeTest => {
                                         } else {
                                             fs2.ensureDir(inputPathFolder)
                                                 .then(() => {
-                                                    const targetFilePath = path.join('test/' + inputPathFolder, 'testOriginal.js');
+                                                    const targetFilePath = path.resolve('./test/' + path.join(inputPathFolder, 'testOriginal.js'));
                                                     return fs2.copy(path.resolve('./commons/constants/prototypes/testOriginal.js'), targetFilePath);
                                                 })
                                                 .then(() => {
