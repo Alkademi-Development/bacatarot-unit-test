@@ -25,7 +25,7 @@ if (process.platform === 'win32') {
 }
 
 describe("Landing", () => {
-    let customMessages;
+    let customMessages = [];
 
     after(async function () {
         console.log(`${' '.repeat(4)}Screenshoots test berhasil di buat, berada di folder: ${screenshootFilePath} `);
@@ -42,12 +42,12 @@ describe("Landing", () => {
         if(this.currentTest.isPassed) {
             addContext(this, {
                 title: 'Expected Results',
-                value: "- " + customMessages.map(msg => msg.trim()).join("\n- ")
+                value: customMessages?.length > 0 ? "- " + customMessages?.map(msg => msg.trim()).join("\n- ") : 'No Results'
             })
         } else {
             addContext(this, {
                 title: 'Expected Results',
-                value: "- " + customMessages.map(msg => msg.trim()).join("\n- ")
+                value: customMessages?.length > 0 ? "- " + customMessages?.map(msg => msg.trim()).join("\n- ") : 'No Results'
             })
         }
         addContext(this, {
