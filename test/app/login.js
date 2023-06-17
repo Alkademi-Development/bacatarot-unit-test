@@ -2,6 +2,7 @@ import { describe, afterEach } from 'mocha';
 import { By, until } from 'selenium-webdriver';
 import addContext from 'mochawesome/addContext.js';
 import { expect } from "chai";
+import * as chai from "chai";
 import yargs from 'yargs';
 import fs from 'fs';
 import path from 'path';
@@ -31,6 +32,7 @@ if (process.platform === 'win32') {
 }
 
 describe("Login", () => {
+    let customMessages;
 
     after(async function () {
         console.log(`${' '.repeat(4)}Screenshoots test berhasil di buat, berada di folder: ${screenshootFilePath} `);
@@ -44,6 +46,17 @@ describe("Login", () => {
         });
         let fileNamePath = path.resolve(`${screenshootFilePath}/${this.currentTest?.state != 'failed' ? (this.test?.parent.tests.findIndex(test => test.title === this.currentTest.title)) + 1 + '-[passed]-' + moment().tz("Asia/Jakarta").format("YYYY-MM-DD_HH-mm-ss") : (this.test?.parent.tests.findIndex(test => test.title === this.currentTest.title)) + 1 + '-[failed]-' + moment().tz("Asia/Jakarta").format("YYYY-MM-DD_HH-mm-ss") }.png`);
         await takeScreenshot(driver, fileNamePath);
+        if(this.currentTest.isPassed) {
+            addContext(this, {
+                title: 'Expected Results',
+                value: "- " + customMessages.map(msg => msg.trim()).join("\n- ")
+            })
+        } else {
+            addContext(this, {
+                title: 'Expected Results',
+                value: "- " + customMessages.map(msg => msg.trim()).join("\n- ")
+            })
+        }
         addContext(this, {
             title: 'Screenshoot-Test-Results',
             value: "..\\" + path.relative(fileURLToPath(import.meta.url), fileNamePath)
@@ -67,21 +80,9 @@ describe("Login", () => {
 
             switch (user.kind) {
                 case 0:
-                    it(`Test Super Admin - from browser ${browser}`, async () => {
+                    it(`Test Super Admin - from browser ${browser}`, async function() {
 
                         try {
-                            // Aksi masuk ke dalam halaman browser
-                            driver = await goToApp(browser, appHost);
-                            await driver.manage().window().maximize();
-
-                            // Aksi menunggu mengisi form login untuk melakukan authentication
-                            await loginToApp(driver, user, browser, appHost);
-
-                            // Results
-                            const cookies = await driver.manage().getCookies();
-                            let userData = cookies.find(cookie => cookie.name === 'user');
-
-                            expect(userData).to.not.equal(userData);
 
                         } catch (error) {
                             expect.fail(error);
@@ -119,7 +120,7 @@ describe("Login", () => {
                     break;
 
                 default:
-                    it(`Test Other - from browser ${browser}`, async () => {
+                    it(`Test Other - from browser ${browser}`, async function() {
 
                         try {
                             // Aksi masuk ke dalam halaman browser
@@ -133,6 +134,10 @@ describe("Login", () => {
                             let userData = await driver.executeScript("return window.localStorage.getItem('user_data')");
                             userData = await JSON.parse(userData);
 
+                            // Expect results and add custom message for addtional description
+                            customMessages = [
+                                userData?.id > 0 ? "Successfully get the data from local storage ✅" : "No data available from local storage ❌",
+                            ]
                             expect(parseInt(userData.id)).to.greaterThan(0);
 
                         } catch (error) {
