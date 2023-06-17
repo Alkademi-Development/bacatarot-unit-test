@@ -26,7 +26,7 @@ async function askRemoveFailedScreenshoots() {
               
                 
                 status.files.forEach(file => {
-                    if(file.path.includes("testReports")) files.push(file.path);
+                    if(file.path.includes("testResults/reports")) files.push(file.path);
                 })
                 
                 if(files.length > 0) {

@@ -25,9 +25,9 @@ let driver;
 let errorMessages;
 let screenshootFilePath = fileURLToPath(import.meta.url);
 if (process.platform === 'win32') {
-    screenshootFilePath = path.resolve(`./screenshoot/test/${screenshootFilePath.replaceAll("\\", "\\").split("\\test\\")[1].replaceAll(".js", "")}`);
+    screenshootFilePath = path.resolve(`./testResults/screenshoots/${screenshootFilePath.replaceAll("\\", "\\").split("\\test\\")[1].replaceAll(".js", "")}/`);
 } else {
-    screenshootFilePath = path.resolve(`./screenshoot/test/${screenshootFilePath.split("/test/")[1].replaceAll(".js", "")}`);
+    screenshootFilePath = path.resolve(`./testResults/screenshoots/${screenshootFilePath.split("/test/")[1].replaceAll(".js", "")}/`);
 }
 
 describe("Login", () => {
@@ -46,7 +46,7 @@ describe("Login", () => {
         await takeScreenshot(driver, fileNamePath);
         addContext(this, {
             title: 'Screenshoot-Test-Results',
-            value: path.relative(fileURLToPath(import.meta.url), fileNamePath)
+            value: "..\\" + path.relative(fileURLToPath(import.meta.url), fileNamePath)
         });
         await driver.sleep(3000);
         await driver.quit();

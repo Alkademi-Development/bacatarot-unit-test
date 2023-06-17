@@ -1,10 +1,7 @@
-import fs from "fs";
-import path from "path";
 import clc from "cli-color";
 import simpleGit from "simple-git";
 import { rl } from '#root/commons/utils/inputUtils';
 import { TEXT_CONFIRM } from '#root/commons/constants/input';
-import { execSync } from "child_process";
 
 const git = simpleGit();
 
@@ -28,7 +25,7 @@ async function askRemoveFailedScreenshoots() {
                 }
                 
                 status.files.forEach(file => {
-                    if(file.path.includes("screenshoot/test") && file.path.includes("[failed]")) files.push(file.path);
+                    if(file.path.includes("testResults/screenshoots") && file.path.includes("[failed]")) files.push(file.path);
                 });
                 
                 if(files.length > 0) {

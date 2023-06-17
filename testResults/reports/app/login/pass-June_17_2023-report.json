@@ -5,9 +5,9 @@
     "passes": 1,
     "pending": 0,
     "failures": 0,
-    "start": "2023-06-16T11:18:30.023Z",
-    "end": "2023-06-16T11:18:40.354Z",
-    "duration": 10331,
+    "start": "2023-06-17T04:34:15.898Z",
+    "end": "2023-06-17T04:34:26.499Z",
+    "duration": 10601,
     "testsRegistered": 1,
     "passPercent": 100,
     "pendingPercent": 0,
@@ -18,7 +18,7 @@
   },
   "results": [
     {
-      "uuid": "d3870b37-97ee-4806-98a2-df71353f30dc",
+      "uuid": "a58abc2a-b1f1-43c2-943c-42792d4cc281",
       "title": "",
       "fullFile": "D:\\allproject\\alkademik\\research-unit-test-bacatarot\\test\\app\\login.js",
       "file": "\\test\\app\\login.js",
@@ -27,7 +27,7 @@
       "tests": [],
       "suites": [
         {
-          "uuid": "d2326c1d-0388-49b4-9f5a-0515dd692682",
+          "uuid": "75690f37-a6a8-448b-bf3a-1303729e377f",
           "title": "Login",
           "fullFile": "D:\\allproject\\alkademik\\research-unit-test-bacatarot\\test\\app\\login.js",
           "file": "\\test\\app\\login.js",
@@ -37,7 +37,7 @@
               "title": "\"after all\" hook in \"Login\"",
               "fullTitle": "Login \"after all\" hook in \"Login\"",
               "timedOut": false,
-              "duration": 1,
+              "duration": 0,
               "state": null,
               "speed": null,
               "pass": false,
@@ -46,8 +46,8 @@
               "context": null,
               "code": "console.log(`${' '.repeat(4)}Screenshoots test berhasil di buat, berada di folder: ${screenshootFilePath} `);",
               "err": {},
-              "uuid": "9234289b-322e-4cb0-bf72-cc3cf9d8e1fa",
-              "parentUUID": "d2326c1d-0388-49b4-9f5a-0515dd692682",
+              "uuid": "ac8ce47f-a3a8-42aa-a268-baf2dfaa48d5",
+              "parentUUID": "75690f37-a6a8-448b-bf3a-1303729e377f",
               "isHook": true,
               "skipped": false
             },
@@ -55,17 +55,17 @@
               "title": "\"after each\" hook in \"Login\"",
               "fullTitle": "Login \"after each\" hook in \"Login\"",
               "timedOut": false,
-              "duration": 4444,
+              "duration": 4024,
               "state": null,
               "speed": null,
               "pass": false,
               "fail": false,
               "pending": false,
               "context": null,
-              "code": "fs.mkdir(screenshootFilePath, { recursive: true }, (error) => {\n    if (error) {\n        console.error(`Terjadi kesalahan dalam membuat folder screenshoot:`, error);\n    }\n});\nlet fileNamePath = path.resolve(`${screenshootFilePath}/${this.currentTest?.state != 'failed' ? (this.test?.parent.tests.findIndex(test => test.title === this.currentTest.title)) + 1 + '-[passed]-' + moment().tz(\"Asia/Jakarta\").format(\"YYYY-MM-DD_HH-mm-ss\") : (this.test?.parent.tests.findIndex(test => test.title === this.currentTest.title)) + 1 + '-[failed]-' + moment().tz(\"Asia/Jakarta\").format(\"YYYY-MM-DD_HH-mm-ss\") }.png`);\nawait takeScreenshot(driver, fileNamePath);\naddContext(this, {\n    title: 'Screenshoot-Test-Results',\n    value: path.relative(fileURLToPath(import.meta.url), fileNamePath)\n});\nawait driver.sleep(3000);\nawait driver.quit();",
+              "code": "fs.mkdir(screenshootFilePath, { recursive: true }, (error) => {\n    if (error) {\n        console.error(`Terjadi kesalahan dalam membuat folder screenshoot:`, error);\n    }\n});\nlet fileNamePath = path.resolve(`${screenshootFilePath}/${this.currentTest?.state != 'failed' ? (this.test?.parent.tests.findIndex(test => test.title === this.currentTest.title)) + 1 + '-[passed]-' + moment().tz(\"Asia/Jakarta\").format(\"YYYY-MM-DD_HH-mm-ss\") : (this.test?.parent.tests.findIndex(test => test.title === this.currentTest.title)) + 1 + '-[failed]-' + moment().tz(\"Asia/Jakarta\").format(\"YYYY-MM-DD_HH-mm-ss\") }.png`);\nawait takeScreenshot(driver, fileNamePath);\naddContext(this, {\n    title: 'Screenshoot-Test-Results',\n    value: \"..\\\\\" + path.relative(fileURLToPath(import.meta.url), fileNamePath)\n});\nawait driver.sleep(3000);\nawait driver.quit();",
               "err": {},
-              "uuid": "1faf0e01-c983-4016-b9be-2db377e0a35a",
-              "parentUUID": "d2326c1d-0388-49b4-9f5a-0515dd692682",
+              "uuid": "c4bcc420-cc12-48ed-922e-947aef22a5db",
+              "parentUUID": "75690f37-a6a8-448b-bf3a-1303729e377f",
               "isHook": true,
               "skipped": false
             }
@@ -75,29 +75,29 @@
               "title": "Test Other - from browser firefox",
               "fullTitle": "Login Test Other - from browser firefox",
               "timedOut": false,
-              "duration": 5877,
+              "duration": 6572,
               "state": "passed",
               "speed": "slow",
               "pass": true,
               "fail": false,
               "pending": false,
-              "context": "{\n  \"title\": \"Screenshoot-Test-Results\",\n  \"value\": \"..\\\\..\\\\..\\\\screenshoot\\\\test\\\\app\\\\login\\\\1-[passed]-2023-06-16_18-18-35.png\"\n}",
+              "context": "{\n  \"title\": \"Screenshoot-Test-Results\",\n  \"value\": \"..\\\\..\\\\..\\\\..\\\\testResults\\\\screenshoots\\\\app\\\\login\\\\1-[passed]-2023-06-17_11-34-22.png\"\n}",
               "code": "try {\n                            // Aksi masuk ke dalam halaman browser\n                            driver = await goToApp(browser, appHost);\n                            await driver.manage().window().maximize();\n                            // Aksi menunggu mengisi form login untuk melakukan authentication\n                            await loginToApp(driver, user, browser, appHost);\n                            // Results\n                            let userData = await driver.executeScript(\"return window.localStorage.getItem('user_data')\");\n                            userData = await JSON.parse(userData);\n                            expect(parseInt(userData.id)).to.greaterThan(0);\n                        } catch (error) {\n                            expect.fail(error);\n                        }",
               "err": {},
-              "uuid": "569679d1-99f7-4fd8-9afe-fd5d6da44a0f",
-              "parentUUID": "d2326c1d-0388-49b4-9f5a-0515dd692682",
+              "uuid": "f9de9ab5-7afa-4a1d-83c0-b165b85e9fcd",
+              "parentUUID": "75690f37-a6a8-448b-bf3a-1303729e377f",
               "isHook": false,
               "skipped": false
             }
           ],
           "suites": [],
           "passes": [
-            "569679d1-99f7-4fd8-9afe-fd5d6da44a0f"
+            "f9de9ab5-7afa-4a1d-83c0-b165b85e9fcd"
           ],
           "failures": [],
           "pending": [],
           "skipped": [],
-          "duration": 5877,
+          "duration": 6572,
           "root": false,
           "rootEmpty": false,
           "_timeout": 0
@@ -131,13 +131,12 @@
     },
     "marge": {
       "options": {
-        "includeScreenshots": "true",
+        "cdn": "true",
         "timestamp": "longDate",
         "overwrite": "false",
-        "reportDir": "testReports",
+        "reportDir": "testResults/reports",
         "reportFilename": "app/login/[status]-[datetime]-report",
-        "reportPageTitle": "Laporan-Harian-Testing",
-        "assetsDir": "..\\..\\testReports\\assets"
+        "reportPageTitle": "Laporan-Harian-Testing"
       },
       "version": "6.2.0"
     }

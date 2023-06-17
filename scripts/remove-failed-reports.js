@@ -31,7 +31,7 @@ async function askRemoveFailedScreenshoots() {
                 }
             };
             
-            getFilesRecursively(path.resolve('./testReports'))
+            getFilesRecursively(path.resolve('./testResults/reports'))
 
             if(files.length > 0) {
                 files.forEach(filePath => {
