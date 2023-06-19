@@ -4,6 +4,7 @@ import { merge } from 'mochawesome-merge';
 import { create } from 'mochawesome-report-generator';
 import { rl } from '#root/commons/utils/inputUtils';
 import { TEXT_REPORTS } from '#root/commons/constants/input';
+import moment from 'moment-timezone';
 
 async function mergeReports(directory, outputFile) {
     const files = await getJsonFiles(directory);
@@ -61,9 +62,10 @@ function askMergeReport() {
           const reportData = fs.readFileSync(`./testResults/output-merged-report-${input}.json`, 'utf-8');
   
           const options = { 
-              reportDir: './testResults', // Path folder untuk menyimpan report
-              reportFilename: `merged-report-${input}.html`, // Nama file report
-              assetsDir: './testResults/assets', // Path folder untuk menyimpan assets
+            reportPageTitle: `Report Testing ${input} ${moment().tz('Asia/Jakarta').format('MM-DD-YYYY')}`,
+            reportDir: './testResults', // Path folder untuk menyimpan report
+            reportFilename: `merged-report-${input}.html`, // Nama file report
+            assetsDir: './testResults/assets', // Path folder untuk menyimpan assets
           };
           create(JSON.parse(reportData), options);
         }
@@ -77,9 +79,10 @@ function askMergeReport() {
           const reportData = fs.readFileSync(`./testResults/output-merged-report-${input}.json`, 'utf-8');
   
           const options = { 
-              reportDir: './testResults', // Path folder untuk menyimpan report
-              reportFilename: `merged-report-${input}.html`, // Nama file report
-              assetsDir: './testResults/assets', // Path folder untuk menyimpan assets
+            reportPageTitle: `Report Testing ${input} ${moment().tz('Asia/Jakarta').format('MM-DD-YYYY')}`,
+            reportDir: './testResults', // Path folder untuk menyimpan report
+            reportFilename: `merged-report-${input}.html`, // Nama file report
+            assetsDir: './testResults/assets', // Path folder untuk menyimpan assets
           };
           create(JSON.parse(reportData), options);
         }
