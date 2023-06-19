@@ -1,6 +1,9 @@
 import supertest from 'supertest';
 
-const request = supertest(process.env.SERVICES_API + 'v0.5.0/');
+const localApiURL = 'http://localhost:3333/'; // isi url ini jika ingin menggunakan local (yang di dapatkan dr npm run dev pada saat menjalankan project)
+let apiHost = process.env.SERVICES_API;
+if(localApiURL != '') apiHost = localApiURL;
+const request = supertest(apiHost + 'v0.5.0');
 
 const paramsRequest = {
     sApp: 'S-App-Authorization',
