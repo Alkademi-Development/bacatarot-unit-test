@@ -44,12 +44,7 @@ describe("Landing", () => {
                 title: 'Expected Results',
                 value: customMessages?.length > 0 ? "- " + customMessages?.map(msg => msg.trim()).join("\n- ") : 'No Results'
             })
-        } else {
-            addContext(this, {
-                title: 'Expected Results',
-                value: customMessages?.length > 0 ? "- " + customMessages?.map(msg => msg.trim()).join("\n- ") : 'No Results'
-            })
-        }
+        } 
         addContext(this, {
             title: 'Screenshoot-Test-Results',
             value: "..\\" + path.relative(fileURLToPath(import.meta.url), fileNamePath)
