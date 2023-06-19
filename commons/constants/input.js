@@ -6,8 +6,11 @@ const ALL_TEXT_INPUT = {
 
 const TEXT_CONFIRM = ['y', 't'];
 
+const TEXT_REPORTS = ['app', 'api'];
+
 export {
     ALL_TEXT_INPUT,
-    TEXT_CONFIRM
+    TEXT_CONFIRM,
+    TEXT_REPORTS
 }
 

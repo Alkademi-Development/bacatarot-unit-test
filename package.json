@@ -6,6 +6,7 @@
   "scripts": {
     "test": "mocha --no-timeouts --charts --code --reporter mochawesome --require mochawesome/register",
     "start": "node index.js",
+    "merge-reports": "node scripts/merge-reports",
     "remove-failed-reports": "node scripts/remove-failed-reports",
     "remove-failed-screenshoots": "node scripts/remove-failed-screenshoots",
     "discard-git-results-test": "node scripts/discard-git-results-test",
