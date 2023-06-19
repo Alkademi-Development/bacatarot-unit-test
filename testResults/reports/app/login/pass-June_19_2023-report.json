@@ -1,0 +1,145 @@
+{
+  "stats": {
+    "suites": 1,
+    "tests": 1,
+    "passes": 1,
+    "pending": 0,
+    "failures": 0,
+    "start": "2023-06-19T05:22:20.760Z",
+    "end": "2023-06-19T05:22:30.911Z",
+    "duration": 10151,
+    "testsRegistered": 1,
+    "passPercent": 100,
+    "pendingPercent": 0,
+    "other": 0,
+    "hasOther": false,
+    "skipped": 0,
+    "hasSkipped": false
+  },
+  "results": [
+    {
+      "uuid": "db63f70e-f2e5-4747-8cd1-a21d9fea9d5c",
+      "title": "",
+      "fullFile": "D:\\allproject\\alkademik\\research-unit-test-bacatarot\\test\\app\\login.js",
+      "file": "\\test\\app\\login.js",
+      "beforeHooks": [],
+      "afterHooks": [],
+      "tests": [],
+      "suites": [
+        {
+          "uuid": "21327367-0a98-4ec7-a202-4f182e6656cf",
+          "title": "Login",
+          "fullFile": "D:\\allproject\\alkademik\\research-unit-test-bacatarot\\test\\app\\login.js",
+          "file": "\\test\\app\\login.js",
+          "beforeHooks": [],
+          "afterHooks": [
+            {
+              "title": "\"after all\" hook in \"Login\"",
+              "fullTitle": "Login \"after all\" hook in \"Login\"",
+              "timedOut": false,
+              "duration": 0,
+              "state": null,
+              "speed": null,
+              "pass": false,
+              "fail": false,
+              "pending": false,
+              "context": null,
+              "code": "",
+              "err": {},
+              "uuid": "24d684e7-de62-46a7-a235-86b2359d3a2b",
+              "parentUUID": "21327367-0a98-4ec7-a202-4f182e6656cf",
+              "isHook": true,
+              "skipped": false
+            },
+            {
+              "title": "\"after each\" hook in \"Login\"",
+              "fullTitle": "Login \"after each\" hook in \"Login\"",
+              "timedOut": false,
+              "duration": 3912,
+              "state": null,
+              "speed": null,
+              "pass": false,
+              "fail": false,
+              "pending": false,
+              "context": null,
+              "code": "",
+              "err": {},
+              "uuid": "7ca33e91-32bc-479b-be06-1ce87dcd68e7",
+              "parentUUID": "21327367-0a98-4ec7-a202-4f182e6656cf",
+              "isHook": true,
+              "skipped": false
+            }
+          ],
+          "tests": [
+            {
+              "title": "Test Other - from browser firefox",
+              "fullTitle": "Login Test Other - from browser firefox",
+              "timedOut": false,
+              "duration": 6234,
+              "state": "passed",
+              "speed": "slow",
+              "pass": true,
+              "fail": false,
+              "pending": false,
+              "context": "[\n  {\n    \"title\": \"Expected Results\",\n    \"value\": \"- Successfully get the data from local storage ✅\"\n  },\n  {\n    \"title\": \"Screenshoot-Test-Results\",\n    \"value\": \"..\\\\..\\\\..\\\\..\\\\testResults\\\\screenshoots\\\\app\\\\login\\\\1-[passed]-2023-06-19_12-22-26.png\"\n  }\n]",
+              "code": "",
+              "err": {},
+              "uuid": "2d6f428f-ce3a-4a3d-aa56-e2e0c407694f",
+              "parentUUID": "21327367-0a98-4ec7-a202-4f182e6656cf",
+              "isHook": false,
+              "skipped": false
+            }
+          ],
+          "suites": [],
+          "passes": [
+            "2d6f428f-ce3a-4a3d-aa56-e2e0c407694f"
+          ],
+          "failures": [],
+          "pending": [],
+          "skipped": [],
+          "duration": 6234,
+          "root": false,
+          "rootEmpty": false,
+          "_timeout": 0
+        }
+      ],
+      "passes": [],
+      "failures": [],
+      "pending": [],
+      "skipped": [],
+      "duration": 0,
+      "root": true,
+      "rootEmpty": true,
+      "_timeout": 0
+    }
+  ],
+  "meta": {
+    "mocha": {
+      "version": "10.2.0"
+    },
+    "mochawesome": {
+      "options": {
+        "quiet": false,
+        "reportFilename": "app/login/[status]-[datetime]-report",
+        "saveHtml": true,
+        "saveJson": true,
+        "consoleReporter": "spec",
+        "useInlineDiffs": false,
+        "code": false
+      },
+      "version": "7.1.3"
+    },
+    "marge": {
+      "options": {
+        "code": "false",
+        "cdn": "true",
+        "timestamp": "longDate",
+        "overwrite": "false",
+        "reportDir": "testResults/reports",
+        "reportFilename": "app/login/[status]-[datetime]-report",
+        "reportPageTitle": "Laporan-Harian-Testing"
+      },
+      "version": "6.2.0"
+    }
+  }
+}
