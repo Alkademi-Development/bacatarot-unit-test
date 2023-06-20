@@ -95,9 +95,9 @@ describe("Test", () => {
                 // Aksi mengisi form registration
                 // Dummy data registration
                 let fullName = `${faker.name.firstName()} ${faker.name.lastName()}`;
-                let emailData = `${fullName.toLowerCase().replace(/ /g, '.')}@gmail.com`;
+                let emailData = `${fullName.toLowerCase().replace(/ /g, '')}@gmail.com`;
                 let passwordData = 'semuasama';
-                let dataDate = `${faker.number.int({ min: 1, max: 29 })} ${faker.date.month()} ${faker.number.int({ min: 1995, max: 2005 })}`;
+                let dataDate = `${faker.number.int({ min: 1, max: 29 })} ${faker.date.month({ abbreviated: true, context: true })} ${faker.number.int({ min: 1995, max: 2005 })}`;
 
                 // Fill data registration
                 await driver.wait(until.elementLocated(By.css(`input[type="email"]`)));
@@ -105,30 +105,80 @@ describe("Test", () => {
                 await driver.findElement(By.css(`input[type="password"]`)).sendKeys(passwordData);
                 await driver.findElement(By.css(`input#reTypePassword`)).sendKeys(passwordData);
 
-                const isAllFilled = await Promise.all([
+                const stepOneAllFilled = await Promise.all([
                     await driver.findElement(By.css(`input[type="email"]`)).getAttribute('value'),
                     await driver.findElement(By.css(`input[type="password"]`)).getAttribute('value'),
                     await driver.findElement(By.css(`input#reTypePassword`)).getAttribute('value'),
                 ]).then(results => results.every(value => value != ''));
-                if(isAllFilled) await driver.executeScript(`return document.querySelector('.wrapper button.btn-lanjut').click()`);
+                if(stepOneAllFilled) {
+                    await driver.executeScript(`return document.querySelector('.wrapper button.btn-lanjut').classList.remove('disabled');`);
+                    await driver.executeScript(`return document.querySelector('.wrapper button.btn-lanjut').removeAttribute('disabled')`);
+                    // Aksi Sleep
+                    await driver.sleep(5000);
+                    await driver.executeScript(`return document.querySelector('.wrapper button.btn-lanjut').click()`);
+                }
                 // Aksi Sleep
                 await driver.sleep(5000);
                 // Fill again
-                let datePickerInput = await driver.findElement(By.css("input.datepicker"));
-                await driver.executeScript("arguments[0].removeAttribute('readonly')", datePickerInput);
-                await datePickerInput.sendKeys(dataDate);
-                await driver.executeScript(async function() {
-                    let radioGenders = document.querySelectorAll('.radio-gender .radio-item');
-                    return radioGenders[faker.number.int({ min: 0, max: 1 })].click();
+                await driver.findElement(By.css("input#name")).sendKeys(fullName);
+                // Input DatePicker Start
+                await driver.executeScript(`return document.querySelector("input.datepicker").click()`);
+
+                await driver.wait(async () => {
+                    let listBoxCourse = await driver.findElement(By.css('.vdp-datepicker__calendar'));
+                    return listBoxCourse.isDisplayed();
                 });
+                await driver.sleep(3000);
+                await driver.findElement(By.css('span.day__month_btn')).click();
+                await driver.sleep(3000);
+                await driver.findElement(By.css('span.month__year_btn')).click();
+                await driver.sleep(3000);
+                for (let index = 0; index < 2; index++) {
+                    await driver.executeScript(`return document.querySelectorAll('span.prev')[2].click();`);
+                }
+                await driver.sleep(10000);
+                let selectsYear = await driver.executeScript(`return document.querySelectorAll('span.cell.year')`);
+                await selectsYear[faker.number.int({ min: 0, max: 6 })].click();
+                await driver.sleep(3000);
+                let selectsMonth = await driver.executeScript(`return document.querySelectorAll('span.cell.month')`);
+                await selectsMonth[faker.number.int({ min: 0, max: 10 })].click();
+                await driver.sleep(3000);
+                await driver.executeScript(`return document.querySelectorAll('span.cell.day')[${faker.number.int({ min: 0, max: 28 })}].click()`);
+                await driver.sleep(3000);
+                // Input DatePicker End
+                let radioGenders = await driver.executeScript(`return document.querySelectorAll('.radio-gender .radio-item')`);
+                await radioGenders[faker.number.int({ min: 0, max: 1 })].click();
                 await driver.executeScript(`return document.querySelector('input#ketentuan').click()`);
-                
+                const isAllFilled = await Promise.all([
+                    await driver.findElement(By.css("input#name")).getAttribute('value'),
+                    await driver.findElement(By.css("input.datepicker")).getAttribute('value'),
+                    await driver.findElement(By.css(`input[name="radio-gender"]`)).getAttribute('value'),
+                    await driver.findElement(By.css("input#ketentuan")).getAttribute('value'),
+                ]).then(results => results.every(value => value != ''));
+                if(isAllFilled) {
+                    await driver.executeScript(`return document.querySelector('button.btn-lanjut').classList.remove('disabled');`);
+                    await driver.executeScript(`return document.querySelector('button.btn-lanjut').removeAttribute('disabled')`);
+                    // Aksi Sleep
+                    await driver.sleep(5000);
+                    await driver.executeScript(`return document.querySelector('button.btn-lanjut').click();`);
+                }
+                // Aksi menunggu element overlay loading hilang
+                await driver.wait(until.elementLocated(By.css('.overlay-loading .loading')));
+                let overlayLoading = await driver.findElement(By.css('.overlay-loading .loading'));
+                await driver.wait(until.stalenessOf(overlayLoading));
+                let errorElement = await driver.executeScript(`return document.querySelectorAll('p.error');`)
+                if (errorElement.length > 0) await thrownAnError(await driver.executeScript(`return document.querySelector('p.error').innerText;`), errorElement.length > 0);
+
 
                 // Check the result
+                let userData = await driver.executeScript("return window.localStorage.getItem('user_data')");
+                userData = await JSON.parse(userData);
                 customMessages = [
-                    isAllFilled ? 'All data registration already filled ✅' : 'All data registration already filled ❌'
+                    isAllFilled ? 'All data registration already filled ✅' : 'All data registration already filled ❌',
+                    userData?.id > 0 ? "Successfully get the data from local storage ✅" : "No data available from local storage ❌",
                 ];
                 expect(isAllFilled).to.eq(true);
+                expect(parseInt(userData.id)).to.greaterThan(0);
             } catch (error) {
                 expect.fail(error);
             }
