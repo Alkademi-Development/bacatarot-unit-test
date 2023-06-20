@@ -95,7 +95,7 @@ async function getInput() {
                                                                     console.log(clc.red(response?.body?.message));
                                                                     getInfoAccount();
                                                                 } else {
-                                                                    const { name, email, kind } = response?.body?.data?.user;
+                                                                    const { name, email, kind } = response?.body?.data;
                                                                     data.accounts.push(`akun=${email};${inputPassword};${name};${kind}`);
                                                                     const dataJson = JSON.stringify(data);
                                                                     
@@ -106,10 +106,9 @@ async function getInput() {
                                                                             exec(`npm test ${absolutePath} -- --data='${dataJson}' --recursive ${inputReportCommand}`, (error, stdout, stderr) => {
                                                                               if (error) {
                                                                                 console.error(clc.red('\n ❌ Terjadi kesalahan: '), error.stack);
-                                                                                console.error(clc.red('Pesan kesalahan tambahan:'), stderr);
-                                                                              }
+                                                                              } 
                                                                           
-                                                                              console.log(stdout);
+                                                                              console.log(stdout.replaceAll(/✔/g, clc.bold(clc.green('✔'))).replaceAll('passing', clc.green(clc.bold('PASSING'))).replaceAll('pending', clc.bold('PENDING')).replaceAll('failing', clc.bold(clc.red('FAILING'))).replace('AssertionError: ', '').replaceAll("AssertionError", clc.bold(clc.red('AssertionError'))));
                                                                               console.log(clc.yellow('Eksekusi telah selesai!'));
                                                                               console.log(clc.green('Terimakasih sudah mencoba tester!, Kamu bisa cek hasil tester nya di reports 😊'));
                                                                           
@@ -125,10 +124,9 @@ async function getInput() {
                                                                                 exec(`npm test ${absolutePath} -- --data='${dataJson}' --recursive ${inputReportCommand}`, (error, stdout, stderr) => {
                                                                                   if (error) {
                                                                                     console.error(clc.red('\n ❌ Terjadi kesalahan: '), error.stack);
-                                                                                    console.error(clc.red('Pesan kesalahan tambahan:'), stderr);
-                                                                                  }
+                                                                                  } 
                                                                               
-                                                                                  console.log(stdout);
+                                                                                  console.log(stdout.replaceAll(/✔/g, clc.bold(clc.green('✔'))).replaceAll('passing', clc.green(clc.bold('PASSING'))).replaceAll('pending', clc.bold('PENDING')).replaceAll('failing', clc.bold(clc.red('FAILING'))).replace('AssertionError: ', '').replaceAll("AssertionError", clc.bold(clc.red('AssertionError'))));
                                                                                   console.log(clc.yellow('Eksekusi telah selesai!'));
                                                                                   console.log(clc.green('Terimakasih sudah mencoba tester!, Kamu bisa cek hasil tester nya di reports 😊'));
                                                                               
@@ -146,10 +144,9 @@ async function getInput() {
                                                                                 exec(`npm test ${absolutePath} -- --data='${dataJson}' --recursive ${inputReportCommand}`, (error, stdout, stderr) => {
                                                                                   if (error) {
                                                                                     console.error(clc.red('\n ❌ Terjadi kesalahan: '), error.stack);
-                                                                                    console.error(clc.red('Pesan kesalahan tambahan:'), stderr);
-                                                                                  }
+                                                                                  } 
                                                                               
-                                                                                  console.log(stdout);
+                                                                                  console.log(stdout.replaceAll(/✔/g, clc.bold(clc.green('✔'))).replaceAll('passing', clc.green(clc.bold('PASSING'))).replaceAll('pending', clc.bold('PENDING')).replaceAll('failing', clc.bold(clc.red('FAILING'))).replace('AssertionError: ', '').replaceAll("AssertionError", clc.bold(clc.red('AssertionError'))));
                                                                                   console.log(clc.yellow('Eksekusi telah selesai!'));
                                                                                   console.log(clc.green('Terimakasih sudah mencoba tester!, Kamu bisa cek hasil tester nya di reports 😊'));
                                                                               
@@ -229,7 +226,7 @@ async function getInput() {
                                                                                         console.log(clc.red(response?.body?.message));
                                                                                         getInfoAccount();
                                                                                     } else {
-                                                                                        const { name, email, kind } = response?.body?.data?.user;
+                                                                                        const { name, email, kind } = response?.body?.data;
                                                                                         data.accounts.push(`akun=${email};${inputPassword};${name};${kind}`);
                                                                                         const dataJson = JSON.stringify(data);
                                                                                         
@@ -254,9 +251,9 @@ async function getInput() {
                                                                                                                     exec(`npm test ${absolutePath} -- --data=${dataJson} --recursive ${inputReportCommand}`, (error, stdout, stderr) => {
                                                                                                                         if (error) {
                                                                                                                             console.error(clc.red('\n ❌ Terjadi kesalahan: '), error);
-                                                                                                                        }
-                                                                                    
-                                                                                                                        console.log(stdout);
+                                                                                                                        } 
+                                                                                                                        
+                                                                                                                        console.log(stdout.replaceAll(/✔/g, clc.bold(clc.green('✔'))).replaceAll('passing', clc.green(clc.bold('PASSING'))).replaceAll('pending', clc.bold('PENDING')).replaceAll('failing', clc.bold(clc.red('FAILING'))).replace('AssertionError: ', '').replaceAll("AssertionError", clc.bold(clc.red('AssertionError'))));
                                                                                                                         console.log(clc.yellow('Eksekusi telah selesai!'));
                                                                                                                         console.log(clc.green('Terimakasih sudah mencoba tester!, Kamu bisa cek hasil tester nya di reports 😊'));
                                                                                     
@@ -267,9 +264,9 @@ async function getInput() {
                                                                                                                     exec(`npm test ${absolutePath} -- --data=${dataJson} ${inputReportCommand}`, (error, stdout, stderr) => {
                                                                                                                         if (error) {
                                                                                                                             console.error(clc.red('\n ❌ Terjadi kesalahan: '), error);
-                                                                                                                        }
-                                                                                    
-                                                                                                                        console.log(stdout);
+                                                                                                                        } 
+                                                                                                                        
+                                                                                                                        console.log(stdout.replaceAll(/✔/g, clc.bold(clc.green('✔'))).replaceAll('passing', clc.green(clc.bold('PASSING'))).replaceAll('pending', clc.bold('PENDING')).replaceAll('failing', clc.bold(clc.red('FAILING'))).replace('AssertionError: ', '').replaceAll("AssertionError", clc.bold(clc.red('AssertionError'))));
                                                                                                                         console.log(clc.yellow('Eksekusi telah selesai!'));
                                                                                                                         console.log(clc.green('Terimakasih sudah mencoba tester!, Kamu bisa cek hasil tester nya di reports 😊'));
                                                                                     
@@ -290,10 +287,9 @@ async function getInput() {
                                                                                                         exec(`npm test ${absolutePath} -- --data=${dataJson} ${inputReportCommand}`, (error, stdout, stderr) => {
                                                                                                             if (error) {
                                                                                                                 console.error(clc.red('\n ❌ Terjadi kesalahan: '), error.stack);
-                                                                                                                console.error(clc.red('Pesan kesalahan tambahan:'), stderr);
-                                                                                                            }
-                                                                                    
-                                                                                                            console.log(stdout);
+                                                                                                            } 
+                                                                                                            
+                                                                                                            console.log(stdout.replaceAll(/✔/g, clc.bold(clc.green('✔'))).replaceAll('passing', clc.green(clc.bold('PASSING'))).replaceAll('pending', clc.bold('PENDING')).replaceAll('failing', clc.bold(clc.red('FAILING'))).replace('AssertionError: ', '').replaceAll("AssertionError", clc.bold(clc.red('AssertionError'))));
                                                                                                             console.log(clc.yellow('Eksekusi telah selesai!'));
                                                                                                             console.log(clc.green('Terimakasih sudah mencoba tester!, Kamu bisa cek hasil tester nya di reports 😊'));
                                                                                     
@@ -326,9 +322,9 @@ async function getInput() {
                                                                                                                         exec(`npm test ${absolutePath} -- --data=${dataJson} --recursive ${inputReportCommand}`, (error, stdout, stderr) => {
                                                                                                                             if (error) {
                                                                                                                                 console.error(clc.red('\n ❌ Terjadi kesalahan: '), error);
-                                                                                                                            }
+                                                                                                                            } 
                                                                                     
-                                                                                                                            console.log(stdout);
+                                                                                                                            console.log(stdout.replaceAll(/✔/g, clc.bold(clc.green('✔'))).replaceAll('passing', clc.green(clc.bold('PASSING'))).replaceAll('pending', clc.bold('PENDING')).replaceAll('failing', clc.bold(clc.red('FAILING'))).replace('AssertionError: ', '').replaceAll("AssertionError", clc.bold(clc.red('AssertionError'))));
                                                                                                                             console.log(clc.yellow('Eksekusi telah selesai!'));
                                                                                                                             console.log(clc.green('Terimakasih sudah mencoba tester!, Kamu bisa cek hasil tester nya di reports 😊'));
                                                                                     
@@ -339,9 +335,9 @@ async function getInput() {
                                                                                                                         exec(`npm test ${absolutePath} -- --data=${dataJson} ${inputReportCommand}`, (error, stdout, stderr) => {
                                                                                                                             if (error) {
                                                                                                                                 console.error(clc.red('\n ❌ Terjadi kesalahan: '), error);
-                                                                                                                            }
+                                                                                                                            } 
                                                                                     
-                                                                                                                            console.log(stdout);
+                                                                                                                            console.log(stdout.replaceAll(/✔/g, clc.bold(clc.green('✔'))).replaceAll('passing', clc.green(clc.bold('PASSING'))).replaceAll('pending', clc.bold('PENDING')).replaceAll('failing', clc.bold(clc.red('FAILING'))).replace('AssertionError: ', '').replaceAll("AssertionError", clc.bold(clc.red('AssertionError'))));
                                                                                                                             console.log(clc.yellow('Eksekusi telah selesai!'));
                                                                                                                             console.log(clc.green('Terimakasih sudah mencoba tester!, Kamu bisa cek hasil tester nya di reports 😊'));
                                                                                     
@@ -362,10 +358,9 @@ async function getInput() {
                                                                                                             exec(`npm test ${absolutePath} -- --data=${dataJson} ${inputReportCommand}`, (error, stdout, stderr) => {
                                                                                                                 if (error) {
                                                                                                                     console.error(clc.red('\n ❌ Terjadi kesalahan: '), error.stack);
-                                                                                                                    console.error(clc.red('Pesan kesalahan tambahan:'), stderr);
-                                                                                                                }
+                                                                                                                } 
                                                                                     
-                                                                                                                console.log(stdout);
+                                                                                                                console.log(stdout.replaceAll(/✔/g, clc.bold(clc.green('✔'))).replaceAll('passing', clc.green(clc.bold('PASSING'))).replaceAll('pending', clc.bold('PENDING')).replaceAll('failing', clc.bold(clc.red('FAILING'))).replace('AssertionError: ', '').replaceAll("AssertionError", clc.bold(clc.red('AssertionError'))));
                                                                                                                 console.log(clc.yellow('Eksekusi telah selesai!'));
                                                                                                                 console.log(clc.green('Terimakasih sudah mencoba tester!, Kamu bisa cek hasil tester nya di reports 😊'));
                                                                                     
@@ -401,9 +396,9 @@ async function getInput() {
                                                                                                                         exec(`npm test ${absolutePath} -- --data=${dataJson} --recursive ${inputReportCommand}`, (error, stdout, stderr) => {
                                                                                                                             if (error) {
                                                                                                                                 console.error(clc.red('\n ❌ Terjadi kesalahan: '), error);
-                                                                                                                            }
+                                                                                                                            } 
                                                                                     
-                                                                                                                            console.log(stdout);
+                                                                                                                            console.log(stdout.replaceAll(/✔/g, clc.bold(clc.green('✔'))).replaceAll('passing', clc.green(clc.bold('PASSING'))).replaceAll('pending', clc.bold('PENDING')).replaceAll('failing', clc.bold(clc.red('FAILING'))).replace('AssertionError: ', '').replaceAll("AssertionError", clc.bold(clc.red('AssertionError'))));
                                                                                                                             console.log(clc.yellow('Eksekusi telah selesai!'));
                                                                                                                             console.log(clc.green('Terimakasih sudah mencoba tester!, Kamu bisa cek hasil tester nya di reports 😊'));
                                                                                     
@@ -414,9 +409,9 @@ async function getInput() {
                                                                                                                         exec(`npm test ${absolutePath} -- --data=${dataJson} ${inputReportCommand}`, (error, stdout, stderr) => {
                                                                                                                             if (error) {
                                                                                                                                 console.error(clc.red('\n ❌ Terjadi kesalahan: '), error);
-                                                                                                                            }
+                                                                                                                            } 
                                                                                     
-                                                                                                                            console.log(stdout);
+                                                                                                                            console.log(stdout.replaceAll(/✔/g, clc.bold(clc.green('✔'))).replaceAll('passing', clc.green(clc.bold('PASSING'))).replaceAll('pending', clc.bold('PENDING')).replaceAll('failing', clc.bold(clc.red('FAILING'))).replace('AssertionError: ', '').replaceAll("AssertionError", clc.bold(clc.red('AssertionError'))));
                                                                                                                             console.log(clc.yellow('Eksekusi telah selesai!'));
                                                                                                                             console.log(clc.green('Terimakasih sudah mencoba tester!, Kamu bisa cek hasil tester nya di reports 😊'));
                                                                                     
@@ -437,10 +432,9 @@ async function getInput() {
                                                                                                             exec(`npm test ${absolutePath} -- --data=${dataJson} ${inputReportCommand}`, (error, stdout, stderr) => {
                                                                                                                 if (error) {
                                                                                                                     console.error(clc.red('\n ❌ Terjadi kesalahan: '), error.stack);
-                                                                                                                    console.error(clc.red('Pesan kesalahan tambahan:'), stderr);
-                                                                                                                }
+                                                                                                                } 
                                                                                     
-                                                                                                                console.log(stdout);
+                                                                                                                console.log(stdout.replaceAll(/✔/g, clc.bold(clc.green('✔'))).replaceAll('passing', clc.green(clc.bold('PASSING'))).replaceAll('pending', clc.bold('PENDING')).replaceAll('failing', clc.bold(clc.red('FAILING'))).replace('AssertionError: ', '').replaceAll("AssertionError", clc.bold(clc.red('AssertionError'))));
                                                                                                                 console.log(clc.yellow('Eksekusi telah selesai!'));
                                                                                                                 console.log(clc.green('Terimakasih sudah mencoba tester!, Kamu bisa cek hasil tester nya di reports 😊'));
                                                                                     
@@ -495,9 +489,9 @@ async function getInput() {
                                                                         exec(`npm test ${absolutePath} -- --data=${data} --recursive ${inputReportCommand}`, (error, stdout, stderr) => {
                                                                             if (error) {
                                                                                 console.error(clc.red('\n ❌ Terjadi kesalahan: '), error);
-                                                                            }
-                                                
-                                                                            console.log(stdout);
+                                                                            } 
+                                                                            
+                                                                            console.log(stdout.replaceAll(/✔/g, clc.bold(clc.green('✔'))).replaceAll('passing', clc.green(clc.bold('PASSING'))).replaceAll('pending', clc.bold('PENDING')).replaceAll('failing', clc.bold(clc.red('FAILING'))).replace('AssertionError: ', '').replaceAll("AssertionError", clc.bold(clc.red('AssertionError'))));
                                                                             console.log(clc.yellow('Eksekusi telah selesai!'));
                                                                             console.log(clc.green('Terimakasih sudah mencoba tester!, Kamu bisa cek hasil tester nya di reports 😊'));
                                                 
@@ -510,7 +504,7 @@ async function getInput() {
                                                                                 console.error(clc.red('\n ❌ Terjadi kesalahan: '), error);
                                                                             }
                                                 
-                                                                            console.log(stdout);
+                                                                            console.log(stdout.replaceAll(/✔/g, clc.bold(clc.green('✔'))).replaceAll('passing', clc.green(clc.bold('PASSING'))).replaceAll('pending', clc.bold('PENDING')).replaceAll('failing', clc.bold(clc.red('FAILING'))).replace('AssertionError: ', '').replaceAll("AssertionError", clc.bold(clc.red('AssertionError'))));
                                                                             console.log(clc.yellow('Eksekusi telah selesai!'));
                                                                             console.log(clc.green('Terimakasih sudah mencoba tester!, Kamu bisa cek hasil tester nya di reports 😊'));
                                                 
@@ -530,10 +524,9 @@ async function getInput() {
                                                             exec(`npm test ${absolutePath} -- --data=${data} ${inputReportCommand}`, (error, stdout, stderr) => {
                                                                 if (error) {
                                                                     console.error(clc.red('\n ❌ Terjadi kesalahan: '), error.stack);
-                                                                    console.error(clc.red('Pesan kesalahan tambahan:'), stderr);
                                                                 }
                                     
-                                                                console.log(stdout);
+                                                                console.log(stdout.replaceAll(/✔/g, clc.bold(clc.green('✔'))).replaceAll('passing', clc.green(clc.bold('PASSING'))).replaceAll('pending', clc.bold('PENDING')).replaceAll('failing', clc.bold(clc.red('FAILING'))).replace('AssertionError: ', '').replaceAll("AssertionError", clc.bold(clc.red('AssertionError'))));
                                                                 console.log(clc.yellow('Eksekusi telah selesai!'));
                                                                 console.log(clc.green('Terimakasih sudah mencoba tester!, Kamu bisa cek hasil tester nya di reports 😊'));
                                     
@@ -585,7 +578,7 @@ async function getInput() {
                                                                                         console.log(clc.red(response?.body?.message));
                                                                                         getInfoAccount();
                                                                                     } else {
-                                                                                        const { name, email, kind } = response?.body?.data?.user;
+                                                                                        const { name, email, kind } = response?.body?.data;
                                                                                         data.accounts.push(`akun=${email};${inputPassword};${name};${kind}`);
                                                                                         const dataJson = JSON.stringify(data);
                                                                                         
@@ -596,10 +589,9 @@ async function getInput() {
                                                                                                 exec(`npm test ${absolutePath} -- --data='${dataJson}' ${inputReportCommand}`, (error, stdout, stderr) => {
                                                                                                   if (error) {
                                                                                                     console.error(clc.red('\n ❌ Terjadi kesalahan: '), error.stack);
-                                                                                                    console.error(clc.red('Pesan kesalahan tambahan:'), stderr);
                                                                                                   }
                                                                                               
-                                                                                                  console.log(stdout);
+                                                                                                  console.log(stdout.replaceAll(/✔/g, clc.bold(clc.green('✔'))).replaceAll('passing', clc.green(clc.bold('PASSING'))).replaceAll('pending', clc.bold('PENDING')).replaceAll('failing', clc.bold(clc.red('FAILING'))).replace('AssertionError: ', '').replaceAll("AssertionError", clc.bold(clc.red('AssertionError'))));
                                                                                                   console.log(clc.yellow('Eksekusi telah selesai!'));
                                                                                                   console.log(clc.green('Terimakasih sudah mencoba tester!, Kamu bisa cek hasil tester nya di reports 😊'));
                                                                                               
@@ -615,10 +607,9 @@ async function getInput() {
                                                                                                     exec(`npm test ${absolutePath} -- --data='${dataJson}' ${inputReportCommand}`, (error, stdout, stderr) => {
                                                                                                       if (error) {
                                                                                                         console.error(clc.red('\n ❌ Terjadi kesalahan: '), error.stack);
-                                                                                                        console.error(clc.red('Pesan kesalahan tambahan:'), stderr);
-                                                                                                      }
-                                                                                                  
-                                                                                                      console.log(stdout);
+                                                                                                      } 
+                                                                                                      
+                                                                                                      console.log(stdout.replaceAll(/✔/g, clc.bold(clc.green('✔'))).replaceAll('passing', clc.green(clc.bold('PASSING'))).replaceAll('pending', clc.bold('PENDING')).replaceAll('failing', clc.bold(clc.red('FAILING'))).replace('AssertionError: ', '').replaceAll("AssertionError", clc.bold(clc.red('AssertionError'))));
                                                                                                       console.log(clc.yellow('Eksekusi telah selesai!'));
                                                                                                       console.log(clc.green('Terimakasih sudah mencoba tester!, Kamu bisa cek hasil tester nya di reports 😊'));
                                                                                                   
@@ -636,10 +627,9 @@ async function getInput() {
                                                                                                     exec(`npm test ${absolutePath} -- --data='${dataJson}' ${inputReportCommand}`, (error, stdout, stderr) => {
                                                                                                       if (error) {
                                                                                                         console.error(clc.red('\n ❌ Terjadi kesalahan: '), error.stack);
-                                                                                                        console.error(clc.red('Pesan kesalahan tambahan:'), stderr);
                                                                                                       }
                                                                                                   
-                                                                                                      console.log(stdout);
+                                                                                                      console.log(stdout.replaceAll(/✔/g, clc.bold(clc.green('✔'))).replaceAll('passing', clc.green(clc.bold('PASSING'))).replaceAll('pending', clc.bold('PENDING')).replaceAll('failing', clc.bold(clc.red('FAILING'))).replace('AssertionError: ', '').replaceAll("AssertionError", clc.bold(clc.red('AssertionError'))));
                                                                                                       console.log(clc.yellow('Eksekusi telah selesai!'));
                                                                                                       console.log(clc.green('Terimakasih sudah mencoba tester!, Kamu bisa cek hasil tester nya di reports 😊'));
                                                                                                   
@@ -677,10 +667,9 @@ async function getInput() {
                                                         exec(`npm test ${absolutePath} -- --data=${data} ${inputReportCommand}`, (error, stdout, stderr) => {
                                                             if (error) {
                                                                 console.error(clc.red('\n ❌ Terjadi kesalahan: '), error.stack);
-                                                                console.error(clc.red('Pesan kesalahan tambahan:'), stderr);
-                                                            }
+                                                            } 
                                 
-                                                            console.log(stdout);
+                                                            console.log(stdout.replaceAll(/✔/g, clc.bold(clc.green('✔'))).replaceAll('passing', clc.green(clc.bold('PASSING'))).replaceAll('pending', clc.bold('PENDING')).replaceAll('failing', clc.bold(clc.red('FAILING'))).replace('AssertionError: ', '').replaceAll("AssertionError", clc.bold(clc.red('AssertionError'))));
                                                             console.log(clc.yellow('Eksekusi telah selesai!'));
                                                             console.log(clc.green('Terimakasih sudah mencoba tester!, Kamu bisa cek hasil tester nya di reports 😊'));
                                 
