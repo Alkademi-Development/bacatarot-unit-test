@@ -64,7 +64,7 @@ describe("Login", () => {
         addContext(this, {
             title: 'Performance Results',
             value: `${moment().tz('Asia/Jakarta').format('dddd, MMMM D, YYYY h:mm:ss A')}
-(timestamp navigasi di mulai: ${navigationStart})
+(timestamp navigasi di mulai: ${navigationStart})   
 =====================================================================
 Waktu Permintaan Pertama (fetchStart): (${performanceTiming.fetchStart - navigationStart}) milliseconds ( ${(performanceTiming.fetchStart - navigationStart) / 1000} seconds )
 Waktu Pencarian Nama Domain Dimulai (domainLookupStart): (${performanceTiming.domainLookupStart - navigationStart}) milliseconds ( ${((performanceTiming.domainLookupStart - navigationStart) / 1000)} seconds )
@@ -111,23 +111,29 @@ Waktu Event Load Selesai (loadEventEnd): (${performanceTiming.loadEventEnd - nav
 
             let user = { name, email, password, kind };
 
+            console.log(user, name, email, password, kind);
+
             switch (user.kind) {
-                case 0:
-                    it(`Test Super Admin - from browser ${browser}`, async function() {
-
-                        try {
-
-                        } catch (error) {
-                            expect.fail(error);
-                        }
-
-                    });
-
-                    break;
                 case 1:
-                    it(`Test Admin - from browser ${browser}`, async () => {
+                    it(`User - Login from browser ${browser}`, async () => {
 
                         try {
+                            // Aksi masuk ke dalam halaman browser
+                            driver = await goToApp(browser, appHost);
+                            await driver.manage().window().maximize();
+
+                            // Aksi menunggu mengisi form login untuk melakukan authentication
+                            await loginToApp(driver, user, browser, appHost);
+
+                            // Results
+                            let userData = await driver.executeScript("return window.localStorage.getItem('user_data')");
+                            userData = await JSON.parse(userData);
+
+                            // Expect results and add custom message for addtional description
+                            customMessages = [
+                                userData?.id > 0 ? "Successfully get the data from local storage ✅" : "No data available from local storage ❌",
+                            ]
+                            expect(parseInt(userData.id)).to.greaterThan(0);
 
                         } catch (error) {
                             expect.fail(error);
@@ -137,11 +143,27 @@ Waktu Event Load Selesai (loadEventEnd): (${performanceTiming.loadEventEnd - nav
                     });
 
                     break;
-
-                case 2:
-                    it(`Test Mentor - from browser ${browser}`, async () => {
+                
+                case 2: 
+                    it(`Reader - Login from browser ${browser}`, async function() {
 
                         try {
+                            // Aksi masuk ke dalam halaman browser
+                            driver = await goToApp(browser, appHost);
+                            await driver.manage().window().maximize();
+
+                            // Aksi menunggu mengisi form login untuk melakukan authentication
+                            await loginToApp(driver, user, browser, appHost);
+
+                            // Results
+                            let userData = await driver.executeScript("return window.localStorage.getItem('user_data')");
+                            userData = await JSON.parse(userData);
+
+                            // Expect results and add custom message for addtional description
+                            customMessages = [
+                                userData?.id > 0 ? "Successfully get the data from local storage ✅" : "No data available from local storage ❌",
+                            ]
+                            expect(parseInt(userData.id)).to.greaterThan(0);
 
                         } catch (error) {
                             expect.fail(error);
@@ -151,9 +173,9 @@ Waktu Event Load Selesai (loadEventEnd): (${performanceTiming.loadEventEnd - nav
                     });
 
                     break;
-
+                
                 default:
-                    it(`Test Other - from browser ${browser}`, async function() {
+                    it(`Test Other - Login from browser ${browser}`, async function() {
 
                         try {
                             // Aksi masuk ke dalam halaman browser

@@ -5,9 +5,9 @@
     "passes": 1,
     "pending": 0,
     "failures": 0,
-    "start": "2023-06-19T09:24:31.102Z",
-    "end": "2023-06-19T09:24:42.680Z",
-    "duration": 11578,
+    "start": "2023-06-21T08:03:10.291Z",
+    "end": "2023-06-21T08:03:21.718Z",
+    "duration": 11427,
     "testsRegistered": 1,
     "passPercent": 100,
     "pendingPercent": 0,
@@ -18,7 +18,7 @@
   },
   "results": [
     {
-      "uuid": "f21f5569-5313-4828-8150-357955d3b5ef",
+      "uuid": "f0bc9af6-7e77-4cf4-ae54-591162dca38e",
       "title": "",
       "fullFile": "D:\\allproject\\alkademik\\research-unit-test-bacatarot\\test\\app\\login.js",
       "file": "\\test\\app\\login.js",
@@ -27,7 +27,7 @@
       "tests": [],
       "suites": [
         {
-          "uuid": "c7cdedd7-a40e-4984-a5a5-f5121903cecf",
+          "uuid": "ca705fdb-4388-48f2-b831-1cd9798b771c",
           "title": "Login",
           "fullFile": "D:\\allproject\\alkademik\\research-unit-test-bacatarot\\test\\app\\login.js",
           "file": "\\test\\app\\login.js",
@@ -37,7 +37,7 @@
               "title": "\"after all\" hook in \"Login\"",
               "fullTitle": "Login \"after all\" hook in \"Login\"",
               "timedOut": false,
-              "duration": 1,
+              "duration": 0,
               "state": null,
               "speed": null,
               "pass": false,
@@ -46,8 +46,8 @@
               "context": null,
               "code": "",
               "err": {},
-              "uuid": "6a823a63-b5ad-46be-b77e-0c4cb94c0be4",
-              "parentUUID": "c7cdedd7-a40e-4984-a5a5-f5121903cecf",
+              "uuid": "95b0dec2-d65e-4898-95e8-12fa2366fa0c",
+              "parentUUID": "ca705fdb-4388-48f2-b831-1cd9798b771c",
               "isHook": true,
               "skipped": false
             },
@@ -55,7 +55,7 @@
               "title": "\"after each\" hook in \"Login\"",
               "fullTitle": "Login \"after each\" hook in \"Login\"",
               "timedOut": false,
-              "duration": 4106,
+              "duration": 4592,
               "state": null,
               "speed": null,
               "pass": false,
@@ -64,40 +64,40 @@
               "context": null,
               "code": "",
               "err": {},
-              "uuid": "e9fd3d46-966c-4b9b-b7b7-2627a20e7960",
-              "parentUUID": "c7cdedd7-a40e-4984-a5a5-f5121903cecf",
+              "uuid": "f0cc6b8a-6f78-4a8d-a14b-fb525a59966b",
+              "parentUUID": "ca705fdb-4388-48f2-b831-1cd9798b771c",
               "isHook": true,
               "skipped": false
             }
           ],
           "tests": [
             {
-              "title": "Test Other - from browser firefox",
-              "fullTitle": "Login Test Other - from browser firefox",
+              "title": "Reader - Login from browser firefox",
+              "fullTitle": "Login Reader - Login from browser firefox",
               "timedOut": false,
-              "duration": 7467,
+              "duration": 6827,
               "state": "passed",
               "speed": "slow",
               "pass": true,
               "fail": false,
               "pending": false,
-              "context": "[\n  {\n    \"title\": \"Expected Results\",\n    \"value\": \"- Successfully get the data from local storage ✅\"\n  },\n  {\n    \"title\": \"Screenshoot-Test-Results\",\n    \"value\": \"..\\\\..\\\\..\\\\..\\\\testResults\\\\screenshoots\\\\app\\\\login\\\\1-[passed]-2023-06-19_16-24-38.png\"\n  }\n]",
+              "context": "[\n  {\n    \"title\": \"Expected Results\",\n    \"value\": \"- Successfully get the data from local storage ✅\"\n  },\n  {\n    \"title\": \"Performance Results\",\n    \"value\": \"Wednesday, June 21, 2023 3:03:17 PM\\n(timestamp navigasi di mulai: 1687334593155)   \\n=====================================================================\\nWaktu Permintaan Pertama (fetchStart): (0) milliseconds ( 0 seconds )\\nWaktu Pencarian Nama Domain Dimulai (domainLookupStart): (7) milliseconds ( 0.007 seconds )\\nWaktu Pencarian Nama Domain Selesai (domainLookupEnd): (8) milliseconds ( 0.008 seconds )\\nWaktu Permintaan Dimulai (requestStart): (9) milliseconds ( 0.009 seconds )\\n=====================================================================\\nWaktu Respons Dimulai (responseStart): (12) milliseconds ( 0.012 seconds )\\nWaktu Respons Selesai (responseEnd): (12) milliseconds ( 0.012 seconds )\\nWaktu Memuat Dokumen (domLoading): (306) milliseconds ( 0.306 seconds )\\n=====================================================================\\nWaktu Event Unload Dimulai (unloadEventStart): (-1687334593155) milliseconds ( -1687334593.155 seconds )\\nWaktu Event Unload Selesai (unloadEventEnd): (-1687334593155) milliseconds ( -1687334593.155 seconds )\\n=====================================================================\\nWaktu Interaktif DOM (domInteractive): (2235) milliseconds ( 2.235 seconds )\\nWaktu Event DOMContentLoaded Dimulai (domContentLoadedEventStart): (2255) milliseconds ( 2.255 seconds )\\nWaktu Event DOMContentLoaded Selesai (domContentLoadedEventEnd): (2261) milliseconds ( 2.261 seconds )\\n=====================================================================\\nWaktu Dokumen Selesai Dimuat (domComplete): (2288) milliseconds ( 2.288 seconds )\\nWaktu Event Load Dimulai (loadEventStart): (2288) milliseconds ( 2.288 seconds )\\n=====================================================================\\n(timestamp loadEventEnd: 1687334595443)\\nWaktu Event Load Selesai (loadEventEnd): (2288) milliseconds ( 2.288 seconds )\\n            \"\n  },\n  {\n    \"title\": \"Screenshoot-Test-Results\",\n    \"value\": \"..\\\\..\\\\..\\\\..\\\\testResults\\\\screenshoots\\\\app\\\\login\\\\1-[passed]-2023-06-21_15-03-17.png\"\n  }\n]",
               "code": "",
               "err": {},
-              "uuid": "41f096bf-e3b0-4899-945c-0aa385a8b534",
-              "parentUUID": "c7cdedd7-a40e-4984-a5a5-f5121903cecf",
+              "uuid": "2a3c81a5-499c-465a-9045-46454ba76d7d",
+              "parentUUID": "ca705fdb-4388-48f2-b831-1cd9798b771c",
               "isHook": false,
               "skipped": false
             }
           ],
           "suites": [],
           "passes": [
-            "41f096bf-e3b0-4899-945c-0aa385a8b534"
+            "2a3c81a5-499c-465a-9045-46454ba76d7d"
           ],
           "failures": [],
           "pending": [],
           "skipped": [],
-          "duration": 7467,
+          "duration": 6827,
           "root": false,
           "rootEmpty": false,
           "_timeout": 0

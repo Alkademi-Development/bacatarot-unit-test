@@ -5,9 +5,9 @@
     "passes": 1,
     "pending": 0,
     "failures": 0,
-    "start": "2023-06-19T05:22:20.760Z",
-    "end": "2023-06-19T05:22:30.911Z",
-    "duration": 10151,
+    "start": "2023-06-21T08:04:42.589Z",
+    "end": "2023-06-21T08:04:52.585Z",
+    "duration": 9996,
     "testsRegistered": 1,
     "passPercent": 100,
     "pendingPercent": 0,
@@ -18,7 +18,7 @@
   },
   "results": [
     {
-      "uuid": "db63f70e-f2e5-4747-8cd1-a21d9fea9d5c",
+      "uuid": "e1c25e45-e022-44ec-9222-fa96a0f5a4bb",
       "title": "",
       "fullFile": "D:\\allproject\\alkademik\\research-unit-test-bacatarot\\test\\app\\login.js",
       "file": "\\test\\app\\login.js",
@@ -27,7 +27,7 @@
       "tests": [],
       "suites": [
         {
-          "uuid": "21327367-0a98-4ec7-a202-4f182e6656cf",
+          "uuid": "d9cc2077-9477-4be0-ae62-ee00903a60fe",
           "title": "Login",
           "fullFile": "D:\\allproject\\alkademik\\research-unit-test-bacatarot\\test\\app\\login.js",
           "file": "\\test\\app\\login.js",
@@ -46,8 +46,8 @@
               "context": null,
               "code": "",
               "err": {},
-              "uuid": "24d684e7-de62-46a7-a235-86b2359d3a2b",
-              "parentUUID": "21327367-0a98-4ec7-a202-4f182e6656cf",
+              "uuid": "93743a81-2264-403b-9170-c54b46f62039",
+              "parentUUID": "d9cc2077-9477-4be0-ae62-ee00903a60fe",
               "isHook": true,
               "skipped": false
             },
@@ -55,7 +55,7 @@
               "title": "\"after each\" hook in \"Login\"",
               "fullTitle": "Login \"after each\" hook in \"Login\"",
               "timedOut": false,
-              "duration": 3912,
+              "duration": 4475,
               "state": null,
               "speed": null,
               "pass": false,
@@ -64,40 +64,40 @@
               "context": null,
               "code": "",
               "err": {},
-              "uuid": "7ca33e91-32bc-479b-be06-1ce87dcd68e7",
-              "parentUUID": "21327367-0a98-4ec7-a202-4f182e6656cf",
+              "uuid": "e33b4867-4218-4c6b-9a81-334a17f1f3d2",
+              "parentUUID": "d9cc2077-9477-4be0-ae62-ee00903a60fe",
               "isHook": true,
               "skipped": false
             }
           ],
           "tests": [
             {
-              "title": "Test Other - from browser firefox",
-              "fullTitle": "Login Test Other - from browser firefox",
+              "title": "User - Login from browser firefox",
+              "fullTitle": "Login User - Login from browser firefox",
               "timedOut": false,
-              "duration": 6234,
+              "duration": 5513,
               "state": "passed",
               "speed": "slow",
               "pass": true,
               "fail": false,
               "pending": false,
-              "context": "[\n  {\n    \"title\": \"Expected Results\",\n    \"value\": \"- Successfully get the data from local storage ✅\"\n  },\n  {\n    \"title\": \"Screenshoot-Test-Results\",\n    \"value\": \"..\\\\..\\\\..\\\\..\\\\testResults\\\\screenshoots\\\\app\\\\login\\\\1-[passed]-2023-06-19_12-22-26.png\"\n  }\n]",
+              "context": "[\n  {\n    \"title\": \"Expected Results\",\n    \"value\": \"- Successfully get the data from local storage ✅\"\n  },\n  {\n    \"title\": \"Performance Results\",\n    \"value\": \"Wednesday, June 21, 2023 3:04:48 PM\\n(timestamp navigasi di mulai: 1687334685388)   \\n=====================================================================\\nWaktu Permintaan Pertama (fetchStart): (0) milliseconds ( 0 seconds )\\nWaktu Pencarian Nama Domain Dimulai (domainLookupStart): (7) milliseconds ( 0.007 seconds )\\nWaktu Pencarian Nama Domain Selesai (domainLookupEnd): (8) milliseconds ( 0.008 seconds )\\nWaktu Permintaan Dimulai (requestStart): (8) milliseconds ( 0.008 seconds )\\n=====================================================================\\nWaktu Respons Dimulai (responseStart): (10) milliseconds ( 0.01 seconds )\\nWaktu Respons Selesai (responseEnd): (10) milliseconds ( 0.01 seconds )\\nWaktu Memuat Dokumen (domLoading): (279) milliseconds ( 0.279 seconds )\\n=====================================================================\\nWaktu Event Unload Dimulai (unloadEventStart): (-1687334685388) milliseconds ( -1687334685.388 seconds )\\nWaktu Event Unload Selesai (unloadEventEnd): (-1687334685388) milliseconds ( -1687334685.388 seconds )\\n=====================================================================\\nWaktu Interaktif DOM (domInteractive): (1311) milliseconds ( 1.311 seconds )\\nWaktu Event DOMContentLoaded Dimulai (domContentLoadedEventStart): (1328) milliseconds ( 1.328 seconds )\\nWaktu Event DOMContentLoaded Selesai (domContentLoadedEventEnd): (1333) milliseconds ( 1.333 seconds )\\n=====================================================================\\nWaktu Dokumen Selesai Dimuat (domComplete): (1356) milliseconds ( 1.356 seconds )\\nWaktu Event Load Dimulai (loadEventStart): (1356) milliseconds ( 1.356 seconds )\\n=====================================================================\\n(timestamp loadEventEnd: 1687334686744)\\nWaktu Event Load Selesai (loadEventEnd): (1356) milliseconds ( 1.356 seconds )\\n            \"\n  },\n  {\n    \"title\": \"Screenshoot-Test-Results\",\n    \"value\": \"..\\\\..\\\\..\\\\..\\\\testResults\\\\screenshoots\\\\app\\\\login\\\\1-[passed]-2023-06-21_15-04-48.png\"\n  }\n]",
               "code": "",
               "err": {},
-              "uuid": "2d6f428f-ce3a-4a3d-aa56-e2e0c407694f",
-              "parentUUID": "21327367-0a98-4ec7-a202-4f182e6656cf",
+              "uuid": "9dbb72f8-f4b3-4f68-8dbe-70425c517512",
+              "parentUUID": "d9cc2077-9477-4be0-ae62-ee00903a60fe",
               "isHook": false,
               "skipped": false
             }
           ],
           "suites": [],
           "passes": [
-            "2d6f428f-ce3a-4a3d-aa56-e2e0c407694f"
+            "9dbb72f8-f4b3-4f68-8dbe-70425c517512"
           ],
           "failures": [],
           "pending": [],
           "skipped": [],
-          "duration": 6234,
+          "duration": 5513,
           "root": false,
           "rootEmpty": false,
           "_timeout": 0
