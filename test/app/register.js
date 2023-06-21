@@ -127,10 +127,9 @@ Waktu Event Load Selesai (loadEventEnd): (${performanceTiming.loadEventEnd - nav
 
                 // Aksi mengisi form registration
                 // Dummy data registration
-                let fullName = `${faker.name.firstName()} ${faker.name.lastName()}`;
-                let emailData = `${fullName.toLowerCase().replace(/ /g, '')}@gmail.com`;
+                let fullName = `Adnan Erlansyah`;
+                let emailData = `${fullName.toLowerCase().replace(/ /g, '')}02@gmail.com`;
                 let passwordData = 'semuasama';
-                let dataDate = `${faker.number.int({ min: 1, max: 29 })} ${faker.date.month({ abbreviated: true, context: true })} ${faker.number.int({ min: 1995, max: 2005 })}`;
 
                 // Fill data registration
                 await driver.wait(until.elementLocated(By.css(`input[type="email"]`)));
@@ -175,8 +174,8 @@ Waktu Event Load Selesai (loadEventEnd): (${performanceTiming.loadEventEnd - nav
                 await driver.sleep(3000);
                 let selectsMonth = await driver.executeScript(`return document.querySelectorAll('span.cell.month')`);
                 await selectsMonth[faker.number.int({ min: 0, max: 10 })].click();
-                await driver.sleep(3000);
-                await driver.executeScript(`return document.querySelectorAll('span.cell.day')[${faker.number.int({ min: 0, max: 28 })}].click()`);
+                await driver.sleep(5000);
+                await driver.executeScript(`return document.querySelectorAll('span.cell.day')[${faker.number.int({ min: 1, max: 28 })}].click()`);
                 await driver.sleep(3000);
                 // Input DatePicker End
                 let radioGenders = await driver.executeScript(`return document.querySelectorAll('.radio-gender .radio-item')`);
@@ -201,13 +200,15 @@ Waktu Event Load Selesai (loadEventEnd): (${performanceTiming.loadEventEnd - nav
                 await driver.wait(until.stalenessOf(overlayLoading));
                 let errorElement = await driver.executeScript(`return document.querySelectorAll('p.error');`)
                 if (errorElement.length > 0) await thrownAnError(await driver.executeScript(`return document.querySelector('p.error').innerText;`), errorElement.length > 0);
+                let defaultButton = await driver.executeScript(`return document.querySelectorAll('.content .default-button')`);
+                if(defaultButton?.length > 0) await driver.executeScript(`return document.querySelector('.content .default-button').click();`);
 
 
                 // Check the result
                 let userData = await driver.executeScript("return window.localStorage.getItem('user_data')");
                 userData = await JSON.parse(userData);
                 customMessages = [
-                    isAllFilled ? 'All data registration already filled ✅' : 'All data registration already filled ❌',
+                    isAllFilled & stepOneAllFilled ? 'All data registration already filled ✅' : 'All data registration already filled ❌',
                     userData?.id > 0 ? "Successfully get the data from local storage ✅" : "No data available from local storage ❌",
                 ];
                 expect(isAllFilled).to.eq(true);
