@@ -95,7 +95,8 @@ async function getInput() {
                                                                     console.log(clc.red(response?.body?.message));
                                                                     getInfoAccount();
                                                                 } else {
-                                                                    const { name, email, kind } = response?.body?.data;
+                                                                    const { name, email, kind } = response?.body?.data?.user;
+                                                                    console.log(response?.body)
                                                                     data.accounts.push(`akun=${email};${inputPassword};${name};${kind}`);
                                                                     const dataJson = JSON.stringify(data);
                                                                     
@@ -226,7 +227,7 @@ async function getInput() {
                                                                                         console.log(clc.red(response?.body?.message));
                                                                                         getInfoAccount();
                                                                                     } else {
-                                                                                        const { name, email, kind } = response?.body?.data;
+                                                                                        const { name, email, kind } = response?.body?.data?.user;
                                                                                         data.accounts.push(`akun=${email};${inputPassword};${name};${kind}`);
                                                                                         const dataJson = JSON.stringify(data);
                                                                                         
@@ -578,7 +579,7 @@ async function getInput() {
                                                                                         console.log(clc.red(response?.body?.message));
                                                                                         getInfoAccount();
                                                                                     } else {
-                                                                                        const { name, email, kind } = response?.body?.data;
+                                                                                        const { name, email, kind } = response?.body?.data?.user;
                                                                                         data.accounts.push(`akun=${email};${inputPassword};${name};${kind}`);
                                                                                         const dataJson = JSON.stringify(data);
                                                                                         
