@@ -1,20 +1,26 @@
-import { describe, afterEach, before } from 'mocha';
-import { Builder, By, Key, until, logging, Capabilities } from 'selenium-webdriver';
+import { describe, afterEach } from 'mocha';
+import { By, until } from 'selenium-webdriver';
 import addContext from 'mochawesome/addContext.js';
-import assert from 'assert';
 import { expect } from "chai";
+import * as chai from "chai";
 import yargs from 'yargs';
 import fs from 'fs';
 import path from 'path';
 import { BROWSERS } from '#root/commons/constants/browser';
-import { goToApp } from '#root/commons/utils/appUtils';
+import { getUserAccount } from '#root/commons/utils/userUtils';
+import { goToApp, loginToApp } from '#root/commons/utils/appUtils';
 import { appHost } from '#root/api/app-token';
 import { takeScreenshot } from '#root/commons/utils/fileUtils';
 import { fileURLToPath } from 'url';
 import { captureConsoleErrors } from '#root/commons/utils/generalUtils';
 import { thrownAnError } from '#root/commons/utils/generalUtils';
 import moment from 'moment-timezone';
-import { faker } from '@faker-js/faker';
+
+/**
+ * Get the user data for authentication
+ */
+
+const users = getUserAccount(yargs(process.argv.slice(2)).parse());
 
 let driver;
 let errorMessages;
@@ -25,7 +31,7 @@ if (process.platform === 'win32') {
     screenshootFilePath = path.resolve(`./testResults/screenshoots/${screenshootFilePath.split("/test/")[1].replaceAll(".js", "")}/`);
 }
 
-describe("Register", () => {
+describe("Authentication", () => {
     let customMessages = [];
 
     after(async function () {
@@ -43,9 +49,14 @@ describe("Register", () => {
         if(this.currentTest.isPassed) {
             addContext(this, {
                 title: 'Expected Results',
-                value: customMessages?.length > 0 ? "- " + customMessages.map(msg => msg.trim()).join("\n- ") : 'No Results'
+                value: customMessages?.length > 0 ? "- " + customMessages?.map(msg => msg.trim()).join("\n- ") : 'No Results'
             })
-        } 
+        } else if (this.currentTest.isFailed) {
+            addContext(this, {
+                title: 'Status Test',
+                value: 'Failed ❌'
+            })
+        }
 
         // Performances Information
         const performanceTiming = await driver.executeScript('return window.performance.timing');
@@ -53,7 +64,7 @@ describe("Register", () => {
         addContext(this, {
             title: 'Performance Results',
             value: `${moment().tz('Asia/Jakarta').format('dddd, MMMM D, YYYY h:mm:ss A')}
-(timestamp navigasi di mulai: ${navigationStart})
+(timestamp navigasi di mulai: ${navigationStart})   
 =====================================================================
 Waktu Permintaan Pertama (fetchStart): (${performanceTiming.fetchStart - navigationStart}) milliseconds ( ${(performanceTiming.fetchStart - navigationStart) / 1000} seconds )
 Waktu Pencarian Nama Domain Dimulai (domainLookupStart): (${performanceTiming.domainLookupStart - navigationStart}) milliseconds ( ${((performanceTiming.domainLookupStart - navigationStart) / 1000)} seconds )
@@ -87,16 +98,122 @@ Waktu Event Load Selesai (loadEventEnd): (${performanceTiming.loadEventEnd - nav
         await driver.quit();
     })
 
-    BROWSERS.forEach(browser => {
+    BROWSERS.forEach(async browser => {
 
-        it(`Register - from browser ${browser}`, async () => {
+        users.forEach(userData => {
+
+            const data = userData?.split('=');
+            const userAccount = data[1].split(';');
+            const email = userAccount[0];
+            const password = userAccount[1];
+            const name = userAccount[2];
+            const kind = parseInt(userAccount[3]);
+
+            let user = { name, email, password, kind };
+
+            console.log(user, name, email, password, kind);
+
+            switch (user.kind) {
+                case 1:
+                    it(`User - Login from browser ${browser}`, async () => {
+
+                        try {
+                            // Aksi masuk ke dalam halaman browser
+                            driver = await goToApp(browser, appHost);
+                            await driver.manage().window().maximize();
+
+                            // Aksi menunggu mengisi form login untuk melakukan authentication
+                            await loginToApp(driver, user, browser, appHost);
+
+                            // Results
+                            let userData = await driver.executeScript("return window.localStorage.getItem('user_data')");
+                            userData = await JSON.parse(userData);
+
+                            // Expect results and add custom message for addtional description
+                            customMessages = [
+                                userData?.id > 0 ? "Successfully get the data from local storage ✅" : "No data available from local storage ❌",
+                            ]
+                            expect(parseInt(userData.id)).to.greaterThan(0);
+
+                        } catch (error) {
+                            expect.fail(error);
+                        }
+
+
+                    });
+
+                    break;
+                
+                case 2: 
+                    it(`Reader - Login from browser ${browser}`, async function() {
+
+                        try {
+                            // Aksi masuk ke dalam halaman browser
+                            driver = await goToApp(browser, appHost);
+                            await driver.manage().window().maximize();
+
+                            // Aksi menunggu mengisi form login untuk melakukan authentication
+                            await loginToApp(driver, user, browser, appHost);
+
+                            // Results
+                            let userData = await driver.executeScript("return window.localStorage.getItem('user_data')");
+                            userData = await JSON.parse(userData);
+
+                            // Expect results and add custom message for addtional description
+                            customMessages = [
+                                userData?.id > 0 ? "Successfully get the data from local storage ✅" : "No data available from local storage ❌",
+                            ]
+                            expect(parseInt(userData.id)).to.greaterThan(0);
+
+                        } catch (error) {
+                            expect.fail(error);
+                        }
+
+
+                    });
+
+                    break;
+                
+                default:
+                    it(`Test Other - Login from browser ${browser}`, async function() {
+
+                        try {
+                            // Aksi masuk ke dalam halaman browser
+                            driver = await goToApp(browser, appHost);
+                            await driver.manage().window().maximize();
+
+                            // Aksi menunggu mengisi form login untuk melakukan authentication
+                            await loginToApp(driver, user, browser, appHost);
+
+                            // Results
+                            let userData = await driver.executeScript("return window.localStorage.getItem('user_data')");
+                            userData = await JSON.parse(userData);
+
+                            // Expect results and add custom message for addtional description
+                            customMessages = [
+                                userData?.id > 0 ? "Successfully get the data from local storage ✅" : "No data available from local storage ❌",
+                            ]
+                            expect(parseInt(userData.id)).to.greaterThan(0);
+
+                        } catch (error) {
+                            expect.fail(error);
+                        }
+
+
+                    });
+
+                    break;
+            }
+        });
+        
+        it.skip(`Register from browser ${browser}`, async () => {
 
             try {
 
                 
                 driver = await goToApp(browser, appHost);
                 await driver.manage().window().maximize();
-
+            
                 // Aksi menunggu response halaman ter-load semua
                 await driver.wait(async function () {
                     const isNetworkIdle = await driver.executeScript(function () {
@@ -108,35 +225,35 @@ Waktu Event Load Selesai (loadEventEnd): (${performanceTiming.loadEventEnd - nav
                   
                     return isNetworkIdle;
                 }, 10000); 
-
+            
                 // Aksi menghilangkan modal dengan click close 
                 await driver.wait(until.elementLocated(By.css('.modal-content')));
                 await driver.executeScript(`return document.querySelector('.modal-content button.close').click();`);
-
+            
                 // Aksi klik button login 
                 await driver.executeScript(`return document.querySelector('ul li a > button.btn-login').click();`);
-
+            
                 // Aksi sleep
                 await driver.sleep(5000);
-
+            
                 // Aksi klik button register
                 await driver.executeScript(`return document.querySelector('.register-button').click();`);
                 
                 // Aksi sleep
                 await driver.sleep(5000);
-
+            
                 // Aksi mengisi form registration
                 // Dummy data registration
                 let fullName = `Adnan Erlansyah`;
                 let emailData = `${fullName.toLowerCase().replace(/ /g, '')}02@gmail.com`;
                 let passwordData = 'semuasama';
-
+            
                 // Fill data registration
                 await driver.wait(until.elementLocated(By.css(`input[type="email"]`)));
                 await driver.findElement(By.css(`input[type="email"]`)).sendKeys(emailData);
                 await driver.findElement(By.css(`input[type="password"]`)).sendKeys(passwordData);
                 await driver.findElement(By.css(`input#reTypePassword`)).sendKeys(passwordData);
-
+            
                 const stepOneAllFilled = await Promise.all([
                     await driver.findElement(By.css(`input[type="email"]`)).getAttribute('value'),
                     await driver.findElement(By.css(`input[type="password"]`)).getAttribute('value'),
@@ -155,7 +272,7 @@ Waktu Event Load Selesai (loadEventEnd): (${performanceTiming.loadEventEnd - nav
                 await driver.findElement(By.css("input#name")).sendKeys(fullName);
                 // Input DatePicker Start
                 await driver.executeScript(`return document.querySelector("input.datepicker").click()`);
-
+            
                 await driver.wait(async () => {
                     let listBoxCourse = await driver.findElement(By.css('.vdp-datepicker__calendar'));
                     return listBoxCourse.isDisplayed();
@@ -202,8 +319,8 @@ Waktu Event Load Selesai (loadEventEnd): (${performanceTiming.loadEventEnd - nav
                 if (errorElement.length > 0) await thrownAnError(await driver.executeScript(`return document.querySelector('p.error').innerText;`), errorElement.length > 0);
                 let defaultButton = await driver.executeScript(`return document.querySelectorAll('.content .default-button')`);
                 if(defaultButton?.length > 0) await driver.executeScript(`return document.querySelector('.content .default-button').click();`);
-
-
+            
+            
                 // Check the result
                 let userData = await driver.executeScript("return window.localStorage.getItem('user_data')");
                 userData = await JSON.parse(userData);

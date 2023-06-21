@@ -108,7 +108,7 @@ async function getInput() {
                                                                                 console.error(clc.red('\n ❌ Terjadi kesalahan: '), error.stack);
                                                                               } 
                                                                           
-                                                                              console.log(stdout.replaceAll(/✔/g, clc.bold(clc.green('✔'))).replaceAll('passing', clc.green(clc.bold('PASSING'))).replaceAll('pending', clc.bold('PENDING')).replaceAll('failing', clc.bold(clc.red('FAILING'))).replace('AssertionError: ', '').replaceAll("AssertionError", clc.bold(clc.red('AssertionError'))));
+                                                                              console.log(stdout.replace('AssertionError: ', '').replaceAll(/✔/g, clc.bold(clc.green('✔'))).replaceAll('passing', clc.green(clc.bold('PASSING'))).replaceAll('pending', clc.bold('PENDING')).replaceAll('failing', clc.bold(clc.red('FAILING'))).replaceAll("AssertionError", clc.bold(clc.red('AssertionError'))));
                                                                               console.log(clc.yellow('Eksekusi telah selesai!'));
                                                                               console.log(clc.green('Terimakasih sudah mencoba tester!, Kamu bisa cek hasil tester nya di reports 😊'));
                                                                           
@@ -126,7 +126,7 @@ async function getInput() {
                                                                                     console.error(clc.red('\n ❌ Terjadi kesalahan: '), error.stack);
                                                                                   } 
                                                                               
-                                                                                  console.log(stdout.replaceAll(/✔/g, clc.bold(clc.green('✔'))).replaceAll('passing', clc.green(clc.bold('PASSING'))).replaceAll('pending', clc.bold('PENDING')).replaceAll('failing', clc.bold(clc.red('FAILING'))).replace('AssertionError: ', '').replaceAll("AssertionError", clc.bold(clc.red('AssertionError'))));
+                                                                                  console.log(stdout.replace('AssertionError: ', '').replaceAll(/✔/g, clc.bold(clc.green('✔'))).replaceAll('passing', clc.green(clc.bold('PASSING'))).replaceAll('pending', clc.bold('PENDING')).replaceAll('failing', clc.bold(clc.red('FAILING'))).replaceAll("AssertionError", clc.bold(clc.red('AssertionError'))));
                                                                                   console.log(clc.yellow('Eksekusi telah selesai!'));
                                                                                   console.log(clc.green('Terimakasih sudah mencoba tester!, Kamu bisa cek hasil tester nya di reports 😊'));
                                                                               
@@ -146,7 +146,7 @@ async function getInput() {
                                                                                     console.error(clc.red('\n ❌ Terjadi kesalahan: '), error.stack);
                                                                                   } 
                                                                               
-                                                                                  console.log(stdout.replaceAll(/✔/g, clc.bold(clc.green('✔'))).replaceAll('passing', clc.green(clc.bold('PASSING'))).replaceAll('pending', clc.bold('PENDING')).replaceAll('failing', clc.bold(clc.red('FAILING'))).replace('AssertionError: ', '').replaceAll("AssertionError", clc.bold(clc.red('AssertionError'))));
+                                                                                  console.log(stdout.replace('AssertionError: ', '').replaceAll(/✔/g, clc.bold(clc.green('✔'))).replaceAll('passing', clc.green(clc.bold('PASSING'))).replaceAll('pending', clc.bold('PENDING')).replaceAll('failing', clc.bold(clc.red('FAILING'))).replaceAll("AssertionError", clc.bold(clc.red('AssertionError'))));
                                                                                   console.log(clc.yellow('Eksekusi telah selesai!'));
                                                                                   console.log(clc.green('Terimakasih sudah mencoba tester!, Kamu bisa cek hasil tester nya di reports 😊'));
                                                                               
@@ -253,7 +253,7 @@ async function getInput() {
                                                                                                                             console.error(clc.red('\n ❌ Terjadi kesalahan: '), error);
                                                                                                                         } 
                                                                                                                         
-                                                                                                                        console.log(stdout.replaceAll(/✔/g, clc.bold(clc.green('✔'))).replaceAll('passing', clc.green(clc.bold('PASSING'))).replaceAll('pending', clc.bold('PENDING')).replaceAll('failing', clc.bold(clc.red('FAILING'))).replace('AssertionError: ', '').replaceAll("AssertionError", clc.bold(clc.red('AssertionError'))));
+                                                                                                                        console.log(stdout.replace('AssertionError: ', '').replaceAll(/✔/g, clc.bold(clc.green('✔'))).replaceAll('passing', clc.green(clc.bold('PASSING'))).replaceAll('pending', clc.bold('PENDING')).replaceAll('failing', clc.bold(clc.red('FAILING'))).replaceAll("AssertionError", clc.bold(clc.red('AssertionError'))));
                                                                                                                         console.log(clc.yellow('Eksekusi telah selesai!'));
                                                                                                                         console.log(clc.green('Terimakasih sudah mencoba tester!, Kamu bisa cek hasil tester nya di reports 😊'));
                                                                                     
@@ -266,7 +266,7 @@ async function getInput() {
                                                                                                                             console.error(clc.red('\n ❌ Terjadi kesalahan: '), error);
                                                                                                                         } 
                                                                                                                         
-                                                                                                                        console.log(stdout.replaceAll(/✔/g, clc.bold(clc.green('✔'))).replaceAll('passing', clc.green(clc.bold('PASSING'))).replaceAll('pending', clc.bold('PENDING')).replaceAll('failing', clc.bold(clc.red('FAILING'))).replace('AssertionError: ', '').replaceAll("AssertionError", clc.bold(clc.red('AssertionError'))));
+                                                                                                                        console.log(stdout.replace('AssertionError: ', '').replaceAll(/✔/g, clc.bold(clc.green('✔'))).replaceAll('passing', clc.green(clc.bold('PASSING'))).replaceAll('pending', clc.bold('PENDING')).replaceAll('failing', clc.bold(clc.red('FAILING'))).replaceAll("AssertionError", clc.bold(clc.red('AssertionError'))));
                                                                                                                         console.log(clc.yellow('Eksekusi telah selesai!'));
                                                                                                                         console.log(clc.green('Terimakasih sudah mencoba tester!, Kamu bisa cek hasil tester nya di reports 😊'));
                                                                                     
@@ -289,7 +289,7 @@ async function getInput() {
                                                                                                                 console.error(clc.red('\n ❌ Terjadi kesalahan: '), error.stack);
                                                                                                             } 
                                                                                                             
-                                                                                                            console.log(stdout.replaceAll(/✔/g, clc.bold(clc.green('✔'))).replaceAll('passing', clc.green(clc.bold('PASSING'))).replaceAll('pending', clc.bold('PENDING')).replaceAll('failing', clc.bold(clc.red('FAILING'))).replace('AssertionError: ', '').replaceAll("AssertionError", clc.bold(clc.red('AssertionError'))));
+                                                                                                            console.log(stdout.replace('AssertionError: ', '').replaceAll(/✔/g, clc.bold(clc.green('✔'))).replaceAll('passing', clc.green(clc.bold('PASSING'))).replaceAll('pending', clc.bold('PENDING')).replaceAll('failing', clc.bold(clc.red('FAILING'))).replaceAll("AssertionError", clc.bold(clc.red('AssertionError'))));
                                                                                                             console.log(clc.yellow('Eksekusi telah selesai!'));
                                                                                                             console.log(clc.green('Terimakasih sudah mencoba tester!, Kamu bisa cek hasil tester nya di reports 😊'));
                                                                                     
@@ -324,7 +324,7 @@ async function getInput() {
                                                                                                                                 console.error(clc.red('\n ❌ Terjadi kesalahan: '), error);
                                                                                                                             } 
                                                                                     
-                                                                                                                            console.log(stdout.replaceAll(/✔/g, clc.bold(clc.green('✔'))).replaceAll('passing', clc.green(clc.bold('PASSING'))).replaceAll('pending', clc.bold('PENDING')).replaceAll('failing', clc.bold(clc.red('FAILING'))).replace('AssertionError: ', '').replaceAll("AssertionError", clc.bold(clc.red('AssertionError'))));
+                                                                                                                            console.log(stdout.replace('AssertionError: ', '').replaceAll(/✔/g, clc.bold(clc.green('✔'))).replaceAll('passing', clc.green(clc.bold('PASSING'))).replaceAll('pending', clc.bold('PENDING')).replaceAll('failing', clc.bold(clc.red('FAILING'))).replaceAll("AssertionError", clc.bold(clc.red('AssertionError'))));
                                                                                                                             console.log(clc.yellow('Eksekusi telah selesai!'));
                                                                                                                             console.log(clc.green('Terimakasih sudah mencoba tester!, Kamu bisa cek hasil tester nya di reports 😊'));
                                                                                     
@@ -337,7 +337,7 @@ async function getInput() {
                                                                                                                                 console.error(clc.red('\n ❌ Terjadi kesalahan: '), error);
                                                                                                                             } 
                                                                                     
-                                                                                                                            console.log(stdout.replaceAll(/✔/g, clc.bold(clc.green('✔'))).replaceAll('passing', clc.green(clc.bold('PASSING'))).replaceAll('pending', clc.bold('PENDING')).replaceAll('failing', clc.bold(clc.red('FAILING'))).replace('AssertionError: ', '').replaceAll("AssertionError", clc.bold(clc.red('AssertionError'))));
+                                                                                                                            console.log(stdout.replace('AssertionError: ', '').replaceAll(/✔/g, clc.bold(clc.green('✔'))).replaceAll('passing', clc.green(clc.bold('PASSING'))).replaceAll('pending', clc.bold('PENDING')).replaceAll('failing', clc.bold(clc.red('FAILING'))).replaceAll("AssertionError", clc.bold(clc.red('AssertionError'))));
                                                                                                                             console.log(clc.yellow('Eksekusi telah selesai!'));
                                                                                                                             console.log(clc.green('Terimakasih sudah mencoba tester!, Kamu bisa cek hasil tester nya di reports 😊'));
                                                                                     
@@ -360,7 +360,7 @@ async function getInput() {
                                                                                                                     console.error(clc.red('\n ❌ Terjadi kesalahan: '), error.stack);
                                                                                                                 } 
                                                                                     
-                                                                                                                console.log(stdout.replaceAll(/✔/g, clc.bold(clc.green('✔'))).replaceAll('passing', clc.green(clc.bold('PASSING'))).replaceAll('pending', clc.bold('PENDING')).replaceAll('failing', clc.bold(clc.red('FAILING'))).replace('AssertionError: ', '').replaceAll("AssertionError", clc.bold(clc.red('AssertionError'))));
+                                                                                                                console.log(stdout.replace('AssertionError: ', '').replaceAll(/✔/g, clc.bold(clc.green('✔'))).replaceAll('passing', clc.green(clc.bold('PASSING'))).replaceAll('pending', clc.bold('PENDING')).replaceAll('failing', clc.bold(clc.red('FAILING'))).replaceAll("AssertionError", clc.bold(clc.red('AssertionError'))));
                                                                                                                 console.log(clc.yellow('Eksekusi telah selesai!'));
                                                                                                                 console.log(clc.green('Terimakasih sudah mencoba tester!, Kamu bisa cek hasil tester nya di reports 😊'));
                                                                                     
@@ -398,7 +398,7 @@ async function getInput() {
                                                                                                                                 console.error(clc.red('\n ❌ Terjadi kesalahan: '), error);
                                                                                                                             } 
                                                                                     
-                                                                                                                            console.log(stdout.replaceAll(/✔/g, clc.bold(clc.green('✔'))).replaceAll('passing', clc.green(clc.bold('PASSING'))).replaceAll('pending', clc.bold('PENDING')).replaceAll('failing', clc.bold(clc.red('FAILING'))).replace('AssertionError: ', '').replaceAll("AssertionError", clc.bold(clc.red('AssertionError'))));
+                                                                                                                            console.log(stdout.replace('AssertionError: ', '').replaceAll(/✔/g, clc.bold(clc.green('✔'))).replaceAll('passing', clc.green(clc.bold('PASSING'))).replaceAll('pending', clc.bold('PENDING')).replaceAll('failing', clc.bold(clc.red('FAILING'))).replaceAll("AssertionError", clc.bold(clc.red('AssertionError'))));
                                                                                                                             console.log(clc.yellow('Eksekusi telah selesai!'));
                                                                                                                             console.log(clc.green('Terimakasih sudah mencoba tester!, Kamu bisa cek hasil tester nya di reports 😊'));
                                                                                     
@@ -411,7 +411,7 @@ async function getInput() {
                                                                                                                                 console.error(clc.red('\n ❌ Terjadi kesalahan: '), error);
                                                                                                                             } 
                                                                                     
-                                                                                                                            console.log(stdout.replaceAll(/✔/g, clc.bold(clc.green('✔'))).replaceAll('passing', clc.green(clc.bold('PASSING'))).replaceAll('pending', clc.bold('PENDING')).replaceAll('failing', clc.bold(clc.red('FAILING'))).replace('AssertionError: ', '').replaceAll("AssertionError", clc.bold(clc.red('AssertionError'))));
+                                                                                                                            console.log(stdout.replace('AssertionError: ', '').replaceAll(/✔/g, clc.bold(clc.green('✔'))).replaceAll('passing', clc.green(clc.bold('PASSING'))).replaceAll('pending', clc.bold('PENDING')).replaceAll('failing', clc.bold(clc.red('FAILING'))).replaceAll("AssertionError", clc.bold(clc.red('AssertionError'))));
                                                                                                                             console.log(clc.yellow('Eksekusi telah selesai!'));
                                                                                                                             console.log(clc.green('Terimakasih sudah mencoba tester!, Kamu bisa cek hasil tester nya di reports 😊'));
                                                                                     
@@ -434,7 +434,7 @@ async function getInput() {
                                                                                                                     console.error(clc.red('\n ❌ Terjadi kesalahan: '), error.stack);
                                                                                                                 } 
                                                                                     
-                                                                                                                console.log(stdout.replaceAll(/✔/g, clc.bold(clc.green('✔'))).replaceAll('passing', clc.green(clc.bold('PASSING'))).replaceAll('pending', clc.bold('PENDING')).replaceAll('failing', clc.bold(clc.red('FAILING'))).replace('AssertionError: ', '').replaceAll("AssertionError", clc.bold(clc.red('AssertionError'))));
+                                                                                                                console.log(stdout.replace('AssertionError: ', '').replaceAll(/✔/g, clc.bold(clc.green('✔'))).replaceAll('passing', clc.green(clc.bold('PASSING'))).replaceAll('pending', clc.bold('PENDING')).replaceAll('failing', clc.bold(clc.red('FAILING'))).replaceAll("AssertionError", clc.bold(clc.red('AssertionError'))));
                                                                                                                 console.log(clc.yellow('Eksekusi telah selesai!'));
                                                                                                                 console.log(clc.green('Terimakasih sudah mencoba tester!, Kamu bisa cek hasil tester nya di reports 😊'));
                                                                                     
@@ -491,7 +491,7 @@ async function getInput() {
                                                                                 console.error(clc.red('\n ❌ Terjadi kesalahan: '), error);
                                                                             } 
                                                                             
-                                                                            console.log(stdout.replaceAll(/✔/g, clc.bold(clc.green('✔'))).replaceAll('passing', clc.green(clc.bold('PASSING'))).replaceAll('pending', clc.bold('PENDING')).replaceAll('failing', clc.bold(clc.red('FAILING'))).replace('AssertionError: ', '').replaceAll("AssertionError", clc.bold(clc.red('AssertionError'))));
+                                                                            console.log(stdout.replace('AssertionError: ', '').replaceAll(/✔/g, clc.bold(clc.green('✔'))).replaceAll('passing', clc.green(clc.bold('PASSING'))).replaceAll('pending', clc.bold('PENDING')).replaceAll('failing', clc.bold(clc.red('FAILING'))).replaceAll("AssertionError", clc.bold(clc.red('AssertionError'))));
                                                                             console.log(clc.yellow('Eksekusi telah selesai!'));
                                                                             console.log(clc.green('Terimakasih sudah mencoba tester!, Kamu bisa cek hasil tester nya di reports 😊'));
                                                 
@@ -504,7 +504,7 @@ async function getInput() {
                                                                                 console.error(clc.red('\n ❌ Terjadi kesalahan: '), error);
                                                                             }
                                                 
-                                                                            console.log(stdout.replaceAll(/✔/g, clc.bold(clc.green('✔'))).replaceAll('passing', clc.green(clc.bold('PASSING'))).replaceAll('pending', clc.bold('PENDING')).replaceAll('failing', clc.bold(clc.red('FAILING'))).replace('AssertionError: ', '').replaceAll("AssertionError", clc.bold(clc.red('AssertionError'))));
+                                                                            console.log(stdout.replace('AssertionError: ', '').replaceAll(/✔/g, clc.bold(clc.green('✔'))).replaceAll('passing', clc.green(clc.bold('PASSING'))).replaceAll('pending', clc.bold('PENDING')).replaceAll('failing', clc.bold(clc.red('FAILING'))).replaceAll("AssertionError", clc.bold(clc.red('AssertionError'))));
                                                                             console.log(clc.yellow('Eksekusi telah selesai!'));
                                                                             console.log(clc.green('Terimakasih sudah mencoba tester!, Kamu bisa cek hasil tester nya di reports 😊'));
                                                 
@@ -526,7 +526,7 @@ async function getInput() {
                                                                     console.error(clc.red('\n ❌ Terjadi kesalahan: '), error.stack);
                                                                 }
                                     
-                                                                console.log(stdout.replaceAll(/✔/g, clc.bold(clc.green('✔'))).replaceAll('passing', clc.green(clc.bold('PASSING'))).replaceAll('pending', clc.bold('PENDING')).replaceAll('failing', clc.bold(clc.red('FAILING'))).replace('AssertionError: ', '').replaceAll("AssertionError", clc.bold(clc.red('AssertionError'))));
+                                                                console.log(stdout.replace('AssertionError: ', '').replaceAll(/✔/g, clc.bold(clc.green('✔'))).replaceAll('passing', clc.green(clc.bold('PASSING'))).replaceAll('pending', clc.bold('PENDING')).replaceAll('failing', clc.bold(clc.red('FAILING'))).replaceAll("AssertionError", clc.bold(clc.red('AssertionError'))));
                                                                 console.log(clc.yellow('Eksekusi telah selesai!'));
                                                                 console.log(clc.green('Terimakasih sudah mencoba tester!, Kamu bisa cek hasil tester nya di reports 😊'));
                                     
@@ -591,7 +591,7 @@ async function getInput() {
                                                                                                     console.error(clc.red('\n ❌ Terjadi kesalahan: '), error.stack);
                                                                                                   }
                                                                                               
-                                                                                                  console.log(stdout.replaceAll(/✔/g, clc.bold(clc.green('✔'))).replaceAll('passing', clc.green(clc.bold('PASSING'))).replaceAll('pending', clc.bold('PENDING')).replaceAll('failing', clc.bold(clc.red('FAILING'))).replace('AssertionError: ', '').replaceAll("AssertionError", clc.bold(clc.red('AssertionError'))));
+                                                                                                  console.log(stdout.replace('AssertionError: ', '').replaceAll(/✔/g, clc.bold(clc.green('✔'))).replaceAll('passing', clc.green(clc.bold('PASSING'))).replaceAll('pending', clc.bold('PENDING')).replaceAll('failing', clc.bold(clc.red('FAILING'))).replaceAll("AssertionError", clc.bold(clc.red('AssertionError'))));
                                                                                                   console.log(clc.yellow('Eksekusi telah selesai!'));
                                                                                                   console.log(clc.green('Terimakasih sudah mencoba tester!, Kamu bisa cek hasil tester nya di reports 😊'));
                                                                                               
@@ -609,7 +609,7 @@ async function getInput() {
                                                                                                         console.error(clc.red('\n ❌ Terjadi kesalahan: '), error.stack);
                                                                                                       } 
                                                                                                       
-                                                                                                      console.log(stdout.replaceAll(/✔/g, clc.bold(clc.green('✔'))).replaceAll('passing', clc.green(clc.bold('PASSING'))).replaceAll('pending', clc.bold('PENDING')).replaceAll('failing', clc.bold(clc.red('FAILING'))).replace('AssertionError: ', '').replaceAll("AssertionError", clc.bold(clc.red('AssertionError'))));
+                                                                                                      console.log(stdout.replace('AssertionError: ', '').replaceAll(/✔/g, clc.bold(clc.green('✔'))).replaceAll('passing', clc.green(clc.bold('PASSING'))).replaceAll('pending', clc.bold('PENDING')).replaceAll('failing', clc.bold(clc.red('FAILING'))).replaceAll("AssertionError", clc.bold(clc.red('AssertionError'))));
                                                                                                       console.log(clc.yellow('Eksekusi telah selesai!'));
                                                                                                       console.log(clc.green('Terimakasih sudah mencoba tester!, Kamu bisa cek hasil tester nya di reports 😊'));
                                                                                                   
@@ -629,7 +629,7 @@ async function getInput() {
                                                                                                         console.error(clc.red('\n ❌ Terjadi kesalahan: '), error.stack);
                                                                                                       }
                                                                                                   
-                                                                                                      console.log(stdout.replaceAll(/✔/g, clc.bold(clc.green('✔'))).replaceAll('passing', clc.green(clc.bold('PASSING'))).replaceAll('pending', clc.bold('PENDING')).replaceAll('failing', clc.bold(clc.red('FAILING'))).replace('AssertionError: ', '').replaceAll("AssertionError", clc.bold(clc.red('AssertionError'))));
+                                                                                                      console.log(stdout.replace('AssertionError: ', '').replaceAll(/✔/g, clc.bold(clc.green('✔'))).replaceAll('passing', clc.green(clc.bold('PASSING'))).replaceAll('pending', clc.bold('PENDING')).replaceAll('failing', clc.bold(clc.red('FAILING'))).replaceAll("AssertionError", clc.bold(clc.red('AssertionError'))));
                                                                                                       console.log(clc.yellow('Eksekusi telah selesai!'));
                                                                                                       console.log(clc.green('Terimakasih sudah mencoba tester!, Kamu bisa cek hasil tester nya di reports 😊'));
                                                                                                   
@@ -669,7 +669,7 @@ async function getInput() {
                                                                 console.error(clc.red('\n ❌ Terjadi kesalahan: '), error.stack);
                                                             } 
                                 
-                                                            console.log(stdout.replaceAll(/✔/g, clc.bold(clc.green('✔'))).replaceAll('passing', clc.green(clc.bold('PASSING'))).replaceAll('pending', clc.bold('PENDING')).replaceAll('failing', clc.bold(clc.red('FAILING'))).replace('AssertionError: ', '').replaceAll("AssertionError", clc.bold(clc.red('AssertionError'))));
+                                                            console.log(stdout.replace('AssertionError: ', '').replaceAll(/✔/g, clc.bold(clc.green('✔'))).replaceAll('passing', clc.green(clc.bold('PASSING'))).replaceAll('pending', clc.bold('PENDING')).replaceAll('failing', clc.bold(clc.red('FAILING'))).replaceAll("AssertionError", clc.bold(clc.red('AssertionError'))));
                                                             console.log(clc.yellow('Eksekusi telah selesai!'));
                                                             console.log(clc.green('Terimakasih sudah mencoba tester!, Kamu bisa cek hasil tester nya di reports 😊'));
                                 

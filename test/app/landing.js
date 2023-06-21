@@ -128,6 +128,170 @@ Waktu Event Load Selesai (loadEventEnd): (${performanceTiming.loadEventEnd - nav
 
         });
 
+        it(`Go into article page from browser ${browser}`, async () => {
+
+            try {
+
+                driver = await goToApp(browser, appHost);
+                await driver.manage().window().maximize();
+
+                await driver.wait(until.elementLocated(By.css('.modal-content')));              
+                await driver.findElement(By.css(".modal-content header button.close")).click();
+
+                // Aksi mengklik menu tab article
+                await driver.executeScript(`return document.querySelectorAll("ul.navbar-nav li.nav-item a.nav-link a")[1].click();`);
+
+                // Aksi sleep 
+                await driver.sleep(5000);
+
+                // Expect results and add custom message for addtional description
+                let currentPageUrl = await driver.getCurrentUrl();
+
+                customMessages = [
+                    currentPageUrl === appHost + 'article' ? 'Successfully go into article page ✅' : 'Failed go into article page ❌',
+                ]
+                expect(currentPageUrl).to.equal(appHost + 'article');
+
+            } catch (error) {
+                expect.fail(error);
+            }
+
+
+        });
+        
+        it(`Check if there's an article on the article page from browser ${browser}`, async () => {
+
+            try {
+
+                driver = await goToApp(browser, appHost);
+                await driver.manage().window().maximize();
+
+                await driver.wait(until.elementLocated(By.css('.modal-content')));              
+                await driver.findElement(By.css(".modal-content header button.close")).click();
+
+                // Aksi mengklik menu tab article
+                await driver.executeScript(`return document.querySelectorAll("ul.navbar-nav li.nav-item a.nav-link a")[1].click();`);
+
+                // Aksi sleep 
+                await driver.sleep(5000);
+
+                // Aksi mengecek apakah article ada atau tidak
+                let emptyArticle = await driver.executeScript(`return document.querySelectorAll('p.text-white');`);
+                await thrownAnError(await emptyArticle[0].getAttribute('innerText'), await emptyArticle.length > 0);
+
+                // Expect results and add custom message for addtional description
+                let currentPageUrl = await driver.getCurrentUrl();
+
+                customMessages = [
+                    currentPageUrl === appHost + 'article' ? 'Successfully go into article page ✅' : 'Failed go into article page ❌',
+                    emptyArticle.length === 0 ? 'There is an article on the page ✅' : 'There is no article on the page ❌'
+                ]
+                expect(currentPageUrl).to.equal(appHost + 'article');
+
+            } catch (error) {
+                expect.fail(error);
+            }
+
+
+        });
+        
+        it(`Go into reader page from browser ${browser}`, async () => {
+
+            try {
+
+                driver = await goToApp(browser, appHost);
+                await driver.manage().window().maximize();
+
+                await driver.wait(until.elementLocated(By.css('.modal-content')));              
+                await driver.findElement(By.css(".modal-content header button.close")).click();
+
+                // Aksi mengklik menu tab article
+                await driver.executeScript(`return document.querySelectorAll("ul.navbar-nav li.nav-item a.nav-link a")[2].click();`);
+
+                // Aksi sleep 
+                await driver.sleep(5000);
+
+                // Expect results and add custom message for addtional description
+                let currentPageUrl = await driver.getCurrentUrl();
+
+                customMessages = [
+                    currentPageUrl === appHost + 'councelor' ? 'Successfully go into reader page ✅' : 'Failed go into reader page ❌',
+                ]
+                expect(currentPageUrl).to.equal(appHost + 'councelor');
+
+            } catch (error) {
+                expect.fail(error);
+            }
+
+
+        });
+
+        it(`Check if there's an reader or no on the reader page from browser ${browser}`, async () => {
+
+            try {
+
+                driver = await goToApp(browser, appHost);
+                await driver.manage().window().maximize();
+
+                await driver.wait(until.elementLocated(By.css('.modal-content')));              
+                await driver.findElement(By.css(".modal-content header button.close")).click();
+
+                // Aksi mengklik menu tab article
+                await driver.executeScript(`return document.querySelectorAll("ul.navbar-nav li.nav-item a.nav-link a")[1].click();`);
+
+                // Aksi sleep 
+                await driver.sleep(5000);
+
+                // Aksi mengecek apakah article ada atau tidak
+                let emptyArticle = await driver.executeScript(`return document.querySelectorAll('div#user-overview');`);
+                await thrownAnError('Sorry there is no a reader on the page', await emptyArticle.length === 0);
+
+                // Expect results and add custom message for addtional description
+                let currentPageUrl = await driver.getCurrentUrl();
+
+                customMessages = [
+                    currentPageUrl === appHost + 'reader' ? 'Successfully go into reader page ✅' : 'Failed go into reader page ❌',
+                    emptyArticle.length === 0 ? 'There is an reader on the page ✅' : 'There is no reader on the page ❌'
+                ]
+                expect(currentPageUrl).to.equal(appHost + 'reader');
+
+            } catch (error) {
+                expect.fail(error);
+            }
+
+
+        });
+        
+        it(`Go into about page from browser ${browser}`, async () => {
+
+            try {
+
+                driver = await goToApp(browser, appHost);
+                await driver.manage().window().maximize();
+
+                await driver.wait(until.elementLocated(By.css('.modal-content')));              
+                await driver.findElement(By.css(".modal-content header button.close")).click();
+
+                // Aksi mengklik menu tab article
+                await driver.executeScript(`return document.querySelectorAll("ul.navbar-nav li.nav-item a.nav-link a")[3].click();`);
+
+                // Aksi sleep 
+                await driver.sleep(5000);
+
+                // Expect results and add custom message for addtional description
+                let currentPageUrl = await driver.getCurrentUrl();
+
+                customMessages = [
+                    currentPageUrl === appHost + 'about' ? 'Successfully go into reader page ✅' : 'Failed go into reader page ❌',
+                ]
+                expect(currentPageUrl).to.equal(appHost + 'about');
+
+            } catch (error) {
+                expect.fail(error);
+            }
+
+
+        });
     })
 
 

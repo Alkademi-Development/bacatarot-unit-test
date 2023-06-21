@@ -130,10 +130,13 @@ Waktu Event Load Selesai (loadEventEnd): (${performanceTiming.loadEventEnd - nav
                             userData = await JSON.parse(userData);
 
                             // Expect results and add custom message for addtional description
+                            const currentUrl = await driver.getCurrentUrl();
                             customMessages = [
                                 userData?.id > 0 ? "Successfully get the data from local storage ✅" : "No data available from local storage ❌",
+                                currentUrl === appHost + 'user' ? 'Successfully go into dashboard user page ✅' : 'Successfully go into dashboard user page ❌' 
                             ]
                             expect(parseInt(userData.id)).to.greaterThan(0);
+                            expect(currentUrl).to.equal(appHost + 'user');
 
                         } catch (error) {
                             expect.fail(error);
@@ -160,10 +163,13 @@ Waktu Event Load Selesai (loadEventEnd): (${performanceTiming.loadEventEnd - nav
                             userData = await JSON.parse(userData);
 
                             // Expect results and add custom message for addtional description
+                            const currentUrl = await driver.getCurrentUrl();
                             customMessages = [
                                 userData?.id > 0 ? "Successfully get the data from local storage ✅" : "No data available from local storage ❌",
+                                currentUrl === appHost + 'reader' ? 'Successfully go into dashboard reader page ✅' : 'Successfully go into dashboard reader page ❌' 
                             ]
                             expect(parseInt(userData.id)).to.greaterThan(0);
+                            expect(currentUrl).to.equal(appHost + 'reader');
 
                         } catch (error) {
                             expect.fail(error);
