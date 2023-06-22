@@ -34,8 +34,8 @@
           "beforeHooks": [],
           "afterHooks": [
             {
-              "title": "\"after all\" hook in \"Test\"",
-              "fullTitle": "Test \"after all\" hook in \"Test\"",
+              "title": "\"after all\" hook in \"Register\"",
+              "fullTitle": "Test \"after all\" hook in \"Register\"",
               "timedOut": false,
               "duration": 0,
               "state": null,
@@ -52,8 +52,8 @@
               "skipped": false
             },
             {
-              "title": "\"after each\" hook in \"Test\"",
-              "fullTitle": "Test \"after each\" hook in \"Test\"",
+              "title": "\"after each\" hook in \"Register\"",
+              "fullTitle": "Test \"after each\" hook in \"Register\"",
               "timedOut": false,
               "duration": 4336,
               "state": null,

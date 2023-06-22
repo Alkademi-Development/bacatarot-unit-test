@@ -66,7 +66,7 @@ function askMergeReport() {
                   const options = { 
                       reportPageTitle: `Report Testing ${input} ${moment().tz('Asia/Jakarta').format('MM-DD-YYYY')}`,
                       reportDir: './testResults', // Path folder untuk menyimpan report
-                      reportFilename: `merged-report-${input}.html`, // Nama file report
+                      reportFilename: `${moment().tz('Asia/Jakarta').format('MM-DD-YYYY')}-merged-report-${input}.html`, // Nama file report
                       assetsDir: './testResults/assets', // Path folder untuk menyimpan assets
                   };
                   await create(JSON.parse(reportData), options);
@@ -87,7 +87,7 @@ function askMergeReport() {
                   const options = { 
                       reportPageTitle: `Report Testing ${input} ${moment().tz('Asia/Jakarta').format('MM-DD-YYYY')}`,
                       reportDir: './testResults', // Path folder untuk menyimpan report
-                      reportFilename: `merged-report-${input}.html`, // Nama file report
+                      reportFilename: `${moment().tz('Asia/Jakarta').format('MM-DD-YYYY')}-merged-report-${input}.html`, // Nama file report
                       assetsDir: './testResults/assets', // Path folder untuk menyimpan assets
                   };
                   await create(JSON.parse(reportData), options);
