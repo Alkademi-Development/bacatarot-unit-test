@@ -124,6 +124,18 @@ Waktu Event Load Selesai (loadEventEnd): (${performanceTiming.loadEventEnd - nav
 
                             // Aksi menunggu mengisi form login untuk melakukan authentication
                             await loginToApp(driver, user, browser, appHost);
+                            
+                            // Aksi menunggu response halaman ter-load semua
+                            await driver.wait(async function () {
+                                const isNetworkIdle = await driver.executeScript(function () {
+                                  const performanceEntries = window.performance.getEntriesByType('resource');
+                                  return performanceEntries.every(function (entry) {
+                                    return entry.responseEnd > 0;
+                                  });
+                                });
+                              
+                                return isNetworkIdle;
+                            }, 10000); 
 
                             // Results
                             let userData = await driver.executeScript("return window.localStorage.getItem('user_data')");
@@ -134,6 +146,48 @@ Waktu Event Load Selesai (loadEventEnd): (${performanceTiming.loadEventEnd - nav
                                 userData?.id > 0 ? "Successfully get the data from local storage ✅" : "No data available from local storage ❌",
                             ]
                             expect(parseInt(userData.id)).to.greaterThan(0);
+
+                        } catch (error) {
+                            expect.fail(error);
+                        }
+
+
+                    });
+                    
+                    it(`User - Logout from browser ${browser}`, async () => {
+
+                        try {
+                            // Aksi masuk ke dalam halaman browser
+                            driver = await goToApp(browser, appHost);
+                            await driver.manage().window().maximize();
+
+                            // Aksi menunggu mengisi form login untuk melakukan authentication
+                            await loginToApp(driver, user, browser, appHost);
+
+                            // Aksi sleep
+                            await driver.sleep(5000);
+
+                            // Aksi klik button profile
+                            await driver.executeScript(`return document.querySelectorAll("ul.navbar-nav li.nav-item a a")[3].click()`);
+
+                            // Aksi Sleep
+                            await driver.sleep(3000);
+
+                            // Aksi klik button logout
+                            await driver.executeScript(`return document.querySelector('button.logout-btn').click()`);
+
+                            // Aksi sleep
+                            await driver.sleep(5000);
+
+                            // Results
+                            let userData = await driver.executeScript("return window.localStorage.getItem('user_data')");
+                            userData = await JSON.parse(userData);
+
+                            // Expect results and add custom message for addtional description
+                            customMessages = [
+                                userData === null || userData === undefined ? "Successfully remove the data of user from local storage ✅" : "Failed to remove data of user from local storage ❌",
+                            ]
+                            expect(userData).to.equal(null);
 
                         } catch (error) {
                             expect.fail(error);
@@ -154,6 +208,18 @@ Waktu Event Load Selesai (loadEventEnd): (${performanceTiming.loadEventEnd - nav
 
                             // Aksi menunggu mengisi form login untuk melakukan authentication
                             await loginToApp(driver, user, browser, appHost);
+                            
+                            // Aksi menunggu response halaman ter-load semua
+                            await driver.wait(async function () {
+                                const isNetworkIdle = await driver.executeScript(function () {
+                                  const performanceEntries = window.performance.getEntriesByType('resource');
+                                  return performanceEntries.every(function (entry) {
+                                    return entry.responseEnd > 0;
+                                  });
+                                });
+                              
+                                return isNetworkIdle;
+                            }, 10000); 
 
                             // Results
                             let userData = await driver.executeScript("return window.localStorage.getItem('user_data')");
@@ -164,6 +230,48 @@ Waktu Event Load Selesai (loadEventEnd): (${performanceTiming.loadEventEnd - nav
                                 userData?.id > 0 ? "Successfully get the data from local storage ✅" : "No data available from local storage ❌",
                             ]
                             expect(parseInt(userData.id)).to.greaterThan(0);
+
+                        } catch (error) {
+                            expect.fail(error);
+                        }
+
+
+                    });
+                    
+                    it(`Reader - Logout from browser ${browser}`, async () => {
+
+                        try {
+                            // Aksi masuk ke dalam halaman browser
+                            driver = await goToApp(browser, appHost);
+                            await driver.manage().window().maximize();
+
+                            // Aksi menunggu mengisi form login untuk melakukan authentication
+                            await loginToApp(driver, user, browser, appHost);
+
+                            // Aksi sleep
+                            await driver.sleep(5000);
+
+                            // Aksi klik button profile
+                            await driver.executeScript(`return document.querySelectorAll("ul.navbar-nav li.nav-item a a")[3].click()`);
+
+                            // Aksi Sleep
+                            await driver.sleep(3000);
+
+                            // Aksi klik button logout
+                            await driver.executeScript(`return document.querySelectorAll('img.icon-sm')[document.querySelectorAll('img.icon-sm').length - 1].click();`);
+
+                            // Aksi sleep
+                            await driver.sleep(5000);
+
+                            // Results
+                            let userData = await driver.executeScript("return window.localStorage.getItem('user_data')");
+                            userData = await JSON.parse(userData);
+
+                            // Expect results and add custom message for addtional description
+                            customMessages = [
+                                userData === null || userData === undefined ? "Successfully remove the data of user from local storage ✅" : "Failed to remove data of user from local storage ❌",
+                            ]
+                            expect(userData).to.equal(null);
 
                         } catch (error) {
                             expect.fail(error);
@@ -204,137 +312,6 @@ Waktu Event Load Selesai (loadEventEnd): (${performanceTiming.loadEventEnd - nav
 
                     break;
             }
-        });
-        
-        it.skip(`Register from browser ${browser}`, async () => {
-
-            try {
-
-                
-                driver = await goToApp(browser, appHost);
-                await driver.manage().window().maximize();
-            
-                // Aksi menunggu response halaman ter-load semua
-                await driver.wait(async function () {
-                    const isNetworkIdle = await driver.executeScript(function () {
-                      const performanceEntries = window.performance.getEntriesByType('resource');
-                      return performanceEntries.every(function (entry) {
-                        return entry.responseEnd > 0;
-                      });
-                    });
-                  
-                    return isNetworkIdle;
-                }, 10000); 
-            
-                // Aksi menghilangkan modal dengan click close 
-                await driver.wait(until.elementLocated(By.css('.modal-content')));
-                await driver.executeScript(`return document.querySelector('.modal-content button.close').click();`);
-            
-                // Aksi klik button login 
-                await driver.executeScript(`return document.querySelector('ul li a > button.btn-login').click();`);
-            
-                // Aksi sleep
-                await driver.sleep(5000);
-            
-                // Aksi klik button register
-                await driver.executeScript(`return document.querySelector('.register-button').click();`);
-                
-                // Aksi sleep
-                await driver.sleep(5000);
-            
-                // Aksi mengisi form registration
-                // Dummy data registration
-                let fullName = `Adnan Erlansyah`;
-                let emailData = `${fullName.toLowerCase().replace(/ /g, '')}02@gmail.com`;
-                let passwordData = 'semuasama';
-            
-                // Fill data registration
-                await driver.wait(until.elementLocated(By.css(`input[type="email"]`)));
-                await driver.findElement(By.css(`input[type="email"]`)).sendKeys(emailData);
-                await driver.findElement(By.css(`input[type="password"]`)).sendKeys(passwordData);
-                await driver.findElement(By.css(`input#reTypePassword`)).sendKeys(passwordData);
-            
-                const stepOneAllFilled = await Promise.all([
-                    await driver.findElement(By.css(`input[type="email"]`)).getAttribute('value'),
-                    await driver.findElement(By.css(`input[type="password"]`)).getAttribute('value'),
-                    await driver.findElement(By.css(`input#reTypePassword`)).getAttribute('value'),
-                ]).then(results => results.every(value => value != ''));
-                if(stepOneAllFilled) {
-                    await driver.executeScript(`return document.querySelector('.wrapper button.btn-lanjut').classList.remove('disabled');`);
-                    await driver.executeScript(`return document.querySelector('.wrapper button.btn-lanjut').removeAttribute('disabled')`);
-                    // Aksi Sleep
-                    await driver.sleep(5000);
-                    await driver.executeScript(`return document.querySelector('.wrapper button.btn-lanjut').click()`);
-                }
-                // Aksi Sleep
-                await driver.sleep(5000);
-                // Fill again
-                await driver.findElement(By.css("input#name")).sendKeys(fullName);
-                // Input DatePicker Start
-                await driver.executeScript(`return document.querySelector("input.datepicker").click()`);
-            
-                await driver.wait(async () => {
-                    let listBoxCourse = await driver.findElement(By.css('.vdp-datepicker__calendar'));
-                    return listBoxCourse.isDisplayed();
-                });
-                await driver.sleep(3000);
-                await driver.findElement(By.css('span.day__month_btn')).click();
-                await driver.sleep(3000);
-                await driver.findElement(By.css('span.month__year_btn')).click();
-                await driver.sleep(3000);
-                for (let index = 0; index < 2; index++) {
-                    await driver.executeScript(`return document.querySelectorAll('span.prev')[2].click();`);
-                }
-                await driver.sleep(10000);
-                let selectsYear = await driver.executeScript(`return document.querySelectorAll('span.cell.year')`);
-                await selectsYear[faker.number.int({ min: 0, max: 6 })].click();
-                await driver.sleep(3000);
-                let selectsMonth = await driver.executeScript(`return document.querySelectorAll('span.cell.month')`);
-                await selectsMonth[faker.number.int({ min: 0, max: 10 })].click();
-                await driver.sleep(5000);
-                await driver.executeScript(`return document.querySelectorAll('span.cell.day')[${faker.number.int({ min: 1, max: 28 })}].click()`);
-                await driver.sleep(3000);
-                // Input DatePicker End
-                let radioGenders = await driver.executeScript(`return document.querySelectorAll('.radio-gender .radio-item')`);
-                await radioGenders[faker.number.int({ min: 0, max: 1 })].click();
-                await driver.executeScript(`return document.querySelector('input#ketentuan').click()`);
-                const isAllFilled = await Promise.all([
-                    await driver.findElement(By.css("input#name")).getAttribute('value'),
-                    await driver.findElement(By.css("input.datepicker")).getAttribute('value'),
-                    await driver.findElement(By.css(`input[name="radio-gender"]`)).getAttribute('value'),
-                    await driver.findElement(By.css("input#ketentuan")).getAttribute('value'),
-                ]).then(results => results.every(value => value != ''));
-                if(isAllFilled) {
-                    await driver.executeScript(`return document.querySelector('button.btn-lanjut').classList.remove('disabled');`);
-                    await driver.executeScript(`return document.querySelector('button.btn-lanjut').removeAttribute('disabled')`);
-                    // Aksi Sleep
-                    await driver.sleep(5000);
-                    await driver.executeScript(`return document.querySelector('button.btn-lanjut').click();`);
-                }
-                // Aksi menunggu element overlay loading hilang
-                await driver.wait(until.elementLocated(By.css('.overlay-loading .loading')));
-                let overlayLoading = await driver.findElement(By.css('.overlay-loading .loading'));
-                await driver.wait(until.stalenessOf(overlayLoading));
-                let errorElement = await driver.executeScript(`return document.querySelectorAll('p.error');`)
-                if (errorElement.length > 0) await thrownAnError(await driver.executeScript(`return document.querySelector('p.error').innerText;`), errorElement.length > 0);
-                let defaultButton = await driver.executeScript(`return document.querySelectorAll('.content .default-button')`);
-                if(defaultButton?.length > 0) await driver.executeScript(`return document.querySelector('.content .default-button').click();`);
-            
-            
-                // Check the result
-                let userData = await driver.executeScript("return window.localStorage.getItem('user_data')");
-                userData = await JSON.parse(userData);
-                customMessages = [
-                    isAllFilled & stepOneAllFilled ? 'All data registration already filled ✅' : 'All data registration already filled ❌',
-                    userData?.id > 0 ? "Successfully get the data from local storage ✅" : "No data available from local storage ❌",
-                ];
-                expect(isAllFilled).to.eq(true);
-                expect(parseInt(userData.id)).to.greaterThan(0);
-            } catch (error) {
-                expect.fail(error);
-            }
-
-
         });
 
     })
