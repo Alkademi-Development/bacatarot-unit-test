@@ -23,10 +23,10 @@ const goToApp = async (browser, appHost) => {
 const loginToApp = async (driver, user, browser, appHost) => {
 
     // Aksi klik masuk untuk menuju ke halaman login/authentication
-    const modalPermission = await driver.findElements(By.id("modal-permission"));
-    if(await modalPermission.length > 0) {
-        await driver.wait(until.elementLocated(By.id('modal-permission')));              
-        await driver.findElement(By.css("#modal-permission .modal-content header button.close")).click();
+    let modalContent = await driver.executeScript(`return document.querySelector('.modal-content')`);
+    if(await modalContent?.isDisplayed()) {
+        await driver.wait(until.elementLocated(By.css('.modal-content')));              
+        await driver.findElement(By.css(".modal-content header button.close")).click();
     }
 
     // Aksi mengklik button login 

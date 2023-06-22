@@ -15,6 +15,7 @@ import { fileURLToPath } from 'url';
 import { captureConsoleErrors } from '#root/commons/utils/generalUtils';
 import { thrownAnError } from '#root/commons/utils/generalUtils';
 import moment from 'moment-timezone';
+import { faker } from '@faker-js/faker';
 
 /**
  * Get the user data for authentication
@@ -95,7 +96,11 @@ Waktu Event Load Selesai (loadEventEnd): (${performanceTiming.loadEventEnd - nav
             value: "..\\" + path.relative(fileURLToPath(import.meta.url), fileNamePath)
         });
         await driver.sleep(3000);
-        await driver.quit();
+        try {
+            await driver.quit();
+        } catch (error) {
+            console.error('Error occurred while quitting the driver:', error);
+        }
     })
 
     BROWSERS.forEach(browser => {
@@ -111,8 +116,6 @@ Waktu Event Load Selesai (loadEventEnd): (${performanceTiming.loadEventEnd - nav
 
             let user = { name, email, password, kind };
 
-            console.log(user, name, email, password, kind);
-
             switch (user.kind) {
                 case 1:
                     it(`User - Search of reader on home page dashboard from browser ${browser}`, async () => {
@@ -125,19 +128,54 @@ Waktu Event Load Selesai (loadEventEnd): (${performanceTiming.loadEventEnd - nav
                             // Aksi menunggu mengisi form login untuk melakukan authentication
                             await loginToApp(driver, user, browser, appHost);
 
-                            // Results
-                            let userData = await driver.executeScript("return window.localStorage.getItem('user_data')");
-                            userData = await JSON.parse(userData);
+                            // Aksi sleep
+                            await driver.sleep(5000);
+
+                            // Aksi mengecek apakah reader tersedia atau tidak
+                            let readerList = await driver.executeScript(`return document.querySelectorAll('#user-list h1.username')`);
+                            await thrownAnError('Reader is not available now', await readerList.length === 0);
+                            
+                            // Aksi mengklik button search
+                            await driver.executeScript(`return document.querySelector("button.search-button > div").click();`);
+                            
+                            // Aksi sleep
+                            await driver.sleep(5000);
+                            
+                            // Aksi menunggu modal muncul
+                            let modalContent = await driver.executeScript(`return document.querySelector('.modal-content')`);
+                            let readersName = [];
+                            let readerSearch = '';
+                            if(await modalContent.isDisplayed()) {
+                                // Aksi sleep
+                                await driver.sleep(5000);
+                                readerList = await driver.executeScript(`return document.querySelectorAll('.modal-content div#user-list h1.username')`);
+                                if(await readerList.length > 0) {
+                                    for (let index = 0; index < await readerList.length; index++) {
+                                        readersName.push(await readerList[index].getAttribute('innerText'));
+                                    }
+                                    readerSearch = readersName[faker.number.int({ min: 0, max: readersName?.length })];
+                                    await driver.findElement(By.css('form > input')).sendKeys(readerSearch);
+                                    let formSearch = await driver.findElement(By.css('form'));
+                                    await driver.executeScript("arguments[0].addEventListener('submit', function(e) { e.preventDefault(); });", formSearch);
+                                    await formSearch.submit();
+                                }
+                                await thrownAnError('Reader is not available now on modal search reader', await readerList.length === 0);
+                            }
+                            await thrownAnError('Sorry modal content is not available', await modalContent.isDisplayed() == false);
+
+                            // Aksi mendapatkan kembali data reader saat setelah mencari / mengetik nama reader di input search
+                            readerList = await driver.executeScript(`return document.querySelectorAll('div#user-list h1.username')`);
+                            let findReader = [];
+                            for (let index = 0; index < await readerList.length; index++) {
+                                if(await readerList[index].getAttribute('innerText') === readerSearch) findReader.push(readerList[index]);
+                            }
 
                             // Expect results and add custom message for addtional description
                             const currentUrl = await driver.getCurrentUrl();
                             customMessages = [
-                                userData?.id > 0 ? "Successfully get the data from local storage ✅" : "No data available from local storage ❌",
-                                currentUrl === appHost + 'user' ? 'Successfully go into dashboard user page ✅' : 'Successfully go into dashboard user page ❌' 
-                            ]
-                            expect(parseInt(userData.id)).to.greaterThan(0);
-                            expect(currentUrl).to.equal(appHost + 'user');
-
+                                findReader.length > 0 ? "Successfully got the results search of reader ✅" : "No results found for search reader ❌"
+                            ];
+                            expect(findReader.length).to.greaterThan(0);
                         } catch (error) {
                             expect.fail(error);
                         }
