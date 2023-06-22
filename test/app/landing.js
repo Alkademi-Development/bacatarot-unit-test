@@ -89,7 +89,11 @@ Waktu Event Load Selesai (loadEventEnd): (${performanceTiming.loadEventEnd - nav
         });
 
         await driver.sleep(3000);
-        await driver.quit();
+        try {
+            await driver.quit();
+        } catch (error) {
+            console.error('Error occurred while quitting the driver:', error);
+        }
     })
 
     BROWSERS.forEach(browser => {
@@ -127,6 +131,41 @@ Waktu Event Load Selesai (loadEventEnd): (${performanceTiming.loadEventEnd - nav
 
 
         });
+        
+        it(`Check the button 'Yuk, bacatarot!' from browser ${browser}`, async () => {
+
+            try {
+
+                driver = await goToApp(browser, appHost);
+                await driver.manage().window().maximize();
+
+                // Aksi menunggu modal content
+                let modalContent = await driver.executeScript(`return document.querySelector('.modal-content')`);
+                if(await modalContent?.isDisplayed()) {
+                    await driver.wait(until.elementLocated(By.css('.modal-content')));              
+                    await driver.findElement(By.css(".modal-content header button.close")).click();
+                }
+
+                // Aksi mengklik button 'Yuk, bacatarot!'
+                await driver.executeScript(`return document.querySelector('.button-container .default-button[variant=cream]').click();`);
+
+                // Aksi sleep 
+                await driver.sleep(5000);
+
+                // Expect results and add custom message for addtional description
+                let currentPageUrl = await driver.getCurrentUrl();
+
+                customMessages = [
+                    currentPageUrl === appHost + 'auth' ? 'Successfully go into auth page ✅' : 'Failed go into auth page ❌',
+                ]
+                expect(currentPageUrl).to.equal(appHost + 'auth');
+
+            } catch (error) {
+                expect.fail(error);
+            }
+
+
+        });
 
         it(`Go into article page from browser ${browser}`, async () => {
 
@@ -135,8 +174,12 @@ Waktu Event Load Selesai (loadEventEnd): (${performanceTiming.loadEventEnd - nav
                 driver = await goToApp(browser, appHost);
                 await driver.manage().window().maximize();
 
-                await driver.wait(until.elementLocated(By.css('.modal-content')));              
-                await driver.findElement(By.css(".modal-content header button.close")).click();
+                // Aksi menunggu modal content
+                let modalContent = await driver.executeScript(`return document.querySelector('.modal-content')`);
+                if(await modalContent?.isDisplayed()) {
+                    await driver.wait(until.elementLocated(By.css('.modal-content')));              
+                    await driver.findElement(By.css(".modal-content header button.close")).click();
+                }
 
                 // Aksi mengklik menu tab article
                 await driver.executeScript(`return document.querySelectorAll("ul.navbar-nav li.nav-item a.nav-link a")[1].click();`);
@@ -166,8 +209,12 @@ Waktu Event Load Selesai (loadEventEnd): (${performanceTiming.loadEventEnd - nav
                 driver = await goToApp(browser, appHost);
                 await driver.manage().window().maximize();
 
-                await driver.wait(until.elementLocated(By.css('.modal-content')));              
-                await driver.findElement(By.css(".modal-content header button.close")).click();
+                // Aksi menunggu modal content
+                let modalContent = await driver.executeScript(`return document.querySelector('.modal-content')`);
+                if(await modalContent?.isDisplayed()) {
+                    await driver.wait(until.elementLocated(By.css('.modal-content')));              
+                    await driver.findElement(By.css(".modal-content header button.close")).click();
+                }
 
                 // Aksi mengklik menu tab article
                 await driver.executeScript(`return document.querySelectorAll("ul.navbar-nav li.nav-item a.nav-link a")[1].click();`);
@@ -202,8 +249,12 @@ Waktu Event Load Selesai (loadEventEnd): (${performanceTiming.loadEventEnd - nav
                 driver = await goToApp(browser, appHost);
                 await driver.manage().window().maximize();
 
-                await driver.wait(until.elementLocated(By.css('.modal-content')));              
-                await driver.findElement(By.css(".modal-content header button.close")).click();
+                // Aksi menunggu modal content
+                let modalContent = await driver.executeScript(`return document.querySelector('.modal-content')`);
+                if(await modalContent?.isDisplayed()) {
+                    await driver.wait(until.elementLocated(By.css('.modal-content')));              
+                    await driver.findElement(By.css(".modal-content header button.close")).click();
+                }
 
                 // Aksi mengklik menu tab article
                 await driver.executeScript(`return document.querySelectorAll("ul.navbar-nav li.nav-item a.nav-link a")[2].click();`);
@@ -233,11 +284,15 @@ Waktu Event Load Selesai (loadEventEnd): (${performanceTiming.loadEventEnd - nav
                 driver = await goToApp(browser, appHost);
                 await driver.manage().window().maximize();
 
-                await driver.wait(until.elementLocated(By.css('.modal-content')));              
-                await driver.findElement(By.css(".modal-content header button.close")).click();
+                // Aksi menunggu modal content
+                let modalContent = await driver.executeScript(`return document.querySelector('.modal-content')`);
+                if(await modalContent?.isDisplayed()) {
+                    await driver.wait(until.elementLocated(By.css('.modal-content')));              
+                    await driver.findElement(By.css(".modal-content header button.close")).click();
+                }
 
                 // Aksi mengklik menu tab article
-                await driver.executeScript(`return document.querySelectorAll("ul.navbar-nav li.nav-item a.nav-link a")[1].click();`);
+                await driver.executeScript(`return document.querySelectorAll("ul.navbar-nav li.nav-item a.nav-link a")[2].click();`);
 
                 // Aksi sleep 
                 await driver.sleep(5000);
@@ -250,10 +305,10 @@ Waktu Event Load Selesai (loadEventEnd): (${performanceTiming.loadEventEnd - nav
                 let currentPageUrl = await driver.getCurrentUrl();
 
                 customMessages = [
-                    currentPageUrl === appHost + 'reader' ? 'Successfully go into reader page ✅' : 'Failed go into reader page ❌',
-                    emptyArticle.length === 0 ? 'There is an reader on the page ✅' : 'There is no reader on the page ❌'
+                    currentPageUrl === appHost + 'councelor' ? 'Successfully go into councelor page ✅' : 'Failed go into councelor page ❌',
+                    emptyArticle.length === 0 ? 'There is an councelor on the page ✅' : 'There is no councelor on the page ❌'
                 ]
-                expect(currentPageUrl).to.equal(appHost + 'reader');
+                expect(currentPageUrl).to.equal(appHost + 'councelor');
 
             } catch (error) {
                 expect.fail(error);
@@ -269,8 +324,12 @@ Waktu Event Load Selesai (loadEventEnd): (${performanceTiming.loadEventEnd - nav
                 driver = await goToApp(browser, appHost);
                 await driver.manage().window().maximize();
 
-                await driver.wait(until.elementLocated(By.css('.modal-content')));              
-                await driver.findElement(By.css(".modal-content header button.close")).click();
+                // Aksi menunggu modal content
+                let modalContent = await driver.executeScript(`return document.querySelector('.modal-content')`);
+                if(await modalContent?.isDisplayed()) {
+                    await driver.wait(until.elementLocated(By.css('.modal-content')));              
+                    await driver.findElement(By.css(".modal-content header button.close")).click();
+                }
 
                 // Aksi mengklik menu tab article
                 await driver.executeScript(`return document.querySelectorAll("ul.navbar-nav li.nav-item a.nav-link a")[3].click();`);
@@ -282,7 +341,7 @@ Waktu Event Load Selesai (loadEventEnd): (${performanceTiming.loadEventEnd - nav
                 let currentPageUrl = await driver.getCurrentUrl();
 
                 customMessages = [
-                    currentPageUrl === appHost + 'about' ? 'Successfully go into reader page ✅' : 'Failed go into reader page ❌',
+                    currentPageUrl === appHost + 'about' ? 'Successfully go into about page ✅' : 'Failed go into about page ❌',
                 ]
                 expect(currentPageUrl).to.equal(appHost + 'about');
 

@@ -84,7 +84,11 @@ Waktu Event Load Selesai (loadEventEnd): (${performanceTiming.loadEventEnd - nav
             value: "..\\" + path.relative(fileURLToPath(import.meta.url), fileNamePath)
         });
         await driver.sleep(3000);
-        await driver.quit();
+        try {
+            await driver.quit();
+        } catch (error) {
+            console.error('Error occurred while quitting the driver:', error);
+        }
     })
 
     BROWSERS.forEach(browser => {

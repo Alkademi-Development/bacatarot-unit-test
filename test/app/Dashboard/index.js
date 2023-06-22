@@ -31,7 +31,7 @@ if (process.platform === 'win32') {
     screenshootFilePath = path.resolve(`./testResults/screenshoots/${screenshootFilePath.split("/test/")[1].replaceAll(".js", "")}/`);
 }
 
-describe("Login", () => {
+describe("Dashboard", () => {
     let customMessages = [];
 
     after(async function () {
@@ -95,11 +95,7 @@ Waktu Event Load Selesai (loadEventEnd): (${performanceTiming.loadEventEnd - nav
             value: "..\\" + path.relative(fileURLToPath(import.meta.url), fileNamePath)
         });
         await driver.sleep(3000);
-        try {
-            await driver.quit();
-        } catch (error) {
-            console.error('Error occurred while quitting the driver:', error);
-        }
+        await driver.quit();
     })
 
     BROWSERS.forEach(browser => {
@@ -119,7 +115,7 @@ Waktu Event Load Selesai (loadEventEnd): (${performanceTiming.loadEventEnd - nav
 
             switch (user.kind) {
                 case 1:
-                    it(`User - Login from browser ${browser}`, async () => {
+                    it(`User - Search of reader on home page dashboard from browser ${browser}`, async () => {
 
                         try {
                             // Aksi masuk ke dalam halaman browser
