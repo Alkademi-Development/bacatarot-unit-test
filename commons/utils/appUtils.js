@@ -39,6 +39,11 @@ const loginToApp = async (driver, user, browser, appHost) => {
     await driver.wait(until.elementLocated(By.css(`input#email`)));
     await driver.findElement(By.css(`input#email`)).sendKeys(user.email, Key.RETURN);
     await driver.findElement(By.css(`input#password`)).sendKeys(user.password, Key.RETURN);
+    // Aksi sleep
+    await driver.sleep(3000);
+    // Aksi mengecek ada warning atau tidak pada saat submit login form
+    let errorElement = await driver.executeScript(`return document.querySelectorAll('p.error');`)
+    if (errorElement.length > 0) await thrownAnError(await driver.executeScript(`return document.querySelector('p.error').innerText;`), errorElement.length > 0);
     
     // Aksi menunggu header active user
     await driver.wait(until.elementLocated(By.css("div.active-user")));

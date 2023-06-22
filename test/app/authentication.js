@@ -1,5 +1,5 @@
 import { describe, afterEach } from 'mocha';
-import { By, until } from 'selenium-webdriver';
+import { By, Key, until } from 'selenium-webdriver';
 import addContext from 'mochawesome/addContext.js';
 import { expect } from "chai";
 import * as chai from "chai";
@@ -111,8 +111,6 @@ Waktu Event Load Selesai (loadEventEnd): (${performanceTiming.loadEventEnd - nav
 
             let user = { name, email, password, kind };
 
-            console.log(user, name, email, password, kind);
-
             switch (user.kind) {
                 case 1:
                     it(`User - Login from browser ${browser}`, async () => {
@@ -140,12 +138,15 @@ Waktu Event Load Selesai (loadEventEnd): (${performanceTiming.loadEventEnd - nav
                             // Results
                             let userData = await driver.executeScript("return window.localStorage.getItem('user_data')");
                             userData = await JSON.parse(userData);
+                            let currentUrl = await driver.getCurrentUrl();
 
                             // Expect results and add custom message for addtional description
                             customMessages = [
-                                userData?.id > 0 ? "Successfully get the data from local storage ✅" : "No data available from local storage ❌",
+                                userData?.id > 0 ? "Successfully get the data user from local storage ✅" : "No data available from local storage ❌",
+                                currentUrl === appHost + 'user' ? 'Successfully go into dashboard user page ✅' : 'Successfully go into dashboard user page ❌' 
                             ]
                             expect(parseInt(userData.id)).to.greaterThan(0);
+                            expect(currentUrl).to.equal(appHost + 'user');
 
                         } catch (error) {
                             expect.fail(error);
@@ -208,7 +209,7 @@ Waktu Event Load Selesai (loadEventEnd): (${performanceTiming.loadEventEnd - nav
 
                             // Aksi menunggu mengisi form login untuk melakukan authentication
                             await loginToApp(driver, user, browser, appHost);
-                            
+
                             // Aksi menunggu response halaman ter-load semua
                             await driver.wait(async function () {
                                 const isNetworkIdle = await driver.executeScript(function () {
@@ -224,12 +225,15 @@ Waktu Event Load Selesai (loadEventEnd): (${performanceTiming.loadEventEnd - nav
                             // Results
                             let userData = await driver.executeScript("return window.localStorage.getItem('user_data')");
                             userData = await JSON.parse(userData);
+                            let currentUrl = await driver.getCurrentUrl();
 
                             // Expect results and add custom message for addtional description
                             customMessages = [
-                                userData?.id > 0 ? "Successfully get the data from local storage ✅" : "No data available from local storage ❌",
+                                userData?.id > 0 ? "Successfully get the data reader account from local storage ✅" : "No data available from local storage ❌",
+                                currentUrl === appHost + 'reader' ? 'Successfully go into dashboard reader page ✅' : 'Successfully go into dashboard reader page ❌' 
                             ]
                             expect(parseInt(userData.id)).to.greaterThan(0);
+                            expect(currentUrl).to.equal(appHost + 'reader');
 
                         } catch (error) {
                             expect.fail(error);
@@ -269,9 +273,115 @@ Waktu Event Load Selesai (loadEventEnd): (${performanceTiming.loadEventEnd - nav
 
                             // Expect results and add custom message for addtional description
                             customMessages = [
-                                userData === null || userData === undefined ? "Successfully remove the data of user from local storage ✅" : "Failed to remove data of user from local storage ❌",
+                                userData === null || userData === undefined ? "Successfully remove the data of reader account from local storage ✅" : "Failed to remove data of reader account from local storage ❌",
                             ]
                             expect(userData).to.equal(null);
+
+                        } catch (error) {
+                            expect.fail(error);
+                        }
+
+
+                    });
+                    
+                    it(`Reader - Change a password from browser ${browser}`, async () => {
+
+                        try {
+                            // Aksi masuk ke dalam halaman browser
+                            driver = await goToApp(browser, appHost);
+                            await driver.manage().window().maximize();
+
+                            // Aksi menunggu mengisi form login untuk melakukan authentication
+                            await loginToApp(driver, user, browser, appHost);
+
+                            // Aksi sleep
+                            await driver.sleep(5000);
+
+                            // Aksi klik button profile
+                            await driver.executeScript(`return document.querySelectorAll("ul.navbar-nav li.nav-item a a")[3].click()`);
+
+                            // Aksi Sleep
+                            await driver.sleep(3000);
+
+                            // Aksi klik button logout
+                            await driver.executeScript(`return document.querySelectorAll('img.icon-sm')[1].click();`);
+
+                            // Aksi sleep
+                            await driver.sleep(3000);
+
+                            // Aksi klik tab button Ganti Password
+                            await driver.executeScript(`return document.querySelectorAll('.row .item-setting')[1].click()`);
+
+                            // Aksi sleep
+                            await driver.sleep(3000);
+
+                            // Fill all input
+                            let oldPassword = await user.password;
+                            let newPassword = 'semuasama';
+                            await driver.findElement(By.css('input#oldPassword')).sendKeys(oldPassword);
+                            await driver.findElement(By.css('input#newPassword')).sendKeys(newPassword);
+                            await driver.findElement(By.css('input#confirmPassword')).sendKeys(newPassword);
+                            // Aksi sleep
+                            await driver.sleep(3000);
+                            // Aksi klik button simpan
+                            await driver.executeScript(`return document.querySelector('button.btn-simpan').click()`);
+
+                            // Aksi sleep
+                            await driver.sleep(5000);
+
+                            // Check if alert success is display
+                            let alertWarning = await driver.executeScript(`return document.querySelector('toasted.bubble.warning')`);
+                            await thrownAnError(await alertWarning?.getAttribute('innerText'), await alertWarning?.isDisplayed());
+
+                            // Aksi sleep
+                            await driver.sleep(3000);
+
+                            // Try logout and login again with a new password
+                            // Aksi klik button profile
+                            await driver.executeScript(`return document.querySelectorAll("ul.navbar-nav li.nav-item a a")[3].click()`);
+
+                            // Aksi Sleep
+                            await driver.sleep(3000);
+
+                            // Aksi klik button logout
+                            await driver.executeScript(`return document.querySelectorAll('img.icon-sm')[document.querySelectorAll('img.icon-sm').length - 1].click();`);
+
+                            // Aksi sleep
+                            await driver.sleep(5000);
+
+                            // Aksi Input Data Akun 
+                            await driver.wait(until.elementLocated(By.css(`input#email`)));
+                            await driver.findElement(By.css(`input#email`)).sendKeys(user.email, Key.RETURN);
+                            await driver.findElement(By.css(`input#password`)).sendKeys(newPassword);
+                            // Aksi sleep
+                            await driver.sleep(1000);
+                            let inputValuePassword = '';
+                            inputValuePassword = await driver.findElement(By.css('input#password')).getAttribute('value');
+                            await driver.executeScript(`return document.querySelector('button.login-btn').click()`);
+                            // Aksi Sleep
+                            await driver.sleep(3000);
+                            // Aksi mengecek ada warning atau tidak pada saat submit login form
+                            let errorElement = await driver.executeScript(`return document.querySelectorAll('p.error');`)
+                            if (errorElement.length > 0) await thrownAnError(await driver.executeScript(`return document.querySelector('p.error').innerText;`), errorElement.length > 0);
+                            
+                            
+                            // Aksi menunggu header active user
+                            await driver.wait(until.elementLocated(By.css("div.active-user")));
+
+                            // Results
+                            let userData = await driver.executeScript("return window.localStorage.getItem('user_data')");
+                            userData = await JSON.parse(userData);
+                            let currentUrl = await driver.getCurrentUrl();
+
+                            // Expect results and add custom message for addtional description
+                            customMessages = [
+                                newPassword === inputValuePassword ? "Successfully changed the user password ✅" : "Failed to change the user password ❌",
+                                userData?.id > 0 ? "Successfully get the data reader account from local storage ✅" : "No data available from local storage ❌",
+                                currentUrl === appHost + 'reader' ? 'Successfully go into dashboard reader page ✅' : 'Successfully go into dashboard reader page ❌' 
+                            ]
+                            expect(newPassword).to.eq(inputValuePassword);
+                            expect(parseInt(userData.id)).to.greaterThan(0);
+                            expect(currentUrl).to.equal(appHost + 'reader');
 
                         } catch (error) {
                             expect.fail(error);
@@ -299,7 +409,7 @@ Waktu Event Load Selesai (loadEventEnd): (${performanceTiming.loadEventEnd - nav
 
                             // Expect results and add custom message for addtional description
                             customMessages = [
-                                userData?.id > 0 ? "Successfully get the data from local storage ✅" : "No data available from local storage ❌",
+                                userData?.id > 0 ? "Successfully get the data reader account from local storage ✅" : "No data available from local storage ❌",
                             ]
                             expect(parseInt(userData.id)).to.greaterThan(0);
 
