@@ -15,6 +15,7 @@ import { fileURLToPath } from 'url';
 import { captureConsoleErrors } from '#root/commons/utils/generalUtils';
 import { thrownAnError } from '#root/commons/utils/generalUtils';
 import moment from 'moment-timezone';
+import { faker } from '@faker-js/faker';
 
 /**
  * Get the user data for authentication
@@ -284,6 +285,113 @@ Waktu Event Load Selesai (loadEventEnd): (${performanceTiming.loadEventEnd - nav
 
                     });
                     
+                    it(`Reader - Update Profile from browser ${browser}`, async () => {
+
+                        try {
+                            // Aksi masuk ke dalam halaman browser
+                            driver = await goToApp(browser, appHost);
+                            await driver.manage().window().maximize();
+
+                            // Aksi menunggu mengisi form login untuk melakukan authentication
+                            await loginToApp(driver, user, browser, appHost);
+
+                            // Aksi sleep
+                            await driver.sleep(5000);
+
+                            // Aksi klik button profile
+                            await driver.executeScript(`return document.querySelectorAll("ul.navbar-nav li.nav-item a a")[3].click()`);
+
+                            // Aksi Sleep
+                            await driver.sleep(3000);
+
+                            // Aksi klik button Atur Profile
+                            await driver.executeScript(`return document.querySelectorAll('img.icon-sm')[1].click();`);
+
+                            // Aksi sleep
+                            await driver.sleep(3000);
+
+                            // Fill all input
+                            // Generate a random value
+                            let inputName = faker.name.lastName();
+                            let inputPlaceOfBirth = faker.helpers.arrayElement(['Bandung', 'Malang', 'Jakarta', 'Bekasi', 'Cikarang', 'Cikampek']);
+                            let inputPhoneNumber = faker.phone.number('08############');
+                            let inputAddress = '123 Street Way';
+                            let inputEducation = faker.helpers.arrayElement(['SMP', 'SMK', 'D1', 'D2', 'D3', 'S1']);
+                            let inputExperience = 'Belum Ada';
+                            await driver.findElement(By.css('input#name')).clear();
+                            await driver.findElement(By.css('input#name')).sendKeys(`Reader ${inputName}`);
+                            await driver.findElement(By.css('input#place_of_birth')).clear();
+                            await driver.findElement(By.css('input#place_of_birth')).sendKeys(inputPlaceOfBirth);
+                            // Input DatePicker Start
+                            await driver.executeScript(`return document.querySelector("input.datepicker").click()`);
+            
+                            await driver.wait(async () => {
+                                let listBoxCourse = await driver.findElement(By.css('.vdp-datepicker__calendar'));
+                                return listBoxCourse.isDisplayed();
+                            });
+                            await driver.sleep(3000);
+                            await driver.findElement(By.css('span.day__month_btn')).click();
+                            await driver.sleep(3000);
+                            await driver.findElement(By.css('span.month__year_btn')).click();
+                            await driver.sleep(3000);
+                            for (let index = 0; index < 2; index++) {
+                                await driver.executeScript(`return document.querySelectorAll('span.prev')[2].click();`);
+                            }
+                            await driver.sleep(10000);
+                            let selectsYear = await driver.executeScript(`return document.querySelectorAll('span.cell.year')`);
+                            await selectsYear[faker.number.int({ min: 0, max: 6 })].click();
+                            await driver.sleep(3000);
+                            let selectsMonth = await driver.executeScript(`return document.querySelectorAll('span.cell.month')`);
+                            await selectsMonth[faker.number.int({ min: 0, max: 10 })].click();
+                            await driver.sleep(5000);
+                            await driver.executeScript(`return document.querySelectorAll('span.cell.day')[${faker.number.int({ min: 1, max: 28 })}].click()`);
+                            await driver.sleep(3000);
+                            // Input DatePicker End
+                            await driver.findElement(By.css('input#phone_number')).clear();
+                            await driver.findElement(By.css('input#phone_number')).sendKeys(inputPhoneNumber);
+                            await driver.findElement(By.css('input#address')).clear();
+                            await driver.findElement(By.css('input#address')).sendKeys(inputAddress);
+                            await driver.findElement(By.css('input#education')).clear();
+                            await driver.findElement(By.css('input#education')).sendKeys(inputEducation);
+                            await driver.findElement(By.css('textarea#experience')).clear();
+                            await driver.findElement(By.css('textarea#experience')).sendKeys(inputExperience);
+                            let radioGenders = await driver.executeScript(`return document.querySelectorAll('.radio-gender .radio-item')`);
+                            await radioGenders[faker.number.int({ min: 0, max: 1 })].click();
+                            // Aksi sleep
+                            await driver.sleep(3000);
+                            // Get the all value of input & check if the all input is already filled in
+                            let isAllFilled = await Promise.all([
+                                await driver.findElement(By.css('input#name')).getAttribute('value'),
+                                await driver.findElement(By.css('input#place_of_birth')).getAttribute('value'),
+                                await driver.findElement(By.css('input.datepicker')).getAttribute('value'),
+                                await driver.findElement(By.css('input#phone_number')).getAttribute('value'),
+                                await driver.findElement(By.css('input#address')).getAttribute('value'),
+                                await driver.findElement(By.css('input#education')).getAttribute('value'),
+                                await driver.findElement(By.css(`input[name="radio-gender"]`)).getAttribute('value'),
+                                await driver.findElement(By.css('textarea#experience')).getAttribute('value'),
+                            ]).then(results => results.every(value => value != ''));
+
+                            if(isAllFilled) await driver.executeScript(`return document.querySelector('button.btn-simpan').click()`);
+                            
+                            // Aksi sleep 
+                            await driver.sleep(3000);
+
+                            // Expect results and add custom message for addtional description
+                            let alertSuccess = await driver.executeScript(`return document.querySelector('.toasted.bubble.success');`);
+                            customMessages = [
+                                await alertSuccess?.isDisplayed() ? 'Successfully show alert success after updated the profile ✅' : 'Failed to show alert success after updated the profile ❌',
+                                isAllFilled ? 'Successfully fill the input field and update the profile ✅' : 'Failed to fill the input field and update the profile ❌'
+                            ];
+                            expect(await alertSuccess?.isDisplayed()).to.equal(true);
+                            expect(isAllFilled).to.equal(true);
+
+                        } catch (error) {
+                            expect.fail(error);
+                        }
+
+
+                    });
+                    
                     it(`Reader - Change a password from browser ${browser}`, async () => {
 
                         try {
@@ -303,7 +411,7 @@ Waktu Event Load Selesai (loadEventEnd): (${performanceTiming.loadEventEnd - nav
                             // Aksi Sleep
                             await driver.sleep(3000);
 
-                            // Aksi klik button logout
+                            // Aksi klik button Atur Profile
                             await driver.executeScript(`return document.querySelectorAll('img.icon-sm')[1].click();`);
 
                             // Aksi sleep
@@ -330,7 +438,7 @@ Waktu Event Load Selesai (loadEventEnd): (${performanceTiming.loadEventEnd - nav
                             await driver.sleep(5000);
 
                             // Check if alert success is display
-                            let alertWarning = await driver.executeScript(`return document.querySelector('toasted.bubble.warning')`);
+                            let alertWarning = await driver.executeScript(`return document.querySelector('.toasted.bubble.warning')`);
                             await thrownAnError(await alertWarning?.getAttribute('innerText'), await alertWarning?.isDisplayed());
 
                             // Aksi sleep
