@@ -65,7 +65,7 @@ describe("Dashboard", () => {
         addContext(this, {
             title: 'Performance Results',
             value: `${moment().tz('Asia/Jakarta').format('dddd, MMMM D, YYYY h:mm:ss A')}
-(timestamp navigasi di mulai: ${navigationStart})   
+(Durasi waktu navigasi: ${navigationStart % 60} seconds)   
 =====================================================================
 Waktu Permintaan Pertama (fetchStart): (${performanceTiming.fetchStart - navigationStart}) milliseconds ( ${(performanceTiming.fetchStart - navigationStart) / 1000} seconds )
 Waktu Pencarian Nama Domain Dimulai (domainLookupStart): (${performanceTiming.domainLookupStart - navigationStart}) milliseconds ( ${((performanceTiming.domainLookupStart - navigationStart) / 1000)} seconds )

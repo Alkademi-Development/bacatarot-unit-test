@@ -64,7 +64,7 @@ describe("Login", () => {
         addContext(this, {
             title: 'Performance Results',
             value: `${moment().tz('Asia/Jakarta').format('dddd, MMMM D, YYYY h:mm:ss A')}
-(timestamp navigasi di mulai: ${navigationStart})   
+(Durasi waktu navigasi: ${navigationStart % 60} seconds)   
 =====================================================================
 Waktu Permintaan Pertama (fetchStart): (${performanceTiming.fetchStart - navigationStart}) milliseconds ( ${(performanceTiming.fetchStart - navigationStart) / 1000} seconds )
 Waktu Pencarian Nama Domain Dimulai (domainLookupStart): (${performanceTiming.domainLookupStart - navigationStart}) milliseconds ( ${((performanceTiming.domainLookupStart - navigationStart) / 1000)} seconds )
@@ -114,8 +114,6 @@ Waktu Event Load Selesai (loadEventEnd): (${performanceTiming.loadEventEnd - nav
             const kind = parseInt(userAccount[3]);
 
             let user = { name, email, password, kind };
-
-            console.log(user, name, email, password, kind);
 
             switch (user.kind) {
                 case 1:
