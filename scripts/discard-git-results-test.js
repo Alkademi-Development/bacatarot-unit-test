@@ -1,5 +1,5 @@
 import clc from "cli-color";
-import simpleGit from "simple-git";
+import simpleGit, { CleanOptions } from "simple-git";
 import { rl } from '#root/commons/utils/inputUtils';
 import { TEXT_CONFIRM } from '#root/commons/constants/input';
 
@@ -33,7 +33,7 @@ async function askRemoveFailedScreenshoots() {
                     
                     async function discardChanges(files) {
                         try {
-                          await git.clean('f', files);
+                          await git.clean(CleanOptions.FORCE, files);
                           console.log('Changes results of file failed test such as screenshoots & reports discarded successfully.');
                           console.log(clc.bold(clc.green("Oke, terimakasih telah mengkonfirmasi semua perubahan file results yang gagal dari hasil test telah berhasil di discard 👌\n")));
                         } catch (error) {

@@ -190,7 +190,7 @@ Waktu Event Load Selesai (loadEventEnd): (${performanceTiming.loadEventEnd - nav
                     break;
                 
                 case 2: 
-                    it(`Reader - Login from browser ${browser}`, async function() {
+                    it(`Reader - Turn on the schedule per day of consultation from browser ${browser}`, async function() {
 
                         try {
                             // Aksi masuk ke dalam halaman browser
@@ -200,18 +200,121 @@ Waktu Event Load Selesai (loadEventEnd): (${performanceTiming.loadEventEnd - nav
                             // Aksi menunggu mengisi form login untuk melakukan authentication
                             await loginToApp(driver, user, browser, appHost);
 
+                            // Aksi Sleep
+                            await driver.sleep(3000);
+
+                            // Aksi klik button profile
+                            await driver.executeScript(`return document.querySelectorAll("ul.navbar-nav li.nav-item a a")[3].click()`);
+
+                            // Aksi Sleep
+                            await driver.sleep(3000);
+
+                            // Aksi klik button Atur Profile
+                            await driver.executeScript(`return document.querySelectorAll('img.icon-sm')[2].click();`);
+                            
+                            // Aksi Sleep
+                            await driver.sleep(3000);
+
+                            // Mengaktifkan salah satu jadwal per hari konsultasi
+                            let schedulesOff = await driver.executeScript(`return document.querySelectorAll('p.time.off')`);
+                            await thrownAnError('Sorry, all the schedules is already active or on', await schedulesOff.length === 0);
+
+                            // Aksi Sleep
+                            await driver.sleep(3000);
+
+                            // Aksi mengklik salah satu jadwal yg msh off
+                            await driver.executeScript(`return document.querySelectorAll('p.time.off')[${faker.number.int({ min: 0, max: await schedulesOff.length - 1 })}].parentNode.parentNode.parentNode.querySelector(".add").click();`);
+                            
+                            // Aksi Sleep
+                            await driver.sleep(3000);
+
+                            // Aksi klik turn on the schedule
+                            await driver.executeScript(`return document.querySelectorAll('.circle-input')[1].click();`);
+
+                            // Aksi Sleep
+                            await driver.sleep(3000);
+
                             // Results
-                            let userData = await driver.executeScript("return window.localStorage.getItem('user_data')");
-                            userData = await JSON.parse(userData);
+                            let addTime = await driver.findElement(By.css('.add.mx-auto'));
 
                             // Expect results and add custom message for addtional description
-                            const currentUrl = await driver.getCurrentUrl();
                             customMessages = [
-                                userData?.id > 0 ? "Successfully get the data from local storage ✅" : "No data available from local storage ❌",
-                                currentUrl === appHost + 'reader' ? 'Successfully go into dashboard reader page ✅' : 'Successfully go into dashboard reader page ❌' 
-                            ]
-                            expect(parseInt(userData.id)).to.greaterThan(0);
-                            expect(currentUrl).to.equal(appHost + 'reader');
+                                await addTime.isDisplayed() ? 'Successfully turn on the schedule per day ✅' : 'Failed to turn on the schedule per day ❌'
+                            ];
+                            expect(await addTime.isDisplayed()).to.eq(true);
+
+
+                        } catch (error) {
+                            expect.fail(error);
+                        }
+
+
+                    });
+                    
+                    it(`Reader - Turn off the schedule per day of consultation from browser ${browser}`, async function() {
+
+                        try {
+                            // Aksi masuk ke dalam halaman browser
+                            driver = await goToApp(browser, appHost);
+                            await driver.manage().window().maximize();
+
+                            // Aksi menunggu mengisi form login untuk melakukan authentication
+                            await loginToApp(driver, user, browser, appHost);
+
+                            // Aksi Sleep
+                            await driver.sleep(3000);
+
+                            // Aksi klik button profile
+                            await driver.executeScript(`return document.querySelectorAll("ul.navbar-nav li.nav-item a a")[3].click()`);
+
+                            // Aksi Sleep
+                            await driver.sleep(3000);
+
+                            // Aksi klik button Atur Profile
+                            await driver.executeScript(`return document.querySelectorAll('img.icon-sm')[2].click();`);
+                            
+                            // Aksi Sleep
+                            await driver.sleep(3000);
+
+                            // Mengaktifkan salah satu jadwal per hari konsultasi
+                            let schedulesOn = await driver.executeScript(`return document.querySelectorAll('p.time:not(.off)');`);
+                            await thrownAnError('Sorry, all the schedules is off', await schedulesOn.length === 0);
+                            
+                            // Aksi Sleep
+                            await driver.sleep(3000);
+
+                            // Aksi mengklik salah satu jadwal yg msh off
+                            let indexScheduleOn = faker.number.int({ min: 0, max: await schedulesOn.length - 1 });
+                            await driver.executeScript(`return document.querySelectorAll('p.time:not(.off)')[${indexScheduleOn}].parentElement.parentElement.parentElement.parentElement.querySelector(".add").click();`);
+                            
+                            // Aksi Sleep
+                            await driver.sleep(3000);
+
+                            // Aksi klik turn on the schedule
+                            await driver.executeScript(`return document.querySelectorAll('.circle-input')[1].click();`);
+
+                            // Aksi Sleep
+                            await driver.sleep(3000);
+
+                            // Aksi klik button delete
+                            await driver.executeScript(`return document.querySelector('button#danger-button').click();`);
+                            
+                            // Aksi Sleep
+                            await driver.sleep(3000);
+
+                            // Aksi mengecek jadwal schedulenya telah berubah menjadi off
+                            let scheduleOnStatus = await driver.executeScript(`return document.querySelectorAll('p.time')[${indexScheduleOn}].classList.contains('off')`);
+                            await thrownAnError('Sorry, the schedule status is still on', await scheduleOnStatus === false);
+                            
+                            // Aksi Sleep
+                            await driver.sleep(3000);
+
+                            // Expect results and add custom message for addtional description
+                            customMessages = [
+                                await scheduleOnStatus ? 'Successfully turn off the schedule per day ✅' : 'Failed to turn off the schedule per day ❌'
+                            ];
+                            expect(await scheduleOnStatus).to.eq(true);
+
 
                         } catch (error) {
                             expect.fail(error);
