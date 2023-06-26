@@ -243,6 +243,51 @@ Waktu Event Load Selesai (loadEventEnd): (${performanceTiming.loadEventEnd - nav
 
                     });
                     
+                    it(`Reader - Checking if the account is already verified or not from browser ${browser}`, async () => {
+
+                        try {
+                            // Aksi masuk ke dalam halaman browser
+                            driver = await goToApp(browser, appHost);
+                            await driver.manage().window().maximize();
+
+                            // Aksi menunggu mengisi form login untuk melakukan authentication
+                            await loginToApp(driver, user, browser, appHost);
+
+                            // Aksi sleep
+                            await driver.sleep(5000);
+
+                            // Aksi klik button profile
+                            await driver.executeScript(`return document.querySelectorAll("ul.navbar-nav li.nav-item a a")[3].click()`);
+
+                            // Aksi Sleep
+                            await driver.sleep(3000);
+
+                            // Aksi klik button Atur Profile
+                            await driver.executeScript(`return document.querySelectorAll('img.icon-sm')[1].click();`);
+                            
+                            // Aksi Sleep
+                            await driver.sleep(3000);
+
+                            // Aksi checking icon checklist of the email input
+                            let iconVerifiedEmail = await driver.executeScript(`return document.querySelector('img.mx-3').src`);
+                            await thrownAnError('The reader is still not verified yet', await iconVerifiedEmail.includes('x_red.svg'));
+
+                            // Aksi sleep
+                            await driver.sleep(3000);
+
+                            // Expect results and add custom message for addtional description
+                            customMessages = [
+                                !iconVerifiedEmail.includes('x_red.svg') ? 'The reader is already verified ✅' : 'The reader is still not verified yet ❌',
+                            ];
+                            expect(!iconVerifiedEmail.includes('x_red.svg')).to.equal(true);
+
+                        } catch (error) {
+                            expect.fail(error);
+                        }
+
+
+                    });
+                    
                     it(`Reader - Logout from browser ${browser}`, async () => {
 
                         try {
@@ -392,7 +437,7 @@ Waktu Event Load Selesai (loadEventEnd): (${performanceTiming.loadEventEnd - nav
 
                     });
                     
-                    it(`Reader - Change a password from browser ${browser}`, async () => {
+                    i(`Reader - Change a password from browser ${browser}`, async () => {
 
                         try {
                             // Aksi masuk ke dalam halaman browser
