@@ -437,7 +437,7 @@ Waktu Event Load Selesai (loadEventEnd): (${performanceTiming.loadEventEnd - nav
 
                     });
                     
-                    i(`Reader - Change a password from browser ${browser}`, async () => {
+                    it(`Reader - Change a password from browser ${browser}`, async () => {
 
                         try {
                             // Aksi masuk ke dalam halaman browser

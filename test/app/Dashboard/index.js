@@ -149,11 +149,15 @@ Waktu Event Load Selesai (loadEventEnd): (${performanceTiming.loadEventEnd - nav
                                 // Aksi sleep
                                 await driver.sleep(5000);
                                 readerList = await driver.executeScript(`return document.querySelectorAll('.modal-content div#user-list h1.username')`);
+                                // Aksi sleep
+                                await driver.sleep(5000);
                                 if(await readerList.length > 0) {
                                     for (let index = 0; index < await readerList.length; index++) {
                                         readersName.push(await readerList[index].getAttribute('innerText'));
                                     }
-                                    readerSearch = readersName[faker.number.int({ min: 0, max: readersName?.length })];
+                                    readerSearch = await readersName[faker.number.int({ min: 0, max: readersName?.length })];
+                                    // Aksi sleep
+                                    await driver.sleep(3000);
                                     await driver.findElement(By.css('form > input')).sendKeys(readerSearch);
                                     let formSearch = await driver.findElement(By.css('form'));
                                     await driver.executeScript("arguments[0].addEventListener('submit', function(e) { e.preventDefault(); });", formSearch);

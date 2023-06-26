@@ -7,7 +7,7 @@ export const rl = readline.createInterface({
 });
 
 const getCustomOptionReportFile = (inputReportFile) => {
-  return inputReportFile ? `--reporter-options code=false,cdn=true,timestamp=longDate,overwrite=false,reportDir=testResults/reports,reportFilename=${inputReportFile.replace(/\s/g, '').toLowerCase()}/[status]-[datetime]-report,reportPageTitle=Laporan-Harian-Testing` : `--reporter-options code=false,overwrite=false,reportDir=testResults/reports,reportFilename=examples/test-results,reportPageTitle=Laporan-Harian-Testing`;
+  return inputReportFile ? `--reporter-options code=false,cdn=true,reportDir=testResults/reports,reportFilename=${inputReportFile.replace(/\s/g, '').toLowerCase()}/[status]-index-report,reportPageTitle=Laporan-Harian-Testing` : `--reporter-options code=false,overwrite=false,reportDir=testResults/reports,reportFilename=examples/test-results,reportPageTitle=Laporan-Harian-Testing`;
 }
 
 export {
