@@ -28,14 +28,14 @@
       "suites": [
         {
           "uuid": "8e115579-5e84-42e6-b536-2389d52c79bb",
-          "title": "Test",
+          "title": "Register",
           "fullFile": "D:\\allproject\\alkademik\\research-unit-test-bacatarot\\test\\app\\register.js",
           "file": "\\test\\app\\register.js",
           "beforeHooks": [],
           "afterHooks": [
             {
               "title": "\"after all\" hook in \"Register\"",
-              "fullTitle": "Test \"after all\" hook in \"Register\"",
+              "fullTitle": "Register \"after all\" hook in \"Register\"",
               "timedOut": false,
               "duration": 0,
               "state": null,
@@ -53,7 +53,7 @@
             },
             {
               "title": "\"after each\" hook in \"Register\"",
-              "fullTitle": "Test \"after each\" hook in \"Register\"",
+              "fullTitle": "Register \"after each\" hook in \"Register\"",
               "timedOut": false,
               "duration": 4336,
               "state": null,
@@ -73,7 +73,7 @@
           "tests": [
             {
               "title": "Register - from browser firefox",
-              "fullTitle": "Test Register - from browser firefox",
+              "fullTitle": "Register Register - from browser firefox",
               "timedOut": false,
               "duration": 64703,
               "state": "passed",
