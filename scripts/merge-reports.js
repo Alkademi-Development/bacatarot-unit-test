@@ -61,8 +61,8 @@ function askMergeReport() {
                 fs.writeFileSync(outputFile, JSON.stringify(reports, null, 2));
                 
                 if(fs.existsSync(outputFile)) {
-                  const reportData = fs.readFileSync(outputFile, 'utf-8');
-          
+                  let reportData = fs.readFileSync(outputFile, 'utf-8');
+
                   const options = { 
                       reportPageTitle: `Report Testing ${input} ${moment().tz('Asia/Jakarta').format('MM-DD-YYYY')}`,
                       reportDir: './testResults', // Path folder untuk menyimpan report
