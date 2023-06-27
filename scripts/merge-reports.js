@@ -57,7 +57,7 @@ function askMergeReport() {
               } else if(inputConfirm.trim().toLowerCase() === 'y') {
                 const reports = await merge({ files });
                 const outputFile = `./testResults/output-merged-report-${input}.json`;  
-
+                
                 fs.writeFileSync(outputFile, JSON.stringify(reports, null, 2));
                 
                 if(fs.existsSync(outputFile)) {
