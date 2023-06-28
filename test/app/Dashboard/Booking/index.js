@@ -32,7 +32,7 @@ if (process.platform === 'win32') {
     screenshootFilePath = path.resolve(`./testResults/screenshoots/${screenshootFilePath.split("/test/")[1].replaceAll(".js", "")}/`);
 }
 
-describe("Login", () => {
+describe("Booking", () => {
     let customMessages = [];
 
     after(async function () {
@@ -55,7 +55,7 @@ describe("Login", () => {
         } 
         addContext(this, {
             title: 'Screenshoot-Test-Results',
-            value: "..\\" + path.relative(fileURLToPath(import.meta.url), fileNamePath)
+            value: path.relative(fileURLToPath(import.meta.url), fileNamePath)
         });
         await driver.sleep(3000);
         try {
