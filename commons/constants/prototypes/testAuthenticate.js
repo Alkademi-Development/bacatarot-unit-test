@@ -75,20 +75,8 @@ describe("Login", () => {
             let user = { name, email, password, kind };
 
             switch (user.kind) {
-                case 0:
-                    it(`Test Super Admin - from browser ${browser}`, async () => {
-
-                        try {
-
-                        } catch (error) {
-                            expect.fail(error);
-                        }
-
-                    });
-
-                    break;
                 case 1:
-                    it(`Test Admin - from browser ${browser}`, async () => {
+                    it(`Test User - from browser ${browser}`, async () => {
 
                         try {
 
@@ -102,7 +90,7 @@ describe("Login", () => {
                     break;
 
                 case 2:
-                    it(`Test Mentor - from browser ${browser}`, async () => {
+                    it(`Test Reader - from browser ${browser}`, async () => {
 
                         try {
 

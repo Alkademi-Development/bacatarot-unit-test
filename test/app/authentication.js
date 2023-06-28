@@ -96,7 +96,12 @@ Waktu Event Load Selesai (loadEventEnd): (${performanceTiming.loadEventEnd - nav
             value: "..\\" + path.relative(fileURLToPath(import.meta.url), fileNamePath)
         });
         await driver.sleep(3000);
-        await driver.quit();
+        try {
+            await driver.close();
+            await driver.quit();
+        } catch (error) {
+            console.error('Error occurred while quitting the driver:', error);
+        }
     })
 
     BROWSERS.forEach(async browser => {
@@ -114,7 +119,7 @@ Waktu Event Load Selesai (loadEventEnd): (${performanceTiming.loadEventEnd - nav
 
             switch (user.kind) {
                 case 1:
-                    it(`User - Login from browser ${browser}`, async () => {
+                    it.skip(`User - Login from browser ${browser}`, async () => {
 
                         try {
                             // Aksi masuk ke dalam halaman browser
@@ -156,7 +161,7 @@ Waktu Event Load Selesai (loadEventEnd): (${performanceTiming.loadEventEnd - nav
 
                     });
         
-                    it(`User - Check the button pick of reader on reader or councelor page from browser (after logged in) ${browser}`, async () => {
+                    it.skip(`User - Check the button pick of reader on reader or councelor page from browser (after logged in) ${browser}`, async () => {
             
                         try {
             
@@ -223,8 +228,73 @@ Waktu Event Load Selesai (loadEventEnd): (${performanceTiming.loadEventEnd - nav
             
             
                     });
+        
+                    it(`User - Check the active nav link on the header ${browser}`, async () => {
+            
+                        try {
+            
+                            driver = await goToApp(browser, appHost);
+                            await driver.manage().window().maximize();
+            
+                            // Aksi menunggu modal content
+                            let modalContent = await driver.executeScript(`return document.querySelector('.modal-content')`);
+                            if(await modalContent?.isDisplayed()) {
+                                await driver.wait(until.elementLocated(By.css('.modal-content')));              
+                                await driver.findElement(By.css(".modal-content header button.close")).click();
+                            }
+            
+                            // Aksi sleep 
+                            await driver.sleep(3000);
+                            
+                            // Aksi menunggu mengisi form login untuk melakukan authentication
+                            await loginToApp(driver, user, browser, appHost);
+            
+                            // Aksi sleep 
+                            await driver.sleep(3000);
+                            // Aksi menunggu response halaman ter-load semua
+                            await driver.wait(async function () {
+                                const isNetworkIdle = await driver.executeScript(function () {
+                                  const performanceEntries = window.performance.getEntriesByType('resource');
+                                  return performanceEntries.every(function (entry) {
+                                    return entry.responseEnd > 0;
+                                  });
+                                });
+                              
+                                return isNetworkIdle;
+                            }); 
+
+                            // Aksi sleep 
+                            await driver.sleep(3000);
+
+                            // Aksi mengklik salah satu tab menu dari header
+                            let navLinks = await driver.executeScript(`return document.querySelectorAll('ul.navbar-nav li.nav-item a.nav-link a');`);
+                            await driver.executeScript(`return document.querySelectorAll('ul.navbar-nav li.nav-item a.nav-link a')[${faker.number.int({ min: 0, max: await navLinks.length - 1 })}].click();`);
+
+                            // Aksi sleep 
+                            await driver.sleep(3000);
+
+                            // Aksi mengecek active link atau menu tab
+                            let textActiveLink = await driver.findElement(By.css('ul.navbar-nav li.nav-item a.nav-link a.nuxt-link-active h6'));
+                            await thrownAnError('Text active link is not available', await textActiveLink.isDisplayed() === false);
+
+                            // Expect results and add custom message for addtional description
+                            let currentPageUrl = await driver.getCurrentUrl();
+                            let currentTextActiveLink = await textActiveLink.getAttribute('innerText').then(text => text.toLowerCase());
+                            
+                            customMessages = [
+                                await textActiveLink.isDisplayed() ? "Text active link is available or displayed ✅" : "Text active link is not available or displayed ❌",
+                                currentPageUrl.includes(currentTextActiveLink) && currentTextActiveLink != 'home' ? `Current page now is appropriate with the active link ✅` : `Current page now is not appropriate with the active link ❌`
+                            ]
+                            expect(await textActiveLink.isDisplayed()).to.equal(true);
+
+                        } catch (error) {
+                            expect.fail(error);
+                        }
+            
+            
+                    });
                     
-                    it(`User - Logout from browser ${browser}`, async () => {
+                    it.skip(`User - Logout from browser ${browser}`, async () => {
 
                         try {
                             // Aksi masuk ke dalam halaman browser

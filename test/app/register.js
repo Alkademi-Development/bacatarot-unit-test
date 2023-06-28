@@ -85,6 +85,7 @@ Waktu Event Load Selesai (loadEventEnd): (${performanceTiming.loadEventEnd - nav
         });
         await driver.sleep(3000);
         try {
+            await driver.close();
             await driver.quit();
         } catch (error) {
             console.error('Error occurred while quitting the driver:', error);

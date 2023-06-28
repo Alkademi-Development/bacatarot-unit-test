@@ -1,0 +1,163 @@
+{
+  "stats": {
+    "suites": 1,
+    "tests": 2,
+    "passes": 2,
+    "pending": 0,
+    "failures": 0,
+    "start": "2023-06-28T07:03:59.517Z",
+    "end": "2023-06-28T07:04:57.951Z",
+    "duration": 58434,
+    "testsRegistered": 2,
+    "passPercent": 100,
+    "pendingPercent": 0,
+    "other": 0,
+    "hasOther": false,
+    "skipped": 0,
+    "hasSkipped": false
+  },
+  "results": [
+    {
+      "uuid": "3a196d83-793e-40fa-8f3b-4dffeee8c123",
+      "title": "",
+      "fullFile": "D:\\allproject\\alkademik\\research-unit-test-bacatarot\\test\\app\\dashboard\\booking\\index.js",
+      "file": "\\test\\app\\dashboard\\booking\\index.js",
+      "beforeHooks": [],
+      "afterHooks": [],
+      "tests": [],
+      "suites": [
+        {
+          "uuid": "69e9ed16-1962-4adf-acd1-3307a1c7206b",
+          "title": "Login",
+          "fullFile": "D:\\allproject\\alkademik\\research-unit-test-bacatarot\\test\\app\\dashboard\\booking\\index.js",
+          "file": "\\test\\app\\dashboard\\booking\\index.js",
+          "beforeHooks": [],
+          "afterHooks": [
+            {
+              "title": "\"after all\" hook in \"Login\"",
+              "fullTitle": "Login \"after all\" hook in \"Login\"",
+              "timedOut": false,
+              "duration": 0,
+              "state": null,
+              "speed": null,
+              "pass": false,
+              "fail": false,
+              "pending": false,
+              "context": null,
+              "code": "",
+              "err": {},
+              "uuid": "71438504-36f4-4b75-9cb4-1342a50bfaf5",
+              "parentUUID": "69e9ed16-1962-4adf-acd1-3307a1c7206b",
+              "isHook": true,
+              "skipped": false
+            },
+            {
+              "title": "\"after each\" hook in \"Login\"",
+              "fullTitle": "Login \"after each\" hook in \"Login\"",
+              "timedOut": false,
+              "duration": 3562,
+              "state": null,
+              "speed": null,
+              "pass": false,
+              "fail": false,
+              "pending": false,
+              "context": null,
+              "code": "",
+              "err": {},
+              "uuid": "61e60289-379c-4908-87d5-0ea721cb7e44",
+              "parentUUID": "69e9ed16-1962-4adf-acd1-3307a1c7206b",
+              "isHook": true,
+              "skipped": false
+            }
+          ],
+          "tests": [
+            {
+              "title": "User - Check more details about payment after booked the reader from browser firefox",
+              "fullTitle": "Login User - Check more details about payment after booked the reader from browser firefox",
+              "timedOut": false,
+              "duration": 27662,
+              "state": "passed",
+              "speed": "slow",
+              "pass": true,
+              "fail": false,
+              "pending": false,
+              "context": "[\n  {\n    \"title\": \"Expected Results\",\n    \"value\": \"- Booking modal details is displayed or show up ✅\"\n  },\n  {\n    \"title\": \"Screenshoot-Test-Results\",\n    \"value\": \"..\\\\..\\\\..\\\\..\\\\..\\\\..\\\\testResults\\\\screenshoots\\\\app\\\\dashboard\\\\booking\\\\index\\\\1-[passed]-2023-06-28_14-04-27.png\"\n  }\n]",
+              "code": "",
+              "err": {},
+              "uuid": "ca43a959-c933-4055-80c9-4532d4fc4825",
+              "parentUUID": "69e9ed16-1962-4adf-acd1-3307a1c7206b",
+              "isHook": false,
+              "skipped": false
+            },
+            {
+              "title": "User - Check more details about payment after booked the reader from browser chrome",
+              "fullTitle": "Login User - Check more details about payment after booked the reader from browser chrome",
+              "timedOut": false,
+              "duration": 23008,
+              "state": "passed",
+              "speed": "slow",
+              "pass": true,
+              "fail": false,
+              "pending": false,
+              "context": "[\n  {\n    \"title\": \"Expected Results\",\n    \"value\": \"- Booking modal details is displayed or show up ✅\"\n  },\n  {\n    \"title\": \"Screenshoot-Test-Results\",\n    \"value\": \"..\\\\..\\\\..\\\\..\\\\..\\\\..\\\\testResults\\\\screenshoots\\\\app\\\\dashboard\\\\booking\\\\index\\\\2-[passed]-2023-06-28_14-04-54.png\"\n  }\n]",
+              "code": "",
+              "err": {},
+              "uuid": "f6ff359a-1ce3-4db5-81d0-45127480060b",
+              "parentUUID": "69e9ed16-1962-4adf-acd1-3307a1c7206b",
+              "isHook": false,
+              "skipped": false
+            }
+          ],
+          "suites": [],
+          "passes": [
+            "ca43a959-c933-4055-80c9-4532d4fc4825",
+            "f6ff359a-1ce3-4db5-81d0-45127480060b"
+          ],
+          "failures": [],
+          "pending": [],
+          "skipped": [],
+          "duration": 50670,
+          "root": false,
+          "rootEmpty": false,
+          "_timeout": 0
+        }
+      ],
+      "passes": [],
+      "failures": [],
+      "pending": [],
+      "skipped": [],
+      "duration": 0,
+      "root": true,
+      "rootEmpty": true,
+      "_timeout": 0
+    }
+  ],
+  "meta": {
+    "mocha": {
+      "version": "10.2.0"
+    },
+    "mochawesome": {
+      "options": {
+        "quiet": false,
+        "reportFilename": "app/dashboard/booking/[status]-index-report",
+        "saveHtml": true,
+        "saveJson": true,
+        "consoleReporter": "spec",
+        "useInlineDiffs": false,
+        "code": false
+      },
+      "version": "7.1.3"
+    },
+    "marge": {
+      "options": {
+        "code": "false",
+        "cdn": "true",
+        "charts": "true",
+        "reportDir": "testResults/reports",
+        "reportFilename": "app/dashboard/booking/[status]-index-report",
+        "reportPageTitle": "Laporan-Harian-Testing"
+      },
+      "version": "6.2.0"
+    }
+  }
+}
