@@ -155,6 +155,74 @@ Waktu Event Load Selesai (loadEventEnd): (${performanceTiming.loadEventEnd - nav
 
 
                     });
+        
+                    it(`User - Check the button pick of reader on reader or councelor page from browser (after logged in) ${browser}`, async () => {
+            
+                        try {
+            
+                            driver = await goToApp(browser, appHost);
+                            await driver.manage().window().maximize();
+            
+                            // Aksi menunggu modal content
+                            let modalContent = await driver.executeScript(`return document.querySelector('.modal-content')`);
+                            if(await modalContent?.isDisplayed()) {
+                                await driver.wait(until.elementLocated(By.css('.modal-content')));              
+                                await driver.findElement(By.css(".modal-content header button.close")).click();
+                            }
+            
+                            // Aksi sleep 
+                            await driver.sleep(3000);
+                            
+                            // Aksi menunggu mengisi form login untuk melakukan authentication
+                            await loginToApp(driver, user, browser, appHost);
+            
+                            // Aksi sleep 
+                            await driver.sleep(3000);
+                            // Aksi menunggu response halaman ter-load semua
+                            await driver.wait(async function () {
+                                const isNetworkIdle = await driver.executeScript(function () {
+                                  const performanceEntries = window.performance.getEntriesByType('resource');
+                                  return performanceEntries.every(function (entry) {
+                                    return entry.responseEnd > 0;
+                                  });
+                                });
+                              
+                                return isNetworkIdle;
+                            }); 
+
+                            // Aksi klik logo untuk kembali ke halaman landing page
+                            await driver.executeScript(`return document.querySelector('nav.navbar .navbar-brand').click();`);
+            
+                            // Aksi sleep 
+                            await driver.sleep(3000);
+            
+                            // Aksi mengklik menu tab article
+                            await driver.executeScript(`return document.querySelectorAll("ul.navbar-nav li.nav-item a.nav-link a")[2].click();`);
+            
+                            // Aksi sleep 
+                            await driver.sleep(3000);
+            
+                            // Aksi mengklik menu tab article
+                            let userOverview = await driver.executeScript(`return document.querySelectorAll('#user-overview button.action-btn')`);
+                            await driver.executeScript(`return document.querySelectorAll("#user-overview button.action-btn")[${faker.number.int({ min: 0, max: await userOverview.length })}].click();`);
+            
+                            // Aksi sleep 
+                            await driver.sleep(3000);
+            
+                            // Expect results and add custom message for addtional description
+                            let currentPageUrl = await driver.getCurrentUrl();
+            
+                            customMessages = [
+                                currentPageUrl === appHost + 'user' ? 'Successfully go into user page after clicked button pick on user or councelor page ✅' : 'Failed go into user page ❌',
+                            ]
+                            expect(currentPageUrl).to.equal(appHost + 'user');
+            
+                        } catch (error) {
+                            expect.fail(error);
+                        }
+            
+            
+                    });
                     
                     it(`User - Logout from browser ${browser}`, async () => {
 
@@ -445,6 +513,63 @@ Waktu Event Load Selesai (loadEventEnd): (${performanceTiming.loadEventEnd - nav
                         }
 
 
+                    });
+        
+                    it(`Reader - Check the button pick of reader on reader or councelor page from browser (after logged in) ${browser}`, async () => {
+            
+                        try {
+            
+                            driver = await goToApp(browser, appHost);
+                            await driver.manage().window().maximize();
+            
+                            // Aksi menunggu modal content
+                            let modalContent = await driver.executeScript(`return document.querySelector('.modal-content')`);
+                            if(await modalContent?.isDisplayed()) {
+                                await driver.wait(until.elementLocated(By.css('.modal-content')));              
+                                await driver.findElement(By.css(".modal-content header button.close")).click();
+                            }
+            
+                            // Aksi sleep 
+                            await driver.sleep(3000);
+                            
+                            // Aksi menunggu mengisi form login untuk melakukan authentication
+                            await loginToApp(driver, user, browser, appHost);
+            
+                            // Aksi sleep 
+                            await driver.sleep(3000);
+
+                            // Aksi klik logo untuk kembali ke halaman landing page
+                            await driver.executeScript(`return document.querySelector('nav.navbar .navbar-brand').click();`);
+            
+                            // Aksi sleep 
+                            await driver.sleep(3000);
+            
+                            // Aksi mengklik menu tab article
+                            await driver.executeScript(`return document.querySelectorAll("ul.navbar-nav li.nav-item a.nav-link a")[2].click();`);
+            
+                            // Aksi sleep 
+                            await driver.sleep(3000);
+            
+                            // Aksi mengklik menu tab article
+                            let userOverview = await driver.executeScript(`return document.querySelectorAll('#user-overview button.action-btn')`);
+                            await driver.executeScript(`return document.querySelectorAll("#user-overview button.action-btn")[${faker.number.int({ min: 0, max: await userOverview.length })}].click();`);
+            
+                            // Aksi sleep 
+                            await driver.sleep(3000);
+            
+                            // Expect results and add custom message for addtional description
+                            let currentPageUrl = await driver.getCurrentUrl();
+            
+                            customMessages = [
+                                currentPageUrl === appHost + 'reader' ? 'Successfully go into reader page after clicked button pick on reader or councelor page ✅' : 'Failed go into reader page ❌',
+                            ]
+                            expect(currentPageUrl).to.equal(appHost + 'reader');
+            
+                        } catch (error) {
+                            expect.fail(error);
+                        }
+            
+            
                     });
                     
                     it(`Reader - Checking if the account is already verified or not from browser ${browser}`, async () => {

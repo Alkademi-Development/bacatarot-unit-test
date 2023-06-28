@@ -250,7 +250,7 @@ async function getInput() {
                                                                                                                     console.log(`\n${clc.bgYellow(clc.whiteBright("Program is running in test " + absolutePath))}`);
                                                                                                                     exec(`npm test ${absolutePath} -- --data=${dataJson} --recursive ${inputReportCommand}`, (error, stdout, stderr) => {
                                                                                                                         if (error) {
-                                                                                                                            console.error(clc.red('\n ❌ Terjadi kesalahan: '), error);
+                                                                                                                            console.error(clc.red('\n ❌ Terjadi kesalahan: '), error.stack);
                                                                                                                         } 
                                                                                                                         
                                                                                                                         console.log(stdout.replace('AssertionError: ', '').replaceAll(/✔/g, clc.bold(clc.green('✔'))).replaceAll('passing', clc.green(clc.bold('PASSING'))).replaceAll('pending', clc.bold('PENDING')).replaceAll('failing', clc.bold(clc.red('FAILING'))).replaceAll("AssertionError", clc.bold(clc.red('AssertionError'))));
@@ -263,7 +263,7 @@ async function getInput() {
                                                                                                                     console.log(`\n${clc.bgYellow(clc.whiteBright("Program is running in test " + absolutePath))}`);
                                                                                                                     exec(`npm test ${absolutePath} -- --data=${dataJson} ${inputReportCommand}`, (error, stdout, stderr) => {
                                                                                                                         if (error) {
-                                                                                                                            console.error(clc.red('\n ❌ Terjadi kesalahan: '), error);
+                                                                                                                            console.error(clc.red('\n ❌ Terjadi kesalahan: '), error.stack);
                                                                                                                         } 
                                                                                                                         
                                                                                                                         console.log(stdout.replace('AssertionError: ', '').replaceAll(/✔/g, clc.bold(clc.green('✔'))).replaceAll('passing', clc.green(clc.bold('PASSING'))).replaceAll('pending', clc.bold('PENDING')).replaceAll('failing', clc.bold(clc.red('FAILING'))).replaceAll("AssertionError", clc.bold(clc.red('AssertionError'))));
@@ -321,7 +321,7 @@ async function getInput() {
                                                                                                                         console.log(`\n${clc.bgYellow(clc.whiteBright("Program is running in test " + absolutePath))}`);
                                                                                                                         exec(`npm test ${absolutePath} -- --data=${dataJson} --recursive ${inputReportCommand}`, (error, stdout, stderr) => {
                                                                                                                             if (error) {
-                                                                                                                                console.error(clc.red('\n ❌ Terjadi kesalahan: '), error);
+                                                                                                                                console.error(clc.red('\n ❌ Terjadi kesalahan: '), error.stack);
                                                                                                                             } 
                                                                                     
                                                                                                                             console.log(stdout.replace('AssertionError: ', '').replaceAll(/✔/g, clc.bold(clc.green('✔'))).replaceAll('passing', clc.green(clc.bold('PASSING'))).replaceAll('pending', clc.bold('PENDING')).replaceAll('failing', clc.bold(clc.red('FAILING'))).replaceAll("AssertionError", clc.bold(clc.red('AssertionError'))));
@@ -334,7 +334,7 @@ async function getInput() {
                                                                                                                         console.log(`\n${clc.bgYellow(clc.whiteBright("Program is running in test " + absolutePath))}`);
                                                                                                                         exec(`npm test ${absolutePath} -- --data=${dataJson} ${inputReportCommand}`, (error, stdout, stderr) => {
                                                                                                                             if (error) {
-                                                                                                                                console.error(clc.red('\n ❌ Terjadi kesalahan: '), error);
+                                                                                                                                console.error(clc.red('\n ❌ Terjadi kesalahan: '), error.stack);
                                                                                                                             } 
                                                                                     
                                                                                                                             console.log(stdout.replace('AssertionError: ', '').replaceAll(/✔/g, clc.bold(clc.green('✔'))).replaceAll('passing', clc.green(clc.bold('PASSING'))).replaceAll('pending', clc.bold('PENDING')).replaceAll('failing', clc.bold(clc.red('FAILING'))).replaceAll("AssertionError", clc.bold(clc.red('AssertionError'))));
@@ -395,7 +395,7 @@ async function getInput() {
                                                                                                                         console.log(`\n${clc.bgYellow(clc.whiteBright("Program is running in test " + absolutePath))}`);
                                                                                                                         exec(`npm test ${absolutePath} -- --data=${dataJson} --recursive ${inputReportCommand}`, (error, stdout, stderr) => {
                                                                                                                             if (error) {
-                                                                                                                                console.error(clc.red('\n ❌ Terjadi kesalahan: '), error);
+                                                                                                                                console.error(clc.red('\n ❌ Terjadi kesalahan: '), error.stack);
                                                                                                                             } 
                                                                                     
                                                                                                                             console.log(stdout.replace('AssertionError: ', '').replaceAll(/✔/g, clc.bold(clc.green('✔'))).replaceAll('passing', clc.green(clc.bold('PASSING'))).replaceAll('pending', clc.bold('PENDING')).replaceAll('failing', clc.bold(clc.red('FAILING'))).replaceAll("AssertionError", clc.bold(clc.red('AssertionError'))));
@@ -408,7 +408,7 @@ async function getInput() {
                                                                                                                         console.log(`\n${clc.bgYellow(clc.whiteBright("Program is running in test " + absolutePath))}`);
                                                                                                                         exec(`npm test ${absolutePath} -- --data=${dataJson} ${inputReportCommand}`, (error, stdout, stderr) => {
                                                                                                                             if (error) {
-                                                                                                                                console.error(clc.red('\n ❌ Terjadi kesalahan: '), error);
+                                                                                                                                console.error(clc.red('\n ❌ Terjadi kesalahan: '), error.stack);
                                                                                                                             } 
                                                                                     
                                                                                                                             console.log(stdout.replace('AssertionError: ', '').replaceAll(/✔/g, clc.bold(clc.green('✔'))).replaceAll('passing', clc.green(clc.bold('PASSING'))).replaceAll('pending', clc.bold('PENDING')).replaceAll('failing', clc.bold(clc.red('FAILING'))).replaceAll("AssertionError", clc.bold(clc.red('AssertionError'))));
@@ -488,7 +488,7 @@ async function getInput() {
                                                                         console.log(`\n${clc.bgYellow(clc.whiteBright("Program is running in test " + absolutePath))}`);
                                                                         exec(`npm test ${absolutePath} -- --data=${data} --recursive ${inputReportCommand}`, (error, stdout, stderr) => {
                                                                             if (error) {
-                                                                                console.error(clc.red('\n ❌ Terjadi kesalahan: '), error);
+                                                                                console.error(clc.red('\n ❌ Terjadi kesalahan: '), error.stack);
                                                                             } 
                                                                             
                                                                             console.log(stdout.replace('AssertionError: ', '').replaceAll(/✔/g, clc.bold(clc.green('✔'))).replaceAll('passing', clc.green(clc.bold('PASSING'))).replaceAll('pending', clc.bold('PENDING')).replaceAll('failing', clc.bold(clc.red('FAILING'))).replaceAll("AssertionError", clc.bold(clc.red('AssertionError'))));
@@ -501,7 +501,7 @@ async function getInput() {
                                                                         console.log(`\n${clc.bgYellow(clc.whiteBright("Program is running in test " + absolutePath))}`);
                                                                         exec(`npm test ${absolutePath} -- --data=${data} ${inputReportCommand}`, (error, stdout, stderr) => {
                                                                             if (error) {
-                                                                                console.error(clc.red('\n ❌ Terjadi kesalahan: '), error);
+                                                                                console.error(clc.red('\n ❌ Terjadi kesalahan: '), error.stack);
                                                                             }
                                                 
                                                                             console.log(stdout.replace('AssertionError: ', '').replaceAll(/✔/g, clc.bold(clc.green('✔'))).replaceAll('passing', clc.green(clc.bold('PASSING'))).replaceAll('pending', clc.bold('PENDING')).replaceAll('failing', clc.bold(clc.red('FAILING'))).replaceAll("AssertionError", clc.bold(clc.red('AssertionError'))));

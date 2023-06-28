@@ -14,6 +14,7 @@ import { fileURLToPath } from 'url';
 import { captureConsoleErrors } from '#root/commons/utils/generalUtils';
 import { thrownAnError } from '#root/commons/utils/generalUtils';
 import moment from 'moment-timezone';
+import { faker } from '@faker-js/faker';
 
 let driver;
 let errorMessages;
@@ -99,7 +100,7 @@ Waktu Event Load Selesai (loadEventEnd): (${performanceTiming.loadEventEnd - nav
     BROWSERS.forEach(browser => {
 
         // Desktop Version
-        it.skip(`Go to app or landing page from browser ${browser}`, async () => {
+        it(`Go to app or landing page from browser ${browser}`, async () => {
 
             try {
 
@@ -133,7 +134,7 @@ Waktu Event Load Selesai (loadEventEnd): (${performanceTiming.loadEventEnd - nav
 
         });
         
-        it.skip(`Check the button 'Yuk, bacatarot!' from browser ${browser}`, async () => {
+        it(`Check the button 'Yuk, bacatarot!' from browser ${browser}`, async () => {
 
             try {
 
@@ -168,7 +169,7 @@ Waktu Event Load Selesai (loadEventEnd): (${performanceTiming.loadEventEnd - nav
 
         });
 
-        it.skip(`Go into article page from browser ${browser}`, async () => {
+        it(`Go into article page from browser ${browser}`, async () => {
 
             try {
 
@@ -203,7 +204,7 @@ Waktu Event Load Selesai (loadEventEnd): (${performanceTiming.loadEventEnd - nav
 
         });
         
-        it.skip(`Check if there's an article on the article page from browser ${browser}`, async () => {
+        it(`Check if there's an article on the article page from browser ${browser}`, async () => {
 
             try {
 
@@ -243,7 +244,7 @@ Waktu Event Load Selesai (loadEventEnd): (${performanceTiming.loadEventEnd - nav
 
         });
         
-        it.skip(`Go into reader page from browser ${browser}`, async () => {
+        it(`Go into reader page from browser ${browser}`, async () => {
 
             try {
 
@@ -278,7 +279,7 @@ Waktu Event Load Selesai (loadEventEnd): (${performanceTiming.loadEventEnd - nav
 
         });
 
-        it.skip(`Check if there's an reader or no on the reader page from browser ${browser}`, async () => {
+        it(`Check if there's an reader or no on the reader page from browser ${browser}`, async () => {
 
             try {
 
@@ -318,7 +319,52 @@ Waktu Event Load Selesai (loadEventEnd): (${performanceTiming.loadEventEnd - nav
 
         });
         
-        it.skip(`Go into about page from browser ${browser}`, async () => {
+        it(`Check the button pick of reader on reader or councelor page from browser (before login) ${browser}`, async () => {
+
+            try {
+
+                driver = await goToApp(browser, appHost);
+                await driver.manage().window().maximize();
+
+                // Aksi menunggu modal content
+                let modalContent = await driver.executeScript(`return document.querySelector('.modal-content')`);
+                if(await modalContent?.isDisplayed()) {
+                    await driver.wait(until.elementLocated(By.css('.modal-content')));              
+                    await driver.findElement(By.css(".modal-content header button.close")).click();
+                }
+
+                // Aksi sleep 
+                await driver.sleep(3000);
+
+                // Aksi mengklik menu tab article
+                await driver.executeScript(`return document.querySelectorAll("ul.navbar-nav li.nav-item a.nav-link a")[2].click();`);
+
+                // Aksi sleep 
+                await driver.sleep(3000);
+
+                // Aksi mengklik menu tab article
+                let userOverview = await driver.executeScript(`return document.querySelectorAll('#user-overview button.action-btn')`);
+                await driver.executeScript(`return document.querySelectorAll("#user-overview button.action-btn")[${faker.number.int({ min: 0, max: await userOverview.length })}].click();`);
+
+                // Aksi sleep 
+                await driver.sleep(3000);
+
+                // Expect results and add custom message for addtional description
+                let currentPageUrl = await driver.getCurrentUrl();
+
+                customMessages = [
+                    currentPageUrl === appHost + 'auth' ? 'Successfully go into auth page after clicked button pick on reader or councelor page ✅' : 'Failed go into auth page ❌',
+                ]
+                expect(currentPageUrl).to.equal(appHost + 'auth');
+
+            } catch (error) {
+                expect.fail(error);
+            }
+
+
+        });
+        
+        it(`Go into about page from browser ${browser}`, async () => {
 
             try {
 
