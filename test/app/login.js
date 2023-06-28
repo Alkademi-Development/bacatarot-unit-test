@@ -46,6 +46,12 @@ describe("Login", () => {
         });
         let fileNamePath = path.resolve(`${screenshootFilePath}/${this.currentTest?.state != 'failed' ? (this.test?.parent.tests.findIndex(test => test.title === this.currentTest.title)) + 1 + '-[passed]-' + moment().tz("Asia/Jakarta").format("YYYY-MM-DD_HH-mm-ss") : (this.test?.parent.tests.findIndex(test => test.title === this.currentTest.title)) + 1 + '-[failed]-' + moment().tz("Asia/Jakarta").format("YYYY-MM-DD_HH-mm-ss") }.png`);
         await takeScreenshot(driver, fileNamePath);
+        fs.unlink(fileNamePath, (err) => {
+            if (err) {
+              console.error('Gagal menghapus file:', err);
+              return;
+            }
+        });
         if(this.currentTest.isPassed) {
             addContext(this, {
                 title: 'Expected Results',

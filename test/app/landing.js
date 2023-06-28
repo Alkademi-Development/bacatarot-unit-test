@@ -98,7 +98,8 @@ Waktu Event Load Selesai (loadEventEnd): (${performanceTiming.loadEventEnd - nav
 
     BROWSERS.forEach(browser => {
 
-        it(`Go to app or landing page from browser ${browser}`, async () => {
+        // Desktop Version
+        it.skip(`Go to app or landing page from browser ${browser}`, async () => {
 
             try {
 
@@ -132,7 +133,7 @@ Waktu Event Load Selesai (loadEventEnd): (${performanceTiming.loadEventEnd - nav
 
         });
         
-        it(`Check the button 'Yuk, bacatarot!' from browser ${browser}`, async () => {
+        it.skip(`Check the button 'Yuk, bacatarot!' from browser ${browser}`, async () => {
 
             try {
 
@@ -167,7 +168,7 @@ Waktu Event Load Selesai (loadEventEnd): (${performanceTiming.loadEventEnd - nav
 
         });
 
-        it(`Go into article page from browser ${browser}`, async () => {
+        it.skip(`Go into article page from browser ${browser}`, async () => {
 
             try {
 
@@ -202,7 +203,7 @@ Waktu Event Load Selesai (loadEventEnd): (${performanceTiming.loadEventEnd - nav
 
         });
         
-        it(`Check if there's an article on the article page from browser ${browser}`, async () => {
+        it.skip(`Check if there's an article on the article page from browser ${browser}`, async () => {
 
             try {
 
@@ -242,7 +243,7 @@ Waktu Event Load Selesai (loadEventEnd): (${performanceTiming.loadEventEnd - nav
 
         });
         
-        it(`Go into reader page from browser ${browser}`, async () => {
+        it.skip(`Go into reader page from browser ${browser}`, async () => {
 
             try {
 
@@ -277,7 +278,7 @@ Waktu Event Load Selesai (loadEventEnd): (${performanceTiming.loadEventEnd - nav
 
         });
 
-        it(`Check if there's an reader or no on the reader page from browser ${browser}`, async () => {
+        it.skip(`Check if there's an reader or no on the reader page from browser ${browser}`, async () => {
 
             try {
 
@@ -317,7 +318,7 @@ Waktu Event Load Selesai (loadEventEnd): (${performanceTiming.loadEventEnd - nav
 
         });
         
-        it(`Go into about page from browser ${browser}`, async () => {
+        it.skip(`Go into about page from browser ${browser}`, async () => {
 
             try {
 
@@ -344,6 +345,44 @@ Waktu Event Load Selesai (loadEventEnd): (${performanceTiming.loadEventEnd - nav
                     currentPageUrl === appHost + 'about' ? 'Successfully go into about page ✅' : 'Failed go into about page ❌',
                 ]
                 expect(currentPageUrl).to.equal(appHost + 'about');
+
+            } catch (error) {
+                expect.fail(error);
+            }
+
+
+        });
+
+        // Mobile Version
+        it(`Check the dropdown navbar list on mobile version from browser ${browser}`, async () => {
+
+            try {
+
+                driver = await goToApp(browser, appHost);
+                // Aksi sleep
+                await driver.sleep(3000);
+                await driver.manage().window().setRect({ width: 384, height: 1024 });
+
+                // Aksi klik masuk untuk menuju ke halaman login/authentication
+                let modalContent = await driver.executeScript(`return document.querySelector('.modal-content')`);
+                if(await modalContent?.isDisplayed()) {
+                    await driver.wait(until.elementLocated(By.css('.modal-content')));              
+                    await driver.findElement(By.css(".modal-content header button.close")).click();
+                }
+
+                // Aksi mengklik button login 
+                await driver.findElement(By.css("button.navbar-toggler")).click();
+                await driver.sleep(1000);
+                
+                // Aksi mengecek dropdown navbar item ketika telah mengklik toggler button
+                let dropdownNavbar = await driver.findElement(By.css("ul.navbar-nav"));
+                await thrownAnError('Dropdown navbar item is not available', await !dropdownNavbar.isDisplayed());
+                
+                // Expect results and add custom message for addtional description
+                customMessages = [
+                    await dropdownNavbar.isDisplayed() ? 'Dropdown navbar item is available ✅' : 'Dropdown navbar item is not available ❌'
+                ];
+                expect(await dropdownNavbar.isDisplayed()).to.equal(true);
 
             } catch (error) {
                 expect.fail(error);

@@ -2,11 +2,16 @@ import { Builder, By, Key, until } from 'selenium-webdriver';
 import { captureConsoleErrors } from '#root/commons/utils/generalUtils';
 import { captureAlertError } from '#root/commons/utils/generalUtils';
 
-const goToApp = async (browser, appHost) => {
+const goToApp = async (browser, appHost, version) => {
 
     let driver = new Builder()
         .forBrowser(browser)
         .build();
+
+    if(version?.toLowerCase() === 'mobile'){
+        await driver.sleep(3000);
+        await driver.manage().window().setRect({ width: 370, height: 1024 });
+    }
     
     try {
         await driver.get(appHost);
