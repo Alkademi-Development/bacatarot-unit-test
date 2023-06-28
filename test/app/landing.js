@@ -45,12 +45,7 @@ describe("Landing", () => {
                 title: 'Expected Results',
                 value: customMessages?.length > 0 ? "- " + customMessages?.map(msg => msg.trim()).join("\n- ") : 'No Results'
             })
-        } else if (this.currentTest.isFailed) {
-            addContext(this, {
-                title: 'Status Test',
-                value: 'Failed ❌'
-            })
-        }
+        } 
 
         // Performances Information
         const performanceTiming = await driver.executeScript('return window.performance.timing');
