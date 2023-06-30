@@ -76,8 +76,8 @@ after that you must copy the path of that driver file saved it before and enter 
 - `testReports` ( berisi hasil report tests )
 - `screenshoot` ( untuk hasil screenshoot-an dari setiap hasil test yg telah selesai di jalankan )
 
-## File Path Tests
-<table>
+<!-- ## File Path Tests -->
+<!-- <table>
   <tbody>
     <tr>
       <th align="center">APP</th>
@@ -88,7 +88,23 @@ after that you must copy the path of that driver file saved it before and enter 
       <td>None</td>
     </tr>
   </tbody>
-</table>
+</table> -->
+
+## Performance Timing Explanation
+- **connectEnd** & **connectStart**: adalah waktu dimulainya dan selesainya koneksi ke server.
+- **domComplete**: adalah waktu ketika parsing dokumen HTML selesai.
+- **domContentLoadedEventEnd** & **domContentLoadedEventStart**: adalah waktu mulai dan selesai untuk event DOMContentLoaded, yang terjadi ketika dokumen HTML selesai di-parse dan dokumen sudah siap untuk diproses.
+- **domInteractive**: adalah waktu ketika dokumen menjadi interaktif, yaitu ketika semua elemen telah di-parse dan DOM dapat dimanipulasi oleh JavaScript.
+- **domLoading**: adalah waktu dimulainya loading dokumen HTML.
+- **domainLookupEnd** & **domainLookupStart**: adalah waktu dimulainya dan selesaiya pencarian DNS untuk menghubungi server.
+- **fetchStart**: adalah waktu dimulainya proses pengambilan sumber daya dari server.
+- **loadEventEnd** & **loadEventStart**: adalah waktu mulai dan selesai untuk event load, yang terjadi ketika semua sumber daya telah di-download dan halaman web sepenuhnya dimuat.
+- **navigationStart**: adalah waktu permulaan navigasi, yaitu ketika browser mulai memuat halaman.
+- **redirectEnd** & **redirectStart**: adalah waktu dimulainya dan selesai nya proses redirect dari server.
+- **requestStart**: adalah waktu dimulainya permintaan untuk sumber daya dari server.
+- **responseEnd**: adalah waktu ketika respons dari server selesai di-download.
+- **secureConnectionStart**: adalah waktu dimulainya proses pembentukan koneksi aman ke server (HTTPS).
+- **unloadEventEnd** & **unloadEventStart**: adalah waktu mulai dan selesai untuk event unload, yang terjadi ketika halaman sedang meninggalkan browser.
 
 ## NOTES
 - di sarankan apabila membuat sebuah tester itu harus menggunakan trycatch agar bisa mendapatkan expect.fail() apabila terjadi kesalahan dari sisi client

@@ -585,7 +585,7 @@ Waktu Event Load Selesai (loadEventEnd): (${performanceTiming.loadEventEnd - nav
 
                     });
         
-                    it(`Reader - Check the button pick of reader on reader or councelor page from browser (after logged in) ${browser}`, async () => {
+                    it(`Reader - Check the button pick of reader on reader or councelor page from browser (after logged in) from ${browser}`, async () => {
             
                         try {
             
