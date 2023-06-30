@@ -156,9 +156,11 @@ Waktu Event Load Selesai (loadEventEnd): (${performanceTiming.loadEventEnd - nav
                                     for (let index = 0; index < await readerList.length; index++) {
                                         readersName.push(await readerList[index].getAttribute('innerText'));
                                     }
-                                    readerSearch = await readersName[faker.number.int({ min: 0, max: readersName?.length })];
                                     // Aksi sleep
                                     await driver.sleep(3000);
+                                    readerSearch = await readersName[faker.number.int({ min: 0, max: await readersName?.length - 1 })];
+                                    // Aksi sleep
+                                    await driver.sleep(5000);
                                     await driver.findElement(By.css('form > input')).sendKeys(readerSearch);
                                     let formSearch = await driver.findElement(By.css('form'));
                                     await driver.executeScript("arguments[0].addEventListener('submit', function(e) { e.preventDefault(); });", formSearch);
@@ -224,7 +226,8 @@ Waktu Event Load Selesai (loadEventEnd): (${performanceTiming.loadEventEnd - nav
                             await driver.sleep(3000);
 
                             // Aksi mengklik salah satu jadwal yg msh off
-                            await driver.executeScript(`return document.querySelectorAll('p.time.off')[${faker.number.int({ min: 0, max: await schedulesOff.length - 1 })}].parentNode.parentNode.parentNode.querySelector(".add").click();`);
+                            let indexScheduleCard = faker.number.int({ min: 0, max: await schedulesOff.length - 1 });
+                            await driver.executeScript(`return document.querySelectorAll('p.time.off')[${indexScheduleCard}].parentNode.parentNode.parentNode.querySelector(".add").click();`);
                             
                             // Aksi Sleep
                             await driver.sleep(3000);
@@ -235,14 +238,26 @@ Waktu Event Load Selesai (loadEventEnd): (${performanceTiming.loadEventEnd - nav
                             // Aksi Sleep
                             await driver.sleep(3000);
 
+                            // Aksi klik tombol add time untuk menambakah jadwal waktu konsultasi
+                            await driver.executeScript(`return document.querySelector(".wrapper .add").click()`);
+
+                            // Aksi sleep
+                            await driver.sleep(3000);
+
+                            // Aksi klik button simpan untuk mengaktifkan jadwal waktu 
+                            await driver.executeScript(`return document.querySelector(".button-container #orange-button button.default").click()`);
+
+                            // Aksi sleep
+                            await driver.sleep(5000);
+
                             // Results
-                            let addTime = await driver.findElement(By.css('.add.mx-auto'));
+                            let isActiveSchedule = await driver.executeScript(`return document.querySelectorAll("p.time")[${indexScheduleCard}].classList.contains('off')`);
 
                             // Expect results and add custom message for addtional description
                             customMessages = [
-                                await addTime.isDisplayed() ? 'Successfully turn on the schedule per day ✅' : 'Failed to turn on the schedule per day ❌'
+                                !isActiveSchedule ? 'Successfully turn on the schedule per day ✅' : 'Failed to turn on the schedule per day ❌'
                             ];
-                            expect(await addTime.isDisplayed()).to.eq(true);
+                            expect(!isActiveSchedule).to.eq(true);
 
 
                         } catch (error) {
@@ -305,6 +320,8 @@ Waktu Event Load Selesai (loadEventEnd): (${performanceTiming.loadEventEnd - nav
 
                             // Aksi mengecek jadwal schedulenya telah berubah menjadi off
                             let scheduleOnStatus = await driver.executeScript(`return document.querySelectorAll('p.time')[${indexScheduleOn}].classList.contains('off')`);
+                            // Aksi Sleep
+                            await driver.sleep(3000);
                             await thrownAnError('Sorry, the schedule status is still on', await scheduleOnStatus === false);
                             
                             // Aksi Sleep
