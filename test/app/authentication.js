@@ -119,7 +119,7 @@ Waktu Event Load Selesai (loadEventEnd): (${performanceTiming.loadEventEnd - nav
 
             switch (user.kind) {
                 case 1:
-                    it.skip(`User - Login from browser ${browser}`, async () => {
+                    it(`User - Login from browser ${browser}`, async () => {
 
                         try {
                             // Aksi masuk ke dalam halaman browser
@@ -161,7 +161,7 @@ Waktu Event Load Selesai (loadEventEnd): (${performanceTiming.loadEventEnd - nav
 
                     });
         
-                    it.skip(`User - Check the button pick of reader on reader or councelor page from browser (after logged in) ${browser}`, async () => {
+                    it(`User - Check the button pick of reader on reader or councelor page from browser (after logged in) ${browser}`, async () => {
             
                         try {
             
@@ -294,7 +294,7 @@ Waktu Event Load Selesai (loadEventEnd): (${performanceTiming.loadEventEnd - nav
             
                     });
                     
-                    it.skip(`User - Logout from browser ${browser}`, async () => {
+                    it(`User - Logout from browser ${browser}`, async () => {
 
                         try {
                             // Aksi masuk ke dalam halaman browser
@@ -340,7 +340,7 @@ Waktu Event Load Selesai (loadEventEnd): (${performanceTiming.loadEventEnd - nav
                 
                 case 2: 
                     // Mobile Navigation
-                    it.skip(`Reader - Check the mobile navigation of mobile version from browser ${browser}`, async () => {
+                    it(`Reader - Check the mobile navigation of mobile version from browser ${browser}`, async () => {
 
                         try {
                             // Aksi masuk ke dalam halaman browser
@@ -573,10 +573,10 @@ Waktu Event Load Selesai (loadEventEnd): (${performanceTiming.loadEventEnd - nav
                             // Expect results and add custom message for addtional description
                             customMessages = [
                                 userData?.id > 0 ? "Successfully get the data reader account from local storage ✅" : "No data available from local storage ❌",
-                                currentUrl === appHost + 'reader' ? 'Successfully go into dashboard reader page ✅' : 'Successfully go into dashboard reader page ❌' 
+                                currentUrl === appHost + '/reader' ? 'Successfully go into dashboard reader page ✅' : 'Successfully go into dashboard reader page ❌' 
                             ]
                             expect(parseInt(userData.id)).to.greaterThan(0);
-                            expect(currentUrl).to.equal(appHost + 'reader');
+                            expect(currentUrl).to.equal(appHost + 'reader/');
 
                         } catch (error) {
                             expect.fail(error);
@@ -631,9 +631,9 @@ Waktu Event Load Selesai (loadEventEnd): (${performanceTiming.loadEventEnd - nav
                             let currentPageUrl = await driver.getCurrentUrl();
             
                             customMessages = [
-                                currentPageUrl === appHost + 'reader' ? 'Successfully go into reader page after clicked button pick on reader or councelor page ✅' : 'Failed go into reader page ❌',
+                                currentPageUrl === appHost + '/reader' ? 'Successfully go into reader page after clicked button pick on reader or councelor page ✅' : 'Failed go into reader page ❌',
                             ]
-                            expect(currentPageUrl).to.equal(appHost + 'reader');
+                            expect(currentPageUrl).to.equal(appHost + 'reader/');
             
                         } catch (error) {
                             expect.fail(error);
@@ -929,11 +929,11 @@ Waktu Event Load Selesai (loadEventEnd): (${performanceTiming.loadEventEnd - nav
                             customMessages = [
                                 newPassword === inputValuePassword ? "Successfully changed the user password ✅" : "Failed to change the user password ❌",
                                 userData?.id > 0 ? "Successfully get the data reader account from local storage ✅" : "No data available from local storage ❌",
-                                currentUrl === appHost + 'reader' ? 'Successfully go into dashboard reader page ✅' : 'Successfully go into dashboard reader page ❌' 
+                                currentUrl === appHost + '/reader' ? 'Successfully go into dashboard reader page ✅' : 'Successfully go into dashboard reader page ❌' 
                             ]
                             expect(newPassword).to.eq(inputValuePassword);
                             expect(parseInt(userData.id)).to.greaterThan(0);
-                            expect(currentUrl).to.equal(appHost + 'reader');
+                            expect(currentUrl).to.equal(appHost + 'reader/');
 
                         } catch (error) {
                             expect.fail(error);
