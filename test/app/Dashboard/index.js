@@ -112,10 +112,9 @@ Waktu Event Load Selesai (loadEventEnd): (${performanceTiming.loadEventEnd - nav
             const userAccount = data[1].split(';');
             const email = userAccount[0];
             const password = userAccount[1];
-            const name = userAccount[2];
-            const kind = parseInt(userAccount[3]);
+            const kind = parseInt(userAccount[2]);
 
-            let user = { name, email, password, kind };
+            let user = { email, password, kind };
 
             switch (user.kind) {
                 case 1:

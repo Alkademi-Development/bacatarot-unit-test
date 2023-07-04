@@ -119,9 +119,9 @@ Waktu Event Load Selesai (loadEventEnd): (${performanceTiming.loadEventEnd - nav
                 let currentPageUrl = await driver.getCurrentUrl();
 
                 customMessages = [
-                    currentPageUrl === appHost ? 'Successfully go to app ✅' : 'Failed go to app ❌'
+                    currentPageUrl === appHost + '/' ? 'Successfully go to app ✅' : 'Failed go to app ❌'
                 ]
-                expect(currentPageUrl).to.equal(appHost);
+                expect(currentPageUrl).to.equal(appHost + '/');
 
             } catch (error) {
                 expect.fail(error);
@@ -154,9 +154,9 @@ Waktu Event Load Selesai (loadEventEnd): (${performanceTiming.loadEventEnd - nav
                 let currentPageUrl = await driver.getCurrentUrl();
 
                 customMessages = [
-                    currentPageUrl === appHost + 'auth' ? 'Successfully go into auth page ✅' : 'Failed go into auth page ❌',
+                    currentPageUrl === appHost + '/auth' ? 'Successfully go into auth page ✅' : 'Failed go into auth page ❌',
                 ]
-                expect(currentPageUrl).to.equal(appHost + 'auth');
+                expect(currentPageUrl).to.equal(appHost + '/auth');
 
             } catch (error) {
                 expect.fail(error);
@@ -189,9 +189,9 @@ Waktu Event Load Selesai (loadEventEnd): (${performanceTiming.loadEventEnd - nav
                 let currentPageUrl = await driver.getCurrentUrl();
 
                 customMessages = [
-                    currentPageUrl === appHost + 'article' ? 'Successfully go into article page ✅' : 'Failed go into article page ❌',
+                    currentPageUrl === appHost + '/article' ? 'Successfully go into article page ✅' : 'Failed go into article page ❌',
                 ]
-                expect(currentPageUrl).to.equal(appHost + 'article');
+                expect(currentPageUrl).to.equal(appHost + '/article');
 
             } catch (error) {
                 expect.fail(error);
@@ -228,10 +228,10 @@ Waktu Event Load Selesai (loadEventEnd): (${performanceTiming.loadEventEnd - nav
                 let currentPageUrl = await driver.getCurrentUrl();
 
                 customMessages = [
-                    currentPageUrl === appHost + 'article' ? 'Successfully go into article page ✅' : 'Failed go into article page ❌',
+                    currentPageUrl === appHost + '/article' ? 'Successfully go into article page ✅' : 'Failed go into article page ❌',
                     emptyArticle.length === 0 ? 'There is an article on the page ✅' : 'There is no article on the page ❌'
                 ]
-                expect(currentPageUrl).to.equal(appHost + 'article');
+                expect(currentPageUrl).to.equal(appHost + '/article');
 
             } catch (error) {
                 expect.fail(error);
@@ -264,9 +264,9 @@ Waktu Event Load Selesai (loadEventEnd): (${performanceTiming.loadEventEnd - nav
                 let currentPageUrl = await driver.getCurrentUrl();
 
                 customMessages = [
-                    currentPageUrl === appHost + 'councelor' ? 'Successfully go into reader page ✅' : 'Failed go into reader page ❌',
+                    currentPageUrl === appHost + '/councelor' ? 'Successfully go into reader page ✅' : 'Failed go into reader page ❌',
                 ]
-                expect(currentPageUrl).to.equal(appHost + 'councelor');
+                expect(currentPageUrl).to.equal(appHost + '/councelor');
 
             } catch (error) {
                 expect.fail(error);
@@ -303,10 +303,10 @@ Waktu Event Load Selesai (loadEventEnd): (${performanceTiming.loadEventEnd - nav
                 let currentPageUrl = await driver.getCurrentUrl();
 
                 customMessages = [
-                    currentPageUrl === appHost + 'councelor' ? 'Successfully go into councelor page ✅' : 'Failed go into councelor page ❌',
+                    currentPageUrl === appHost + '/councelor' ? 'Successfully go into councelor page ✅' : 'Failed go into councelor page ❌',
                     emptyArticle.length === 0 ? 'There is an councelor on the page ✅' : 'There is no councelor on the page ❌'
                 ]
-                expect(currentPageUrl).to.equal(appHost + 'councelor');
+                expect(currentPageUrl).to.equal(appHost + '/councelor');
 
             } catch (error) {
                 expect.fail(error);
@@ -349,9 +349,9 @@ Waktu Event Load Selesai (loadEventEnd): (${performanceTiming.loadEventEnd - nav
                 let currentPageUrl = await driver.getCurrentUrl();
 
                 customMessages = [
-                    currentPageUrl === appHost + 'auth' ? 'Successfully go into auth page after clicked button pick on reader or councelor page ✅' : 'Failed go into auth page ❌',
+                    currentPageUrl === appHost + '/auth' ? 'Successfully go into auth page after clicked button pick on reader or councelor page ✅' : 'Failed go into auth page ❌',
                 ]
-                expect(currentPageUrl).to.equal(appHost + 'auth');
+                expect(currentPageUrl).to.equal(appHost + '/auth');
 
             } catch (error) {
                 expect.fail(error);
@@ -384,9 +384,9 @@ Waktu Event Load Selesai (loadEventEnd): (${performanceTiming.loadEventEnd - nav
                 let currentPageUrl = await driver.getCurrentUrl();
 
                 customMessages = [
-                    currentPageUrl === appHost + 'about' ? 'Successfully go into about page ✅' : 'Failed go into about page ❌',
+                    currentPageUrl === appHost + '/about' ? 'Successfully go into about page ✅' : 'Failed go into about page ❌',
                 ]
-                expect(currentPageUrl).to.equal(appHost + 'about');
+                expect(currentPageUrl).to.equal(appHost + '/about');
 
             } catch (error) {
                 expect.fail(error);

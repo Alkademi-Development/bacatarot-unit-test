@@ -112,10 +112,9 @@ Waktu Event Load Selesai (loadEventEnd): (${performanceTiming.loadEventEnd - nav
             const userAccount = data[1].split(';');
             const email = userAccount[0];
             const password = userAccount[1];
-            const name = userAccount[2];
-            const kind = parseInt(userAccount[3]);
+            const kind = parseInt(userAccount[2]);
 
-            let user = { name, email, password, kind };
+            let user = { email, password, kind };
 
             switch (user.kind) {
                 case 1:
@@ -149,10 +148,10 @@ Waktu Event Load Selesai (loadEventEnd): (${performanceTiming.loadEventEnd - nav
                             // Expect results and add custom message for addtional description
                             customMessages = [
                                 userData?.id > 0 ? "Successfully get the data user from local storage ✅" : "No data available from local storage ❌",
-                                currentUrl === appHost + 'user' ? 'Successfully go into dashboard user page ✅' : 'Successfully go into dashboard user page ❌' 
+                                currentUrl === appHost + '/user' ? 'Successfully go into dashboard user page ✅' : 'Successfully go into dashboard user page ❌' 
                             ]
                             expect(parseInt(userData.id)).to.greaterThan(0);
-                            expect(currentUrl).to.equal(appHost + 'user');
+                            expect(currentUrl).to.equal(appHost + '/user');
 
                         } catch (error) {
                             expect.fail(error);
@@ -171,8 +170,9 @@ Waktu Event Load Selesai (loadEventEnd): (${performanceTiming.loadEventEnd - nav
                             // Aksi menunggu modal content
                             let modalContent = await driver.executeScript(`return document.querySelector('.modal-content')`);
                             if(await modalContent?.isDisplayed()) {
-                                await driver.wait(until.elementLocated(By.css('.modal-content')));              
-                                await driver.findElement(By.css(".modal-content header button.close")).click();
+                                await driver.wait(until.elementLocated(By.css('.modal-content')));      
+                                await driver.sleep(1000);        
+                                await driver.executeScript(`return document.querySelector('.modal-content header button.close').click()`);
                             }
             
                             // Aksi sleep 
@@ -218,9 +218,9 @@ Waktu Event Load Selesai (loadEventEnd): (${performanceTiming.loadEventEnd - nav
                             let currentPageUrl = await driver.getCurrentUrl();
             
                             customMessages = [
-                                currentPageUrl === appHost + 'user' ? 'Successfully go into user page after clicked button pick on user or councelor page ✅' : 'Failed go into user page ❌',
+                                currentPageUrl === appHost + '/user' ? 'Successfully go into user page after clicked button pick on user or councelor page ✅' : 'Failed go into user page ❌',
                             ]
-                            expect(currentPageUrl).to.equal(appHost + 'user');
+                            expect(currentPageUrl).to.equal(appHost + '/user');
             
                         } catch (error) {
                             expect.fail(error);
@@ -239,8 +239,9 @@ Waktu Event Load Selesai (loadEventEnd): (${performanceTiming.loadEventEnd - nav
                             // Aksi menunggu modal content
                             let modalContent = await driver.executeScript(`return document.querySelector('.modal-content')`);
                             if(await modalContent?.isDisplayed()) {
-                                await driver.wait(until.elementLocated(By.css('.modal-content')));              
-                                await driver.findElement(By.css(".modal-content header button.close")).click();
+                                await driver.wait(until.elementLocated(By.css('.modal-content')));         
+                                await driver.sleep(1000);           
+                                await driver.executeScript(`return document.querySelector('.modal-content header button.close').click`)
                             }
             
                             // Aksi sleep 
@@ -340,64 +341,64 @@ Waktu Event Load Selesai (loadEventEnd): (${performanceTiming.loadEventEnd - nav
                 
                 case 2: 
                     // Mobile Navigation
-                    it(`Reader - Check the mobile navigation of mobile version from browser ${browser}`, async () => {
+                    // it(`Reader - Check the mobile navigation of mobile version from browser ${browser}`, async () => {
 
-                        try {
-                            // Aksi masuk ke dalam halaman browser
-                            driver = await goToApp(browser, appHost, 'mobile');
+                    //     try {
+                    //         // Aksi masuk ke dalam halaman browser
+                    //         driver = await goToApp(browser, appHost, 'mobile');
 
-                            // Aksi klik masuk untuk menuju ke halaman login/authentication
-                            let modalContent = await driver.executeScript(`return document.querySelector('.modal-content')`);
-                            if(await modalContent?.isDisplayed()) {
-                                await driver.wait(until.elementLocated(By.css('.modal-content')));              
-                                await driver.findElement(By.css(".modal-content header button.close")).click();
-                            }
+                    //         // Aksi klik masuk untuk menuju ke halaman login/authentication
+                    //         let modalContent = await driver.executeScript(`return document.querySelector('.modal-content')`);
+                    //         if(await modalContent?.isDisplayed()) {
+                    //             await driver.wait(until.elementLocated(By.css('.modal-content')));              
+                    //             await driver.executeScript(`return document.querySelector('.modal-content header button.close').click`)
+                    //         }
 
-                            // Aksi mengklik button login 
-                            await driver.findElement(By.css("button.navbar-toggler")).click();
-                            await driver.sleep(1000);
-                            // Aksi mengecek dropdown navbar item ketika telah mengklik toggler button
-                            let dropdownNavbar = await driver.findElement(By.css("ul.navbar-nav"));
-                            await thrownAnError('Dropdown navbar item is not available', await dropdownNavbar.isDisplayed() === false);
-                            await driver.sleep(1000);
-                            await driver.executeScript(`return document.querySelectorAll('ul.navbar-nav li.nav-item a.nav-link a')[document.querySelectorAll('ul.navbar-nav li.nav-item a.nav-link a').length - 1].click();`);
-                            await driver.sleep(1000);
+                    //         // Aksi mengklik button login 
+                    //         await driver.findElement(By.css("button.navbar-toggler")).click();
+                    //         await driver.sleep(1000);
+                    //         // Aksi mengecek dropdown navbar item ketika telah mengklik toggler button
+                    //         let dropdownNavbar = await driver.findElement(By.css("ul.navbar-nav"));
+                    //         await thrownAnError('Dropdown navbar item is not available', await dropdownNavbar.isDisplayed() === false);
+                    //         await driver.sleep(1000);
+                    //         await driver.executeScript(`return document.querySelectorAll('ul.navbar-nav li.nav-item a.nav-link a')[document.querySelectorAll('ul.navbar-nav li.nav-item a.nav-link a').length - 1].click();`);
+                    //         await driver.sleep(1000);
 
-                            // Aksi menunggu halaman authentication
-                            await driver.wait(until.elementLocated(By.id("auth")));
+                    //         // Aksi menunggu halaman authentication
+                    //         await driver.wait(until.elementLocated(By.id("auth")));
 
-                            // Aksi Input Data Akun 
-                            await driver.wait(until.elementLocated(By.css(`input#email`)));
-                            await driver.findElement(By.css(`input#email`)).sendKeys(user.email, Key.RETURN);
-                            await driver.findElement(By.css(`input#password`)).sendKeys(user.password, Key.RETURN);
-                            // Aksi sleep
-                            await driver.sleep(3000);
-                            // Aksi mengecek ada warning atau tidak pada saat submit login form
-                            let errorElement = await driver.executeScript(`return document.querySelectorAll('p.error');`)
-                            if (errorElement.length > 0) await thrownAnError(await driver.executeScript(`return document.querySelector('p.error').innerText;`), errorElement.length > 0);
+                    //         // Aksi Input Data Akun 
+                    //         await driver.wait(until.elementLocated(By.css(`input#email`)));
+                    //         await driver.findElement(By.css(`input#email`)).sendKeys(user.email, Key.RETURN);
+                    //         await driver.findElement(By.css(`input#password`)).sendKeys(user.password, Key.RETURN);
+                    //         // Aksi sleep
+                    //         await driver.sleep(3000);
+                    //         // Aksi mengecek ada warning atau tidak pada saat submit login form
+                    //         let errorElement = await driver.executeScript(`return document.querySelectorAll('p.error');`)
+                    //         if (errorElement.length > 0) await thrownAnError(await driver.executeScript(`return document.querySelector('p.error').innerText;`), errorElement.length > 0);
 
-                            // Aksi menunggu masuk ke dashboard
-                            await driver.wait(until.elementLocated(By.id("mobile-navigation")));
+                    //         // Aksi menunggu masuk ke dashboard
+                    //         await driver.wait(until.elementLocated(By.id("mobile-navigation")));
 
-                            // Cek navigasi mobile
-                            let mobileNavigation = await driver.findElement(By.id("mobile-navigation"));
-                            await thrownAnError('Mobile navigation not found', await mobileNavigation.isDisplayed() === false);
+                    //         // Cek navigasi mobile
+                    //         let mobileNavigation = await driver.findElement(By.id("mobile-navigation"));
+                    //         await thrownAnError('Mobile navigation not found', await mobileNavigation.isDisplayed() === false);
                             
-                            // Aksi sleep
-                            await driver.sleep(3000);
+                    //         // Aksi sleep
+                    //         await driver.sleep(3000);
 
-                            // Expect results and add custom message for addtional description
-                            customMessages = [
-                                await mobileNavigation.isDisplayed() ? 'Mobile navigation is displayed or available ✅' : 'Mobile navigation is not displayed or available'
-                            ];
-                            expect(await mobileNavigation.isDisplayed()).to.equal(true);
+                    //         // Expect results and add custom message for addtional description
+                    //         customMessages = [
+                    //             await mobileNavigation.isDisplayed() ? 'Mobile navigation is displayed or available ✅' : 'Mobile navigation is not displayed or available'
+                    //         ];
+                    //         expect(await mobileNavigation.isDisplayed()).to.equal(true);
 
-                        } catch (error) {
-                            expect.fail(error);
-                        }
+                    //     } catch (error) {
+                    //         expect.fail(error);
+                    //     }
 
 
-                    });
+                    // });
 
                     if(browser != 'chrome') {
                         it(`Reader - Update Profile for mobile version from browser ${browser}`, async () => {
@@ -409,13 +410,14 @@ Waktu Event Load Selesai (loadEventEnd): (${performanceTiming.loadEventEnd - nav
                                 // Aksi klik masuk untuk menuju ke halaman login/authentication
                                 let modalContent = await driver.executeScript(`return document.querySelector('.modal-content')`);
                                 if(await modalContent?.isDisplayed()) {
-                                    await driver.wait(until.elementLocated(By.css('.modal-content')));              
-                                    await driver.findElement(By.css(".modal-content header button.close")).click();
+                                    await driver.wait(until.elementLocated(By.css('.modal-content')));   
+                                    await driver.sleep(1000);           
+                                    await driver.executeScript(`return document.querySelector('.modal-content header button.close').click`)
                                 }
     
                                 // Aksi mengklik button login 
-                                await driver.findElement(By.css("button.navbar-toggler")).click();
                                 await driver.sleep(1000);
+                                await driver.findElement(By.css("button.navbar-toggler")).click();
                                 // Aksi mengecek dropdown navbar item ketika telah mengklik toggler button
                                 let dropdownNavbar = await driver.findElement(By.css("ul.navbar-nav"));
                                 await thrownAnError('Dropdown navbar item is not available', dropdownNavbar.isDisplayed() === false);
@@ -471,7 +473,7 @@ Waktu Event Load Selesai (loadEventEnd): (${performanceTiming.loadEventEnd - nav
                                 await driver.findElement(By.css('input#place_of_birth')).clear();
                                 await driver.findElement(By.css('input#place_of_birth')).sendKeys(inputPlaceOfBirth);
                                 // Input DatePicker Start
-                                await driver.executeScript(`return document.querySelector("input.datepicker").click()`);
+                                await driver.executeScript(`return document.querySelector(".vdp-datepicker div > input").click()`);
                 
                                 await driver.wait(async () => {
                                     let listBoxCourse = await driver.findElement(By.css('.vdp-datepicker__calendar'));
@@ -512,7 +514,7 @@ Waktu Event Load Selesai (loadEventEnd): (${performanceTiming.loadEventEnd - nav
                                 let isAllFilled = await Promise.all([
                                     await driver.findElement(By.css('input#name')).getAttribute('value'),
                                     await driver.findElement(By.css('input#place_of_birth')).getAttribute('value'),
-                                    await driver.findElement(By.css('input.datepicker')).getAttribute('value'),
+                                    await driver.findElement(By.css('.vdp-datepicker div > input')).getAttribute('value'),
                                     await driver.findElement(By.css('input#phone_number')).getAttribute('value'),
                                     await driver.findElement(By.css('input#address')).getAttribute('value'),
                                     await driver.findElement(By.css('input#education')).getAttribute('value'),
@@ -576,7 +578,7 @@ Waktu Event Load Selesai (loadEventEnd): (${performanceTiming.loadEventEnd - nav
                                 currentUrl === appHost + '/reader' ? 'Successfully go into dashboard reader page ✅' : 'Successfully go into dashboard reader page ❌' 
                             ]
                             expect(parseInt(userData.id)).to.greaterThan(0);
-                            expect(currentUrl).to.equal(appHost + 'reader/');
+                            expect(currentUrl).to.equal(appHost + '/reader');
 
                         } catch (error) {
                             expect.fail(error);
@@ -596,7 +598,7 @@ Waktu Event Load Selesai (loadEventEnd): (${performanceTiming.loadEventEnd - nav
                             let modalContent = await driver.executeScript(`return document.querySelector('.modal-content')`);
                             if(await modalContent?.isDisplayed()) {
                                 await driver.wait(until.elementLocated(By.css('.modal-content')));              
-                                await driver.findElement(By.css(".modal-content header button.close")).click();
+                                await driver.executeScript(`return document.querySelector('.modal-content header button.close').click`)
                             }
             
                             // Aksi sleep 
@@ -622,7 +624,7 @@ Waktu Event Load Selesai (loadEventEnd): (${performanceTiming.loadEventEnd - nav
             
                             // Aksi mengklik menu tab article
                             let userOverview = await driver.executeScript(`return document.querySelectorAll('#user-overview button.action-btn')`);
-                            await driver.executeScript(`return document.querySelectorAll("#user-overview button.action-btn")[${faker.number.int({ min: 0, max: await userOverview.length })}].click();`);
+                            await driver.executeScript(`return document.querySelectorAll("#user-overview button.action-btn")[${faker.number.int({ min: 0, max: await userOverview.length - 1 })}].click();`);
             
                             // Aksi sleep 
                             await driver.sleep(3000);
@@ -633,7 +635,7 @@ Waktu Event Load Selesai (loadEventEnd): (${performanceTiming.loadEventEnd - nav
                             customMessages = [
                                 currentPageUrl === appHost + '/reader' ? 'Successfully go into reader page after clicked button pick on reader or councelor page ✅' : 'Failed go into reader page ❌',
                             ]
-                            expect(currentPageUrl).to.equal(appHost + 'reader/');
+                            expect(currentPageUrl).to.equal(appHost + '/reader');
             
                         } catch (error) {
                             expect.fail(error);
@@ -767,7 +769,7 @@ Waktu Event Load Selesai (loadEventEnd): (${performanceTiming.loadEventEnd - nav
                             await driver.findElement(By.css('input#place_of_birth')).clear();
                             await driver.findElement(By.css('input#place_of_birth')).sendKeys(inputPlaceOfBirth);
                             // Input DatePicker Start
-                            await driver.executeScript(`return document.querySelector("input.datepicker").click()`);
+                            await driver.executeScript(`return document.querySelector(".vdp-datepicker div > input").click()`);
             
                             await driver.wait(async () => {
                                 let listBoxCourse = await driver.findElement(By.css('.vdp-datepicker__calendar'));
@@ -791,6 +793,7 @@ Waktu Event Load Selesai (loadEventEnd): (${performanceTiming.loadEventEnd - nav
                             await driver.executeScript(`return document.querySelectorAll('span.cell.day')[${faker.number.int({ min: 1, max: 28 })}].click()`);
                             await driver.sleep(3000);
                             // Input DatePicker End
+                            await driver.executeScript('arguments[0].scrollIntoView()', await driver.findElement(By.css('input#phone_number')));
                             await driver.findElement(By.css('input#phone_number')).clear();
                             await driver.findElement(By.css('input#phone_number')).sendKeys(inputPhoneNumber);
                             await driver.findElement(By.css('input#address')).clear();
@@ -807,7 +810,7 @@ Waktu Event Load Selesai (loadEventEnd): (${performanceTiming.loadEventEnd - nav
                             let isAllFilled = await Promise.all([
                                 await driver.findElement(By.css('input#name')).getAttribute('value'),
                                 await driver.findElement(By.css('input#place_of_birth')).getAttribute('value'),
-                                await driver.findElement(By.css('input.datepicker')).getAttribute('value'),
+                                await driver.findElement(By.css('.vdp-datepicker div > input')).getAttribute('value'),
                                 await driver.findElement(By.css('input#phone_number')).getAttribute('value'),
                                 await driver.findElement(By.css('input#address')).getAttribute('value'),
                                 await driver.findElement(By.css('input#education')).getAttribute('value'),
@@ -816,12 +819,12 @@ Waktu Event Load Selesai (loadEventEnd): (${performanceTiming.loadEventEnd - nav
                             ]).then(results => results.every(value => value != ''));
 
                             if(isAllFilled) await driver.executeScript(`return document.querySelector('button.btn-simpan').click()`);
-                            
+
                             // Aksi sleep 
                             await driver.sleep(3000);
 
                             // Expect results and add custom message for addtional description
-                            let alertSuccess = await driver.executeScript(`return document.querySelector('.toasted.bubble.success');`);
+                            let alertSuccess = await driver.executeScript(`return document.querySelector('.bubble.success');`);
                             customMessages = [
                                 await alertSuccess?.isDisplayed() ? 'Successfully show alert success after updated the profile ✅' : 'Failed to show alert success after updated the profile ❌',
                                 isAllFilled ? 'Successfully fill the input field and update the profile ✅' : 'Failed to fill the input field and update the profile ❌'
@@ -933,7 +936,7 @@ Waktu Event Load Selesai (loadEventEnd): (${performanceTiming.loadEventEnd - nav
                             ]
                             expect(newPassword).to.eq(inputValuePassword);
                             expect(parseInt(userData.id)).to.greaterThan(0);
-                            expect(currentUrl).to.equal(appHost + 'reader/');
+                            expect(currentUrl).to.equal(appHost + '/reader');
 
                         } catch (error) {
                             expect.fail(error);

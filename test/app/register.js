@@ -132,8 +132,8 @@ Waktu Event Load Selesai (loadEventEnd): (${performanceTiming.loadEventEnd - nav
 
                 // Aksi mengisi form registration
                 // Dummy data registration
-                let fullName = `Adnan Erlansyah`;
-                let emailData = `${fullName.toLowerCase().replace(/ /g, '')}02@gmail.com`;
+                let fullName = faker.name.fullName();
+                let emailData = `${fullName.toLowerCase().replace(/ /g, '')}@gmail.com`;
                 let passwordData = 'semuasama';
 
                 // Fill data registration
@@ -159,7 +159,7 @@ Waktu Event Load Selesai (loadEventEnd): (${performanceTiming.loadEventEnd - nav
                 // Fill again
                 await driver.findElement(By.css("input#name")).sendKeys(fullName);
                 // Input DatePicker Start
-                await driver.executeScript(`return document.querySelector("input.datepicker").click()`);
+                await driver.executeScript(`return document.querySelector(".vdp-datepicker div > input").click()`);
 
                 await driver.wait(async () => {
                     let listBoxCourse = await driver.findElement(By.css('.vdp-datepicker__calendar'));
@@ -188,7 +188,7 @@ Waktu Event Load Selesai (loadEventEnd): (${performanceTiming.loadEventEnd - nav
                 await driver.executeScript(`return document.querySelector('input#ketentuan').click()`);
                 const isAllFilled = await Promise.all([
                     await driver.findElement(By.css("input#name")).getAttribute('value'),
-                    await driver.findElement(By.css("input.datepicker")).getAttribute('value'),
+                    await driver.findElement(By.css(".vdp-datepicker div > input")).getAttribute('value'),
                     await driver.findElement(By.css(`input[name="radio-gender"]`)).getAttribute('value'),
                     await driver.findElement(By.css("input#ketentuan")).getAttribute('value'),
                 ]).then(results => results.every(value => value != ''));

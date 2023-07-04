@@ -95,8 +95,8 @@ async function getInput() {
                                                                     console.log(clc.red(response?.body?.message));
                                                                     getInfoAccount();
                                                                 } else {
-                                                                    const { profile: { name }, email, role: { id: kind } } = response?.body?.data?.user;
-                                                                    data.accounts.push(`akun=${email};${inputPassword};${name};${kind}`);
+                                                                    const { email, role: { id: kind } } = response?.body?.data?.user;
+                                                                    data.accounts.push(`akun=${email};${inputPassword};${kind}`);
                                                                     const dataJson = JSON.stringify(data);
                                                                     
                                                                       function askAccount() {
@@ -226,8 +226,8 @@ async function getInput() {
                                                                                         console.log(clc.red(response?.body?.message));
                                                                                         getInfoAccount();
                                                                                     } else {
-                                                                                        const { profile: { name }, email, role: { id: kind } } = response?.body?.data?.user;
-                                                                                        data.accounts.push(`akun=${email};${inputPassword};${name};${kind}`);
+                                                                                        const { email, role: { id: kind } } = response?.body?.data?.user;
+                                                                                        data.accounts.push(`akun=${email};${inputPassword};${kind}`);
                                                                                         const dataJson = JSON.stringify(data);
                                                                                         
                                                                                         function askAccount() {
@@ -578,8 +578,8 @@ async function getInput() {
                                                                                         console.log(clc.red(response?.body?.message));
                                                                                         getInfoAccount();
                                                                                     } else {
-                                                                                        const { profile: { name }, email, role: { id: kind } } = response?.body?.data?.user;
-                                                                                        data.accounts.push(`akun=${email};${inputPassword};${name};${kind}`);
+                                                                                        const { email, role: { id: kind } } = response?.body?.data?.user;
+                                                                                        data.accounts.push(`akun=${email};${inputPassword};${kind}`);
                                                                                         const dataJson = JSON.stringify(data);
                                                                                         
                                                                                           function askAccount() {
