@@ -1,0 +1,282 @@
+{
+  "stats": {
+    "suites": 1,
+    "tests": 8,
+    "passes": 7,
+    "pending": 0,
+    "failures": 1,
+    "start": "2023-07-05T13:44:54.341Z",
+    "end": "2023-07-05T13:51:03.202Z",
+    "duration": 368861,
+    "testsRegistered": 8,
+    "passPercent": 87.5,
+    "pendingPercent": 0,
+    "other": 0,
+    "hasOther": false,
+    "skipped": 0,
+    "hasSkipped": false
+  },
+  "results": [
+    {
+      "uuid": "9fba0bee-6f83-41a7-bd3a-d79f5265209e",
+      "title": "",
+      "fullFile": "D:\\allproject\\alkademik\\research-unit-test-bacatarot\\test\\app\\dashboard\\schedule\\index.js",
+      "file": "\\test\\app\\dashboard\\schedule\\index.js",
+      "beforeHooks": [],
+      "afterHooks": [],
+      "tests": [],
+      "suites": [
+        {
+          "uuid": "76b1ff2d-930c-4058-9f4f-690448074ca0",
+          "title": "Schedule",
+          "fullFile": "D:\\allproject\\alkademik\\research-unit-test-bacatarot\\test\\app\\dashboard\\schedule\\index.js",
+          "file": "\\test\\app\\dashboard\\schedule\\index.js",
+          "beforeHooks": [],
+          "afterHooks": [
+            {
+              "title": "\"after all\" hook in \"Schedule\"",
+              "fullTitle": "Schedule \"after all\" hook in \"Schedule\"",
+              "timedOut": false,
+              "duration": 0,
+              "state": null,
+              "speed": null,
+              "pass": false,
+              "fail": false,
+              "pending": false,
+              "context": null,
+              "code": "",
+              "err": {},
+              "uuid": "af8e9382-01d4-43a8-b787-aac345ddc96d",
+              "parentUUID": "76b1ff2d-930c-4058-9f4f-690448074ca0",
+              "isHook": true,
+              "skipped": false
+            },
+            {
+              "title": "\"after each\" hook in \"Schedule\"",
+              "fullTitle": "Schedule \"after each\" hook in \"Schedule\"",
+              "timedOut": false,
+              "duration": 3295,
+              "state": null,
+              "speed": null,
+              "pass": false,
+              "fail": false,
+              "pending": false,
+              "context": null,
+              "code": "",
+              "err": {},
+              "uuid": "3cb6bc33-5b08-436b-948b-839405d32339",
+              "parentUUID": "76b1ff2d-930c-4058-9f4f-690448074ca0",
+              "isHook": true,
+              "skipped": false
+            }
+          ],
+          "tests": [
+            {
+              "title": "Reader - Turn on the schedule per day of consultation from browser firefox",
+              "fullTitle": "Schedule Reader - Turn on the schedule per day of consultation from browser firefox",
+              "timedOut": false,
+              "duration": 36729,
+              "state": "passed",
+              "speed": "slow",
+              "pass": true,
+              "fail": false,
+              "pending": false,
+              "context": "[\n  {\n    \"title\": \"Expected Results\",\n    \"value\": \"- Successfully turn on the schedule per day ✅\"\n  },\n  {\n    \"title\": \"Performance Results\",\n    \"value\": \"Wednesday, July 5, 2023 8:45:31 PM\\n(Durasi waktu navigasi: 33 seconds)   \\n=====================================================================\\nWaktu Permintaan Pertama (fetchStart): (0) milliseconds ( 0 seconds )\\nWaktu Pencarian Nama Domain Dimulai (domainLookupStart): (7) milliseconds ( 0.007 seconds )\\nWaktu Pencarian Nama Domain Selesai (domainLookupEnd): (7) milliseconds ( 0.007 seconds )\\nWaktu Permintaan Dimulai (requestStart): (8) milliseconds ( 0.008 seconds )\\n=====================================================================\\nWaktu Respons Dimulai (responseStart): (9) milliseconds ( 0.009 seconds )\\nWaktu Respons Selesai (responseEnd): (9) milliseconds ( 0.009 seconds )\\nWaktu Memuat Dokumen (domLoading): (327) milliseconds ( 0.327 seconds )\\n=====================================================================\\nWaktu Event Unload Dimulai (unloadEventStart): (-1688564696613) milliseconds ( -1688564696.613 seconds )\\nWaktu Event Unload Selesai (unloadEventEnd): (-1688564696613) milliseconds ( -1688564696.613 seconds )\\n=====================================================================\\nWaktu Interaktif DOM (domInteractive): (1214) milliseconds ( 1.214 seconds )\\nWaktu Event DOMContentLoaded Dimulai (domContentLoadedEventStart): (1230) milliseconds ( 1.23 seconds )\\nWaktu Event DOMContentLoaded Selesai (domContentLoadedEventEnd): (1235) milliseconds ( 1.235 seconds )\\n=====================================================================\\nWaktu Dokumen Selesai Dimuat (domComplete): (1260) milliseconds ( 1.26 seconds )\\nWaktu Event Load Dimulai (loadEventStart): (1260) milliseconds ( 1.26 seconds )\\n=====================================================================\\n(timestamp loadEventEnd: 1688564697873)\\nWaktu Event Load Selesai (loadEventEnd): (1260) milliseconds ( 1.26 seconds )\\n            \"\n  },\n  {\n    \"title\": \"Screenshoot-Test-Results\",\n    \"value\": \"..\\\\..\\\\..\\\\..\\\\..\\\\testResults\\\\screenshoots\\\\app\\\\dashboard\\\\schedule\\\\index\\\\1-[passed].png\"\n  }\n]",
+              "code": "",
+              "err": {},
+              "uuid": "f02c72b3-51e1-4c48-911a-761fe6e923a5",
+              "parentUUID": "76b1ff2d-930c-4058-9f4f-690448074ca0",
+              "isHook": false,
+              "skipped": false
+            },
+            {
+              "title": "Reader - Determine the time schedule of consultation from browser firefox",
+              "fullTitle": "Schedule Reader - Determine the time schedule of consultation from browser firefox",
+              "timedOut": false,
+              "duration": 48552,
+              "state": "passed",
+              "speed": "slow",
+              "pass": true,
+              "fail": false,
+              "pending": false,
+              "context": "[\n  {\n    \"title\": \"Expected Results\",\n    \"value\": \"- Successfully save the time schedule data ✅\"\n  },\n  {\n    \"title\": \"Performance Results\",\n    \"value\": \"Wednesday, July 5, 2023 8:46:23 PM\\n(Durasi waktu navigasi: 0 seconds)   \\n=====================================================================\\nWaktu Permintaan Pertama (fetchStart): (0) milliseconds ( 0 seconds )\\nWaktu Pencarian Nama Domain Dimulai (domainLookupStart): (8) milliseconds ( 0.008 seconds )\\nWaktu Pencarian Nama Domain Selesai (domainLookupEnd): (8) milliseconds ( 0.008 seconds )\\nWaktu Permintaan Dimulai (requestStart): (9) milliseconds ( 0.009 seconds )\\n=====================================================================\\nWaktu Respons Dimulai (responseStart): (10) milliseconds ( 0.01 seconds )\\nWaktu Respons Selesai (responseEnd): (10) milliseconds ( 0.01 seconds )\\nWaktu Memuat Dokumen (domLoading): (245) milliseconds ( 0.245 seconds )\\n=====================================================================\\nWaktu Event Unload Dimulai (unloadEventStart): (-1688564737140) milliseconds ( -1688564737.14 seconds )\\nWaktu Event Unload Selesai (unloadEventEnd): (-1688564737140) milliseconds ( -1688564737.14 seconds )\\n=====================================================================\\nWaktu Interaktif DOM (domInteractive): (1095) milliseconds ( 1.095 seconds )\\nWaktu Event DOMContentLoaded Dimulai (domContentLoadedEventStart): (1112) milliseconds ( 1.112 seconds )\\nWaktu Event DOMContentLoaded Selesai (domContentLoadedEventEnd): (1117) milliseconds ( 1.117 seconds )\\n=====================================================================\\nWaktu Dokumen Selesai Dimuat (domComplete): (1146) milliseconds ( 1.146 seconds )\\nWaktu Event Load Dimulai (loadEventStart): (1147) milliseconds ( 1.147 seconds )\\n=====================================================================\\n(timestamp loadEventEnd: 1688564738287)\\nWaktu Event Load Selesai (loadEventEnd): (1147) milliseconds ( 1.147 seconds )\\n            \"\n  },\n  {\n    \"title\": \"Screenshoot-Test-Results\",\n    \"value\": \"..\\\\..\\\\..\\\\..\\\\..\\\\testResults\\\\screenshoots\\\\app\\\\dashboard\\\\schedule\\\\index\\\\2-[passed].png\"\n  }\n]",
+              "code": "",
+              "err": {},
+              "uuid": "2058b6aa-3819-4437-9d14-ac00db49171b",
+              "parentUUID": "76b1ff2d-930c-4058-9f4f-690448074ca0",
+              "isHook": false,
+              "skipped": false
+            },
+            {
+              "title": "Reader - Add time schedule of consultation from browser firefox",
+              "fullTitle": "Schedule Reader - Add time schedule of consultation from browser firefox",
+              "timedOut": false,
+              "duration": 48851,
+              "state": "passed",
+              "speed": "slow",
+              "pass": true,
+              "fail": false,
+              "pending": false,
+              "context": "[\n  {\n    \"title\": \"Expected Results\",\n    \"value\": \"- Successfully add and save the time schedule data ✅\"\n  },\n  {\n    \"title\": \"Performance Results\",\n    \"value\": \"Wednesday, July 5, 2023 8:47:16 PM\\n(Durasi waktu navigasi: 0 seconds)   \\n=====================================================================\\nWaktu Permintaan Pertama (fetchStart): (0) milliseconds ( 0 seconds )\\nWaktu Pencarian Nama Domain Dimulai (domainLookupStart): (8) milliseconds ( 0.008 seconds )\\nWaktu Pencarian Nama Domain Selesai (domainLookupEnd): (8) milliseconds ( 0.008 seconds )\\nWaktu Permintaan Dimulai (requestStart): (10) milliseconds ( 0.01 seconds )\\n=====================================================================\\nWaktu Respons Dimulai (responseStart): (12) milliseconds ( 0.012 seconds )\\nWaktu Respons Selesai (responseEnd): (12) milliseconds ( 0.012 seconds )\\nWaktu Memuat Dokumen (domLoading): (248) milliseconds ( 0.248 seconds )\\n=====================================================================\\nWaktu Event Unload Dimulai (unloadEventStart): (-1688564790060) milliseconds ( -1688564790.06 seconds )\\nWaktu Event Unload Selesai (unloadEventEnd): (-1688564790060) milliseconds ( -1688564790.06 seconds )\\n=====================================================================\\nWaktu Interaktif DOM (domInteractive): (1092) milliseconds ( 1.092 seconds )\\nWaktu Event DOMContentLoaded Dimulai (domContentLoadedEventStart): (1112) milliseconds ( 1.112 seconds )\\nWaktu Event DOMContentLoaded Selesai (domContentLoadedEventEnd): (1117) milliseconds ( 1.117 seconds )\\n=====================================================================\\nWaktu Dokumen Selesai Dimuat (domComplete): (1147) milliseconds ( 1.147 seconds )\\nWaktu Event Load Dimulai (loadEventStart): (1147) milliseconds ( 1.147 seconds )\\n=====================================================================\\n(timestamp loadEventEnd: 1688564791207)\\nWaktu Event Load Selesai (loadEventEnd): (1147) milliseconds ( 1.147 seconds )\\n            \"\n  },\n  {\n    \"title\": \"Screenshoot-Test-Results\",\n    \"value\": \"..\\\\..\\\\..\\\\..\\\\..\\\\testResults\\\\screenshoots\\\\app\\\\dashboard\\\\schedule\\\\index\\\\3-[passed].png\"\n  }\n]",
+              "code": "",
+              "err": {},
+              "uuid": "71b5271a-91ba-4fbe-8a2e-f1026d1b3d60",
+              "parentUUID": "76b1ff2d-930c-4058-9f4f-690448074ca0",
+              "isHook": false,
+              "skipped": false
+            },
+            {
+              "title": "Reader - Turn off the schedule per day of consultation from browser firefox",
+              "fullTitle": "Schedule Reader - Turn off the schedule per day of consultation from browser firefox",
+              "timedOut": false,
+              "duration": 38298,
+              "state": "passed",
+              "speed": "slow",
+              "pass": true,
+              "fail": false,
+              "pending": false,
+              "context": "[\n  {\n    \"title\": \"Expected Results\",\n    \"value\": \"- Successfully turn off the schedule per day ✅\"\n  },\n  {\n    \"title\": \"Performance Results\",\n    \"value\": \"Wednesday, July 5, 2023 8:47:58 PM\\n(Durasi waktu navigasi: 51 seconds)   \\n=====================================================================\\nWaktu Permintaan Pertama (fetchStart): (0) milliseconds ( 0 seconds )\\nWaktu Pencarian Nama Domain Dimulai (domainLookupStart): (3) milliseconds ( 0.003 seconds )\\nWaktu Pencarian Nama Domain Selesai (domainLookupEnd): (3) milliseconds ( 0.003 seconds )\\nWaktu Permintaan Dimulai (requestStart): (5) milliseconds ( 0.005 seconds )\\n=====================================================================\\nWaktu Respons Dimulai (responseStart): (6) milliseconds ( 0.006 seconds )\\nWaktu Respons Selesai (responseEnd): (6) milliseconds ( 0.006 seconds )\\nWaktu Memuat Dokumen (domLoading): (378) milliseconds ( 0.378 seconds )\\n=====================================================================\\nWaktu Event Unload Dimulai (unloadEventStart): (-1688564842131) milliseconds ( -1688564842.131 seconds )\\nWaktu Event Unload Selesai (unloadEventEnd): (-1688564842131) milliseconds ( -1688564842.131 seconds )\\n=====================================================================\\nWaktu Interaktif DOM (domInteractive): (1563) milliseconds ( 1.563 seconds )\\nWaktu Event DOMContentLoaded Dimulai (domContentLoadedEventStart): (1589) milliseconds ( 1.589 seconds )\\nWaktu Event DOMContentLoaded Selesai (domContentLoadedEventEnd): (1593) milliseconds ( 1.593 seconds )\\n=====================================================================\\nWaktu Dokumen Selesai Dimuat (domComplete): (1641) milliseconds ( 1.641 seconds )\\nWaktu Event Load Dimulai (loadEventStart): (1641) milliseconds ( 1.641 seconds )\\n=====================================================================\\n(timestamp loadEventEnd: 1688564843772)\\nWaktu Event Load Selesai (loadEventEnd): (1641) milliseconds ( 1.641 seconds )\\n            \"\n  },\n  {\n    \"title\": \"Screenshoot-Test-Results\",\n    \"value\": \"..\\\\..\\\\..\\\\..\\\\..\\\\testResults\\\\screenshoots\\\\app\\\\dashboard\\\\schedule\\\\index\\\\4-[passed].png\"\n  }\n]",
+              "code": "",
+              "err": {},
+              "uuid": "26976423-b846-4d3d-a4a0-c38c28a9d59d",
+              "parentUUID": "76b1ff2d-930c-4058-9f4f-690448074ca0",
+              "isHook": false,
+              "skipped": false
+            },
+            {
+              "title": "Reader - Turn on the schedule per day of consultation from browser chrome",
+              "fullTitle": "Schedule Reader - Turn on the schedule per day of consultation from browser chrome",
+              "timedOut": false,
+              "duration": 35949,
+              "state": "passed",
+              "speed": "slow",
+              "pass": true,
+              "fail": false,
+              "pending": false,
+              "context": "[\n  {\n    \"title\": \"Expected Results\",\n    \"value\": \"- Successfully turn on the schedule per day ✅\"\n  },\n  {\n    \"title\": \"Performance Results\",\n    \"value\": \"Wednesday, July 5, 2023 8:48:38 PM\\n(Durasi waktu navigasi: 18 seconds)   \\n=====================================================================\\nWaktu Permintaan Pertama (fetchStart): (1) milliseconds ( 0.001 seconds )\\nWaktu Pencarian Nama Domain Dimulai (domainLookupStart): (1) milliseconds ( 0.001 seconds )\\nWaktu Pencarian Nama Domain Selesai (domainLookupEnd): (1) milliseconds ( 0.001 seconds )\\nWaktu Permintaan Dimulai (requestStart): (156) milliseconds ( 0.156 seconds )\\n=====================================================================\\nWaktu Respons Dimulai (responseStart): (157) milliseconds ( 0.157 seconds )\\nWaktu Respons Selesai (responseEnd): (158) milliseconds ( 0.158 seconds )\\nWaktu Memuat Dokumen (domLoading): (160) milliseconds ( 0.16 seconds )\\n=====================================================================\\nWaktu Event Unload Dimulai (unloadEventStart): (-1688564883138) milliseconds ( -1688564883.138 seconds )\\nWaktu Event Unload Selesai (unloadEventEnd): (-1688564883138) milliseconds ( -1688564883.138 seconds )\\n=====================================================================\\nWaktu Interaktif DOM (domInteractive): (1802) milliseconds ( 1.802 seconds )\\nWaktu Event DOMContentLoaded Dimulai (domContentLoadedEventStart): (1802) milliseconds ( 1.802 seconds )\\nWaktu Event DOMContentLoaded Selesai (domContentLoadedEventEnd): (1802) milliseconds ( 1.802 seconds )\\n=====================================================================\\nWaktu Dokumen Selesai Dimuat (domComplete): (1829) milliseconds ( 1.829 seconds )\\nWaktu Event Load Dimulai (loadEventStart): (1829) milliseconds ( 1.829 seconds )\\n=====================================================================\\n(timestamp loadEventEnd: 1688564884967)\\nWaktu Event Load Selesai (loadEventEnd): (1829) milliseconds ( 1.829 seconds )\\n            \"\n  },\n  {\n    \"title\": \"Screenshoot-Test-Results\",\n    \"value\": \"..\\\\..\\\\..\\\\..\\\\..\\\\testResults\\\\screenshoots\\\\app\\\\dashboard\\\\schedule\\\\index\\\\5-[passed].png\"\n  }\n]",
+              "code": "",
+              "err": {},
+              "uuid": "341447bd-414a-4c3f-9641-86b26e5f002c",
+              "parentUUID": "76b1ff2d-930c-4058-9f4f-690448074ca0",
+              "isHook": false,
+              "skipped": false
+            },
+            {
+              "title": "Reader - Determine the time schedule of consultation from browser chrome",
+              "fullTitle": "Schedule Reader - Determine the time schedule of consultation from browser chrome",
+              "timedOut": false,
+              "duration": 47103,
+              "state": "passed",
+              "speed": "slow",
+              "pass": true,
+              "fail": false,
+              "pending": false,
+              "context": "[\n  {\n    \"title\": \"Expected Results\",\n    \"value\": \"- Successfully save the time schedule data ✅\"\n  },\n  {\n    \"title\": \"Performance Results\",\n    \"value\": \"Wednesday, July 5, 2023 8:49:28 PM\\n(Durasi waktu navigasi: 2 seconds)   \\n=====================================================================\\nWaktu Permintaan Pertama (fetchStart): (2) milliseconds ( 0.002 seconds )\\nWaktu Pencarian Nama Domain Dimulai (domainLookupStart): (2) milliseconds ( 0.002 seconds )\\nWaktu Pencarian Nama Domain Selesai (domainLookupEnd): (2) milliseconds ( 0.002 seconds )\\nWaktu Permintaan Dimulai (requestStart): (8) milliseconds ( 0.008 seconds )\\n=====================================================================\\nWaktu Respons Dimulai (responseStart): (10) milliseconds ( 0.01 seconds )\\nWaktu Respons Selesai (responseEnd): (11) milliseconds ( 0.011 seconds )\\nWaktu Memuat Dokumen (domLoading): (14) milliseconds ( 0.014 seconds )\\n=====================================================================\\nWaktu Event Unload Dimulai (unloadEventStart): (-1688564922182) milliseconds ( -1688564922.182 seconds )\\nWaktu Event Unload Selesai (unloadEventEnd): (-1688564922182) milliseconds ( -1688564922.182 seconds )\\n=====================================================================\\nWaktu Interaktif DOM (domInteractive): (1552) milliseconds ( 1.552 seconds )\\nWaktu Event DOMContentLoaded Dimulai (domContentLoadedEventStart): (1552) milliseconds ( 1.552 seconds )\\nWaktu Event DOMContentLoaded Selesai (domContentLoadedEventEnd): (1552) milliseconds ( 1.552 seconds )\\n=====================================================================\\nWaktu Dokumen Selesai Dimuat (domComplete): (1588) milliseconds ( 1.588 seconds )\\nWaktu Event Load Dimulai (loadEventStart): (1588) milliseconds ( 1.588 seconds )\\n=====================================================================\\n(timestamp loadEventEnd: 1688564923770)\\nWaktu Event Load Selesai (loadEventEnd): (1588) milliseconds ( 1.588 seconds )\\n            \"\n  },\n  {\n    \"title\": \"Screenshoot-Test-Results\",\n    \"value\": \"..\\\\..\\\\..\\\\..\\\\..\\\\testResults\\\\screenshoots\\\\app\\\\dashboard\\\\schedule\\\\index\\\\6-[passed].png\"\n  }\n]",
+              "code": "",
+              "err": {},
+              "uuid": "f860ae37-0e6a-4c38-8d26-e8f7fc8d39a5",
+              "parentUUID": "76b1ff2d-930c-4058-9f4f-690448074ca0",
+              "isHook": false,
+              "skipped": false
+            },
+            {
+              "title": "Reader - Add time schedule of consultation from browser chrome",
+              "fullTitle": "Schedule Reader - Add time schedule of consultation from browser chrome",
+              "timedOut": false,
+              "duration": 47504,
+              "state": "failed",
+              "speed": null,
+              "pass": false,
+              "fail": true,
+              "pending": false,
+              "context": "[\n  {\n    \"title\": \"Expected Results\",\n    \"value\": \"- Successfully save the time schedule data ✅\"\n  },\n  {\n    \"title\": \"Performance Results\",\n    \"value\": \"Wednesday, July 5, 2023 8:50:19 PM\\n(Durasi waktu navigasi: 42 seconds)   \\n=====================================================================\\nWaktu Permintaan Pertama (fetchStart): (3) milliseconds ( 0.003 seconds )\\nWaktu Pencarian Nama Domain Dimulai (domainLookupStart): (3) milliseconds ( 0.003 seconds )\\nWaktu Pencarian Nama Domain Selesai (domainLookupEnd): (3) milliseconds ( 0.003 seconds )\\nWaktu Permintaan Dimulai (requestStart): (9) milliseconds ( 0.009 seconds )\\n=====================================================================\\nWaktu Respons Dimulai (responseStart): (12) milliseconds ( 0.012 seconds )\\nWaktu Respons Selesai (responseEnd): (12) milliseconds ( 0.012 seconds )\\nWaktu Memuat Dokumen (domLoading): (15) milliseconds ( 0.015 seconds )\\n=====================================================================\\nWaktu Event Unload Dimulai (unloadEventStart): (-1688564972682) milliseconds ( -1688564972.682 seconds )\\nWaktu Event Unload Selesai (unloadEventEnd): (-1688564972682) milliseconds ( -1688564972.682 seconds )\\n=====================================================================\\nWaktu Interaktif DOM (domInteractive): (1579) milliseconds ( 1.579 seconds )\\nWaktu Event DOMContentLoaded Dimulai (domContentLoadedEventStart): (1580) milliseconds ( 1.58 seconds )\\nWaktu Event DOMContentLoaded Selesai (domContentLoadedEventEnd): (1580) milliseconds ( 1.58 seconds )\\n=====================================================================\\nWaktu Dokumen Selesai Dimuat (domComplete): (1600) milliseconds ( 1.6 seconds )\\nWaktu Event Load Dimulai (loadEventStart): (1600) milliseconds ( 1.6 seconds )\\n=====================================================================\\n(timestamp loadEventEnd: 1688564974282)\\nWaktu Event Load Selesai (loadEventEnd): (1600) milliseconds ( 1.6 seconds )\\n            \"\n  },\n  {\n    \"title\": \"Screenshoot-Test-Results\",\n    \"value\": \"..\\\\..\\\\..\\\\..\\\\..\\\\testResults\\\\screenshoots\\\\app\\\\dashboard\\\\schedule\\\\index\\\\7-[failed].png\"\n  }\n]",
+              "code": "",
+              "err": {
+                "message": "AssertionError: StaleElementReferenceError: stale element reference: stale element not found\n  (Session info: chrome=114.0.5735.199)",
+                "estack": "AssertionError: StaleElementReferenceError: stale element reference: stale element not found\n  (Session info: chrome=114.0.5735.199)\n    at Context.<anonymous> (file:///D:/allproject/alkademik/research-unit-test-bacatarot/test/app/dashboard/schedule/index.js:537:36)\n    at runMicrotasks (<anonymous>)\n    at processTicksAndRejections (node:internal/process/task_queues:96:5)",
+                "diff": null
+              },
+              "uuid": "e3998da0-70e3-474b-8eac-7ba459234890",
+              "parentUUID": "76b1ff2d-930c-4058-9f4f-690448074ca0",
+              "isHook": false,
+              "skipped": false
+            },
+            {
+              "title": "Reader - Turn off the schedule per day of consultation from browser chrome",
+              "fullTitle": "Schedule Reader - Turn off the schedule per day of consultation from browser chrome",
+              "timedOut": false,
+              "duration": 37211,
+              "state": "passed",
+              "speed": "slow",
+              "pass": true,
+              "fail": false,
+              "pending": false,
+              "context": "[\n  {\n    \"title\": \"Expected Results\",\n    \"value\": \"- Successfully turn off the schedule per day ✅\"\n  },\n  {\n    \"title\": \"Performance Results\",\n    \"value\": \"Wednesday, July 5, 2023 8:51:00 PM\\n(Durasi waktu navigasi: 59 seconds)   \\n=====================================================================\\nWaktu Permintaan Pertama (fetchStart): (1) milliseconds ( 0.001 seconds )\\nWaktu Pencarian Nama Domain Dimulai (domainLookupStart): (1) milliseconds ( 0.001 seconds )\\nWaktu Pencarian Nama Domain Selesai (domainLookupEnd): (1) milliseconds ( 0.001 seconds )\\nWaktu Permintaan Dimulai (requestStart): (3) milliseconds ( 0.003 seconds )\\n=====================================================================\\nWaktu Respons Dimulai (responseStart): (4) milliseconds ( 0.004 seconds )\\nWaktu Respons Selesai (responseEnd): (8) milliseconds ( 0.008 seconds )\\nWaktu Memuat Dokumen (domLoading): (12) milliseconds ( 0.012 seconds )\\n=====================================================================\\nWaktu Event Unload Dimulai (unloadEventStart): (-1688565023399) milliseconds ( -1688565023.399 seconds )\\nWaktu Event Unload Selesai (unloadEventEnd): (-1688565023399) milliseconds ( -1688565023.399 seconds )\\n=====================================================================\\nWaktu Interaktif DOM (domInteractive): (1746) milliseconds ( 1.746 seconds )\\nWaktu Event DOMContentLoaded Dimulai (domContentLoadedEventStart): (1746) milliseconds ( 1.746 seconds )\\nWaktu Event DOMContentLoaded Selesai (domContentLoadedEventEnd): (1746) milliseconds ( 1.746 seconds )\\n=====================================================================\\nWaktu Dokumen Selesai Dimuat (domComplete): (1775) milliseconds ( 1.775 seconds )\\nWaktu Event Load Dimulai (loadEventStart): (1775) milliseconds ( 1.775 seconds )\\n=====================================================================\\n(timestamp loadEventEnd: 1688565025174)\\nWaktu Event Load Selesai (loadEventEnd): (1775) milliseconds ( 1.775 seconds )\\n            \"\n  },\n  {\n    \"title\": \"Screenshoot-Test-Results\",\n    \"value\": \"..\\\\..\\\\..\\\\..\\\\..\\\\testResults\\\\screenshoots\\\\app\\\\dashboard\\\\schedule\\\\index\\\\8-[passed].png\"\n  }\n]",
+              "code": "",
+              "err": {},
+              "uuid": "631317fb-acb3-4967-a82e-3bc4ae6efc1b",
+              "parentUUID": "76b1ff2d-930c-4058-9f4f-690448074ca0",
+              "isHook": false,
+              "skipped": false
+            }
+          ],
+          "suites": [],
+          "passes": [
+            "f02c72b3-51e1-4c48-911a-761fe6e923a5",
+            "2058b6aa-3819-4437-9d14-ac00db49171b",
+            "71b5271a-91ba-4fbe-8a2e-f1026d1b3d60",
+            "26976423-b846-4d3d-a4a0-c38c28a9d59d",
+            "341447bd-414a-4c3f-9641-86b26e5f002c",
+            "f860ae37-0e6a-4c38-8d26-e8f7fc8d39a5",
+            "631317fb-acb3-4967-a82e-3bc4ae6efc1b"
+          ],
+          "failures": [
+            "e3998da0-70e3-474b-8eac-7ba459234890"
+          ],
+          "pending": [],
+          "skipped": [],
+          "duration": 340197,
+          "root": false,
+          "rootEmpty": false,
+          "_timeout": 0
+        }
+      ],
+      "passes": [],
+      "failures": [],
+      "pending": [],
+      "skipped": [],
+      "duration": 0,
+      "root": true,
+      "rootEmpty": true,
+      "_timeout": 0
+    }
+  ],
+  "meta": {
+    "mocha": {
+      "version": "10.2.0"
+    },
+    "mochawesome": {
+      "options": {
+        "quiet": false,
+        "reportFilename": "app/dashboard/schedule/[status]-index-report",
+        "saveHtml": true,
+        "saveJson": true,
+        "consoleReporter": "spec",
+        "useInlineDiffs": false,
+        "code": false
+      },
+      "version": "7.1.3"
+    },
+    "marge": {
+      "options": {
+        "code": "false",
+        "cdn": "true",
+        "charts": "true",
+        "reportDir": "testResults/reports",
+        "reportFilename": "app/dashboard/schedule/[status]-index-report",
+        "reportPageTitle": "Laporan-Harian-Testing"
+      },
+      "version": "6.2.0"
+    }
+  }
+}
