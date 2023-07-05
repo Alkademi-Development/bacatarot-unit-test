@@ -74,7 +74,7 @@ function askMergeReport() {
                   rl.close();
                 }
               } else {
-                files = files.filter(file => !file.trim().toLowerCase().includes('failed'));
+                files = files.filter(file => !file.trim().toLowerCase().includes('fail'));
   
                 const reports = await merge({ files });
                 const outputFile = `./testResults/output-merged-report-${input}.json`;  
