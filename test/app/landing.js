@@ -340,7 +340,7 @@ Waktu Event Load Selesai (loadEventEnd): (${performanceTiming.loadEventEnd - nav
 
                 // Aksi mengklik menu tab article
                 let userOverview = await driver.executeScript(`return document.querySelectorAll('#user-overview button.action-btn')`);
-                await driver.executeScript(`return document.querySelectorAll("#user-overview button.action-btn")[${faker.number.int({ min: 0, max: await userOverview.length })}].click();`);
+                await driver.executeScript(`return document.querySelectorAll("#user-overview button.action-btn")[${faker.number.int({ min: 0, max: await userOverview.length - 1 })}].click();`);
 
                 // Aksi sleep 
                 await driver.sleep(3000);
