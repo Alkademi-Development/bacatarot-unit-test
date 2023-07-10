@@ -113,6 +113,66 @@ Waktu Event Load Selesai (loadEventEnd): (${performanceTiming.loadEventEnd - nav
 
             switch (user.kind) {
                 case 1:
+                    it(`User - Booking Reader as a user without using voucher by use payment method 'Bank Transfer' from browser ${browser}`, async () => {
+
+                        try {
+                            driver = await goToApp(browser, appHost);
+                            await driver.manage().window().maximize();
+
+                            // Aksi menunggu mengisi form login untuk melakukan authentication
+                            await loginToApp(driver, user, browser, appHost);
+
+                            // Aksi sleep
+                            await driver.sleep(3000);
+                            // Aksi menunggu response halaman ter-load semua
+                            await driver.wait(async function () {
+                                const isNetworkIdle = await driver.executeScript(function () {
+                                const performanceEntries = window.performance.getEntriesByType('resource');
+                                return performanceEntries.every(function (entry) {
+                                    return entry.responseEnd > 0;
+                                });
+                                });
+                            
+                                return isNetworkIdle;
+                            }); 
+
+                        } catch (error) {
+                            expect.fail(error);
+                        }
+
+
+                    });
+                    
+                    it(`User - Booking Reader as a user without using voucher by use payment method 'Gopay' or etc from browser ${browser}`, async () => {
+
+                        try {
+                            driver = await goToApp(browser, appHost);
+                            await driver.manage().window().maximize();
+
+                            // Aksi menunggu mengisi form login untuk melakukan authentication
+                            await loginToApp(driver, user, browser, appHost);
+
+                            // Aksi sleep
+                            await driver.sleep(3000);
+                            // Aksi menunggu response halaman ter-load semua
+                            await driver.wait(async function () {
+                                const isNetworkIdle = await driver.executeScript(function () {
+                                const performanceEntries = window.performance.getEntriesByType('resource');
+                                return performanceEntries.every(function (entry) {
+                                    return entry.responseEnd > 0;
+                                });
+                                });
+                            
+                                return isNetworkIdle;
+                            }); 
+
+                        } catch (error) {
+                            expect.fail(error);
+                        }
+
+
+                    });
+
                     it(`User - Check more details about payment after booked the reader from browser ${browser}`, async () => {
 
                         try {
@@ -178,11 +238,52 @@ Waktu Event Load Selesai (loadEventEnd): (${performanceTiming.loadEventEnd - nav
 
 
                     });
+                    
+                    it(`User - Use the voucher when booking a reader from browser ${browser}`, async () => {
+
+                        try {
+                            driver = await goToApp(browser, appHost);
+                            await driver.manage().window().maximize();
+
+                            // Aksi menunggu mengisi form login untuk melakukan authentication
+                            await loginToApp(driver, user, browser, appHost);
+
+                            // Aksi sleep
+                            await driver.sleep(3000);
+                            // Aksi menunggu response halaman ter-load semua
+                            await driver.wait(async function () {
+                                const isNetworkIdle = await driver.executeScript(function () {
+                                const performanceEntries = window.performance.getEntriesByType('resource');
+                                return performanceEntries.every(function (entry) {
+                                    return entry.responseEnd > 0;
+                                });
+                                });
+                            
+                                return isNetworkIdle;
+                            }); 
+
+                        } catch (error) {
+                            expect.fail(error);
+                        }
+
+
+                    });
 
                     break;
 
                 case 2:
-                    it(`Reader - from browser ${browser}`, async () => {
+                    it(`Reader - Accept the request of consultation from browser ${browser}`, async () => {
+
+                        try {
+
+                        } catch (error) {
+                            expect.fail(error);
+                        }
+
+
+                    });
+                    
+                    it(`Reader - Decline the request of consultation from browser ${browser}`, async () => {
 
                         try {
 

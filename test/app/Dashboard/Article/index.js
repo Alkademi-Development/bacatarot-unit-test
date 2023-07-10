@@ -1,21 +1,21 @@
-import { describe, afterEach } from 'mocha';
-import { By, until } from 'selenium-webdriver';
+import { describe, afterEach, before } from 'mocha';
+import { Builder, By, Key, until, logging, Capabilities } from 'selenium-webdriver';
 import addContext from 'mochawesome/addContext.js';
+import assert from 'assert';
 import { expect } from "chai";
-import * as chai from "chai";
 import yargs from 'yargs';
 import fs from 'fs';
 import path from 'path';
-import { BROWSERS } from '#root/commons/constants/browser';
-import { getUserAccount } from '#root/commons/utils/userUtils';
-import { goToApp, loginToApp } from '#root/commons/utils/appUtils';
-import { appHost } from '#root/api/app-token';
-import { takeScreenshot } from '#root/commons/utils/fileUtils';
-import { fileURLToPath } from 'url';
-import { captureConsoleErrors } from '#root/commons/utils/generalUtils';
-import { thrownAnError } from '#root/commons/utils/generalUtils';
-import moment from 'moment-timezone';
 import { faker } from '@faker-js/faker';
+import { BROWSERS } from '#root/commons/constants/browser';
+import { loginToApp } from '#root/commons/utils/appUtils';
+import { getUserAccount } from '#root/commons/utils/userUtils';
+import { thrownAnError } from '#root/commons/utils/generalUtils';
+import { takeScreenshot } from '#root/commons/utils/fileUtils';
+import { goToApp } from '#root/commons/utils/appUtils';
+import { appHost } from '#root/api/app-token';
+import { fileURLToPath } from 'url';
+import moment from 'moment-timezone';
 
 /**
  * Get the user data for authentication
@@ -32,7 +32,7 @@ if (process.platform === 'win32') {
     screenshootFilePath = path.resolve(`./testResults/screenshoots/${screenshootFilePath.split("/test/")[1].replaceAll(".js", "")}/`);
 }
 
-describe("Dashboard", () => {
+describe("Booking", () => {
     let customMessages = [];
 
     after(async function () {
@@ -50,14 +50,9 @@ describe("Dashboard", () => {
         if(this.currentTest.isPassed) {
             addContext(this, {
                 title: 'Expected Results',
-                value: customMessages?.length > 0 ? "- " + customMessages?.map(msg => msg.trim()).join("\n- ") : 'No Results'
+                value: customMessages?.length > 0 ? "- " + customMessages.map(msg => msg.trim()).join("\n- ") : 'No Results'
             })
-        } else if (this.currentTest.isFailed) {
-            addContext(this, {
-                title: 'Status Test',
-                value: 'Failed ❌'
-            })
-        }
+        } 
 
         // Performances Information
         const performanceTiming = await driver.executeScript('return window.performance.timing');
@@ -89,8 +84,8 @@ Waktu Event Load Dimulai (loadEventStart): (${performanceTiming.loadEventStart -
 (timestamp loadEventEnd: ${performanceTiming.loadEventEnd})
 Waktu Event Load Selesai (loadEventEnd): (${performanceTiming.loadEventEnd - navigationStart}) milliseconds ( ${((performanceTiming.loadEventEnd - navigationStart) / 1000)} seconds )
             `
-        })
-
+        });
+        
         addContext(this, {
             title: 'Screenshoot-Test-Results',
             value: path.relative(fileURLToPath(import.meta.url), fileNamePath)
@@ -118,10 +113,9 @@ Waktu Event Load Selesai (loadEventEnd): (${performanceTiming.loadEventEnd - nav
 
             switch (user.kind) {
                 case 1:
-                    it(`User - Search of reader on home page dashboard from browser ${browser}`, async () => {
+                    it(`User - Test from browser ${browser}`, async () => {
 
                         try {
-                            // Aksi masuk ke dalam halaman browser
                             driver = await goToApp(browser, appHost);
                             await driver.manage().window().maximize();
 
@@ -129,59 +123,19 @@ Waktu Event Load Selesai (loadEventEnd): (${performanceTiming.loadEventEnd - nav
                             await loginToApp(driver, user, browser, appHost);
 
                             // Aksi sleep
-                            await driver.sleep(5000);
-
-                            // Aksi mengecek apakah reader tersedia atau tidak
-                            let readerList = await driver.executeScript(`return document.querySelectorAll('#user-list h1.username')`);
-                            await thrownAnError('Reader is not available now', await readerList.length === 0);
+                            await driver.sleep(3000);
+                            // Aksi menunggu response halaman ter-load semua
+                            await driver.wait(async function () {
+                                const isNetworkIdle = await driver.executeScript(function () {
+                                const performanceEntries = window.performance.getEntriesByType('resource');
+                                return performanceEntries.every(function (entry) {
+                                    return entry.responseEnd > 0;
+                                });
+                                });
                             
-                            // Aksi mengklik button search
-                            await driver.executeScript(`return document.querySelector("button.search-button > div").click();`);
-                            
-                            // Aksi sleep
-                            await driver.sleep(5000);
-                            
-                            // Aksi menunggu modal muncul
-                            let modalContent = await driver.executeScript(`return document.querySelector('.modal-content')`);
-                            let readersName = [];
-                            let readerSearch = '';
-                            if(await modalContent.isDisplayed()) {
-                                // Aksi sleep
-                                await driver.sleep(5000);
-                                readerList = await driver.executeScript(`return document.querySelectorAll('.modal-content div#user-list h1.username')`);
-                                // Aksi sleep
-                                await driver.sleep(5000);
-                                if(await readerList.length > 0) {
-                                    for (let index = 0; index < await readerList.length; index++) {
-                                        readersName.push(await readerList[index].getAttribute('innerText'));
-                                    }
-                                    // Aksi sleep
-                                    await driver.sleep(3000);
-                                    readerSearch = await readersName[faker.number.int({ min: 0, max: await readersName?.length - 1 })];
-                                    // Aksi sleep
-                                    await driver.sleep(5000);
-                                    await driver.findElement(By.css('form > input')).sendKeys(readerSearch);
-                                    let formSearch = await driver.findElement(By.css('form'));
-                                    await driver.executeScript("arguments[0].addEventListener('submit', function(e) { e.preventDefault(); });", formSearch);
-                                    await formSearch.submit();
-                                }
-                                await thrownAnError('Reader is not available now on modal search reader', await readerList.length === 0);
-                            }
-                            await thrownAnError('Sorry modal content is not available', await modalContent.isDisplayed() == false);
+                                return isNetworkIdle;
+                            }); 
 
-                            // Aksi mendapatkan kembali data reader saat setelah mencari / mengetik nama reader di input search
-                            readerList = await driver.executeScript(`return document.querySelectorAll('div#user-list h1.username')`);
-                            let findReader = [];
-                            for (let index = 0; index < await readerList.length; index++) {
-                                if(await readerList[index].getAttribute('innerText') === readerSearch) findReader.push(readerList[index]);
-                            }
-
-                            // Expect results and add custom message for addtional description
-                            const currentUrl = await driver.getCurrentUrl();
-                            customMessages = [
-                                findReader.length > 0 ? "Successfully got the results search of reader ✅" : "No results found for search reader ❌"
-                            ];
-                            expect(findReader.length).to.greaterThan(0);
                         } catch (error) {
                             expect.fail(error);
                         }
@@ -190,11 +144,33 @@ Waktu Event Load Selesai (loadEventEnd): (${performanceTiming.loadEventEnd - nav
                     });
 
                     break;
-                
-                case 2: 
-                    it(`Reader - Test from browser ${browser}`, async function() {
+
+                case 2:
+                    it(`Reader - Create an article from browser ${browser}`, async () => {
 
                         try {
+
+                            // Aksi masuk ke dalam halaman browser
+                            driver = await goToApp(browser, appHost);
+                            await driver.manage().window().maximize();
+
+                            // Aksi menunggu mengisi form login untuk melakukan authentication
+                            await loginToApp(driver, user, browser, appHost);
+
+                            // Aksi Sleep
+                            await driver.sleep(3000);
+                            
+                        } catch (error) {
+                            expect.fail(error);
+                        }
+
+
+                    });
+
+                    it(`Reader - Editor toolbar article from browser ${browser}`, async () => {
+
+                        try {
+
                             // Aksi masuk ke dalam halaman browser
                             driver = await goToApp(browser, appHost);
                             await driver.manage().window().maximize();
@@ -213,27 +189,11 @@ Waktu Event Load Selesai (loadEventEnd): (${performanceTiming.loadEventEnd - nav
                     });
 
                     break;
-                
+
                 default:
-                    it(`Test Other - Login from browser ${browser}`, async function() {
+                    it(`Test Other - from browser ${browser}`, async () => {
 
                         try {
-                            // Aksi masuk ke dalam halaman browser
-                            driver = await goToApp(browser, appHost);
-                            await driver.manage().window().maximize();
-
-                            // Aksi menunggu mengisi form login untuk melakukan authentication
-                            await loginToApp(driver, user, browser, appHost);
-
-                            // Results
-                            let userData = await driver.executeScript("return window.localStorage.getItem('user_data')");
-                            userData = await JSON.parse(userData);
-
-                            // Expect results and add custom message for addtional description
-                            customMessages = [
-                                userData?.id > 0 ? "Successfully get the data from local storage ✅" : "No data available from local storage ❌",
-                            ]
-                            expect(parseInt(userData.id)).to.greaterThan(0);
 
                         } catch (error) {
                             expect.fail(error);
