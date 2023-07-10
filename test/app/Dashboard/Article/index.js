@@ -175,10 +175,13 @@ Waktu Event Load Selesai (loadEventEnd): (${performanceTiming.loadEventEnd - nav
                             // Aksi fill the form of article
                             let title = faker.lorem.words();
                             let description = faker.lorem.sentence();
-                            await driver.findElement(By.css('.wrapper textarea.title-inpt')).sendKeys(title);
+                            await driver.sleep(1000);
+                            await driver.findElement(By.css('textarea.title-inpt')).sendKeys(title);
                             await driver.executeScript(`return document.querySelector('.editor__content .ProseMirror p').textContent = "${description}"`);
+                            // Aksi Sleep
+                            await driver.sleep(3000);
                             let isAllFilled = await Promise.all([
-                                await driver.findElement(By.css('.wrapper textarea.title-inpt')).getAttribute('value'),
+                                await driver.findElement(By.css('textarea.title-inpt')).getAttribute('value'),
                                 await driver.findElement(By.css('.editor__content .ProseMirror p')).getAttribute('innerText'),
                             ]).then(results => results.every(value => value != ''));
                             await thrownAnError('Input form create article is invalid', !isAllFilled);
@@ -189,7 +192,7 @@ Waktu Event Load Selesai (loadEventEnd): (${performanceTiming.loadEventEnd - nav
                             if(isAllFilled) await driver.executeScript(`return document.querySelectorAll('button.menubar__button.desktop-tablet img')[document.querySelectorAll('button.menubar__button.desktop-tablet').length - 1].click()`);
 
                             // Aksi Sleep
-                            await driver.sleep(3000);
+                            await driver.sleep(5000);
 
                             // Aksi scroll to bottom of article
                             await driver.executeScript('window.scrollTo(0, document.body.scrollHeight)');
@@ -235,6 +238,48 @@ Waktu Event Load Selesai (loadEventEnd): (${performanceTiming.loadEventEnd - nav
 
                             // Aksi Sleep
                             await driver.sleep(3000);
+
+                        } catch (error) {
+                            expect.fail(error);
+                        }
+
+
+                    });
+                    
+                    it(`Reader - Check the details of article from browser ${browser}`, async () => {
+
+                        try {
+
+                            // Aksi masuk ke dalam halaman browser
+                            driver = await goToApp(browser, appHost);
+                            await driver.manage().window().maximize();
+
+                            // Aksi menunggu mengisi form login untuk melakukan authentication
+                            await loginToApp(driver, user, browser, appHost);
+
+                            // Aksi Sleep
+                            await driver.sleep(3000);
+
+                            // Aksi mengklik menu tab artikel
+                            await driver.executeScript(`return document.querySelectorAll("ul.navbar-nav li.nav-item a a")[1].click()`);
+                            
+                            // Aksi Sleep
+                            await driver.sleep(3000);
+
+                            // Aksi klik salah satu tombol selengkap nya dr article card
+                            let articleCardLength = await driver.executeScript(`return document.querySelectorAll("#article-card-m p.action").length - 1`);
+                            await thrownAnError('Article is empty', await articleCardLength === 0)
+                            await driver.executeScript(`return document.querySelectorAll("#article-card-m p.action")[${faker.number.int({ min: 0, max: await articleCardLength })}].click()`);
+                            
+                            // Aksi Sleep
+                            await driver.sleep(3000);
+                            
+                            // Expect results and add custom message for addtional description
+                            let currentUrl = await driver.getCurrentUrl();
+                            customMessages = [
+                                currentUrl.includes('view?') ? 'Successfully directed to details article' : 'Failed to find details article'
+                            ];
+                            expect(currentUrl.includes('view?')).to.equal(true);
 
                         } catch (error) {
                             expect.fail(error);
