@@ -573,43 +573,66 @@ Waktu Event Load Selesai (loadEventEnd): (${performanceTiming.loadEventEnd - nav
 
                             // Aksi mengklik salah satu jadwal yg msh off
                             let indexScheduleOn = faker.number.int({ min: 0, max: await schedulesOn.length - 1 });
-                            await driver.executeScript(`return document.querySelectorAll('p.time:not(.off)')[${indexScheduleOn}].parentElement.parentElement.parentElement.parentElement.querySelector(".add").click();`);
+
+                            async function turnOffAllSchedule() {
+
+                                // Aksi click turn off schedule
+                                await driver.executeScript(`
+                                    const elements = [];
+                                    const scheduleCards = document.querySelectorAll('.schedule-card');
+                                    scheduleCards.forEach(card => {
+                                    const timeElement = card.querySelector('p.time:not(.off)');
+                                    if (timeElement) {
+                                        elements.push(timeElement);
+                                    }
+                                    });
+                                    return elements[${indexScheduleOn}].click();
+                                `);
                             
-                            // Aksi Sleep
-                            await driver.sleep(3000);
+                                // Aksi Sleep
+                                await driver.sleep(3000);
 
-                            // Aksi klik turn on the schedule
-                            await driver.executeScript(`return document.querySelectorAll('.circle-input')[1].click();`);
+                                // Aksi klik turn on the schedule
+                                await driver.executeScript(`return document.querySelectorAll('.circle-input')[1].click();`);
 
-                            // Aksi Sleep
-                            await driver.sleep(3000);
+                                // Aksi Sleep
+                                await driver.sleep(3000);
 
-                            // Aksi klik button delete
-                            await driver.executeScript(`return document.querySelector('button#danger-button').click();`);
-                            
-                            // Aksi Sleep
-                            await driver.sleep(3000);
+                                // Aksi klik button delete
+                                await driver.executeScript(`return document.querySelector('button#danger-button').click();`);
+                                
+                                // Aksi Sleep
+                                await driver.sleep(3000);
 
-                            // Aksi mengecek jadwal schedulenya telah berubah menjadi off
-                            let scheduleOnStatus = await driver.executeScript(`return document.querySelectorAll('p.time')[${indexScheduleOn}].classList.contains('off')`);
-                            // Aksi Sleep
-                            await driver.sleep(3000);
-                            await thrownAnError('Sorry, the schedule status is still on', await scheduleOnStatus === false);
-                            
-                            // Aksi Sleep
-                            await driver.sleep(3000);
+                                // Aksi mengecek jadwal schedulenya telah berubah menjadi off
+                                let scheduleOnStatus = await driver.executeScript(`return document.querySelectorAll('p.time')[${indexScheduleOn}].classList.contains('off')`);
+                                // Aksi Sleep
+                                await driver.sleep(3000);
+                                await thrownAnError('Sorry, the schedule status is still on', await scheduleOnStatus === false);
+                                
+                                // Aksi Sleep
+                                await driver.sleep(3000);
+
+                                schedulesOn = await driver.executeScript(`return document.querySelectorAll('p.time:not(.off)');`);
+                                // Aksi Sleep
+                                await driver.sleep(3000);
+                                // Aksi mengklik salah satu jadwal yg msh off
+                                if(await schedulesOn.length > 0) {
+                                    indexScheduleOn = faker.number.int({ min: 0, max: await schedulesOn.length - 1 });
+                                    await turnOffAllSchedule();
+                                }
+                            }
+                            await turnOffAllSchedule();
 
                             // Expect results and add custom message for addtional description
+                            schedulesOn = await driver.executeScript(`return document.querySelectorAll('p.time:not(.off)');`);
                             customMessages = [
-                                await scheduleOnStatus ? 'Successfully turn off the schedule per day ✅' : 'Failed to turn off the schedule per day ❌'
+                                await schedulesOn.length - 1 === 0 ? 'Successfully turn off all the schedule per day ✅' : 'Failed to turn off all the schedule per day ❌'
                             ];
-                            expect(await scheduleOnStatus).to.eq(true);
-
-
+                            expect(await schedulesOn.length - 1).to.lessThan(1, 'All schedules should be turned off');
                         } catch (error) {
                             expect.fail(error);
                         }
-
 
                     });
 
