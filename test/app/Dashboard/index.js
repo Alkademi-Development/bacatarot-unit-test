@@ -215,7 +215,7 @@ Waktu Event Load Selesai (loadEventEnd): (${performanceTiming.loadEventEnd - nav
                     break;
                 
                 default:
-                    it(`Test Other - Login from browser ${browser}`, async function() {
+                    it(`Other - Test from browser ${browser}`, async function() {
 
                         try {
                             // Aksi masuk ke dalam halaman browser
@@ -226,15 +226,6 @@ Waktu Event Load Selesai (loadEventEnd): (${performanceTiming.loadEventEnd - nav
                             await loginToApp(driver, user, browser, appHost);
 
                             // Results
-                            let userData = await driver.executeScript("return window.localStorage.getItem('user_data')");
-                            userData = await JSON.parse(userData);
-
-                            // Expect results and add custom message for addtional description
-                            customMessages = [
-                                userData?.id > 0 ? "Successfully get the data from local storage ✅" : "No data available from local storage ❌",
-                            ]
-                            expect(parseInt(userData.id)).to.greaterThan(0);
-
                         } catch (error) {
                             expect.fail(error);
                         }

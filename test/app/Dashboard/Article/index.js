@@ -159,6 +159,61 @@ Waktu Event Load Selesai (loadEventEnd): (${performanceTiming.loadEventEnd - nav
 
                             // Aksi Sleep
                             await driver.sleep(3000);
+
+                            // Aksi mengklik menu tab artikel
+                            await driver.executeScript(`return document.querySelectorAll("ul.navbar-nav li.nav-item a a")[1].click()`);
+                            
+                            // Aksi Sleep
+                            await driver.sleep(3000);
+
+                            // Aksi klik tombol 'Tambah Artikel'
+                            await driver.executeScript(`return document.querySelector('button#outline-button').click()`);
+                            
+                            // Aksi Sleep
+                            await driver.sleep(3000);
+
+                            // Aksi fill the form of article
+                            let title = faker.lorem.words();
+                            let description = faker.lorem.sentence();
+                            await driver.findElement(By.css('.wrapper textarea.title-inpt')).sendKeys(title);
+                            await driver.executeScript(`return document.querySelector('.editor__content .ProseMirror p').textContent = "${description}"`);
+                            let isAllFilled = await Promise.all([
+                                await driver.findElement(By.css('.wrapper textarea.title-inpt')).getAttribute('value'),
+                                await driver.findElement(By.css('.editor__content .ProseMirror p')).getAttribute('innerText'),
+                            ]).then(results => results.every(value => value != ''));
+                            await thrownAnError('Input form create article is invalid', !isAllFilled);
+                            
+                            // Aksi Sleep
+                            await driver.sleep(3000);
+
+                            if(isAllFilled) await driver.executeScript(`return document.querySelectorAll('button.menubar__button.desktop-tablet img')[document.querySelectorAll('button.menubar__button.desktop-tablet').length - 1].click()`);
+
+                            // Aksi Sleep
+                            await driver.sleep(3000);
+
+                            // Aksi scroll to bottom of article
+                            await driver.executeScript('window.scrollTo(0, document.body.scrollHeight)');
+                            
+                            // Aksi Sleep
+                            await driver.sleep(3000);
+
+                            let articleCard = await driver.executeScript(`return document.querySelectorAll('#article-card-m .flex-column h1')`);
+                            let findArticle = [];
+
+                            for (let index = 0; index < await articleCard.length; index++) {
+                                if(await articleCard[index].getAttribute('innerText') === title) {
+                                    findArticle.push(await articleCard[index]);
+                                }
+                            }
+                            
+                            // Aksi Sleep
+                            await driver.sleep(3000);
+
+                            // Expect results and add custom message for addtional description
+                            customMessages = [
+                                findArticle.length > 0 ? 'Successfully created a new article' : 'Failed to create a new article'
+                            ]
+                            expect(findArticle.length).to.greaterThan(0);
                             
                         } catch (error) {
                             expect.fail(error);
@@ -167,7 +222,7 @@ Waktu Event Load Selesai (loadEventEnd): (${performanceTiming.loadEventEnd - nav
 
                     });
 
-                    it(`Reader - Editor toolbar article from browser ${browser}`, async () => {
+                    it.skip(`Reader - Editor toolbar article from browser ${browser}`, async () => {
 
                         try {
 

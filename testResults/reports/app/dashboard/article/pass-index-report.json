@@ -1,0 +1,202 @@
+{
+  "stats": {
+    "suites": 1,
+    "tests": 4,
+    "passes": 2,
+    "pending": 2,
+    "failures": 0,
+    "start": "2023-07-10T11:24:41.931Z",
+    "end": "2023-07-10T11:26:14.380Z",
+    "duration": 92449,
+    "testsRegistered": 4,
+    "passPercent": 100,
+    "pendingPercent": 50,
+    "other": 0,
+    "hasOther": false,
+    "skipped": 0,
+    "hasSkipped": false
+  },
+  "results": [
+    {
+      "uuid": "7c12eb6f-cb6e-4c5c-a240-18c4e6474cb8",
+      "title": "",
+      "fullFile": "D:\\allproject\\alkademik\\research-unit-test-bacatarot\\test\\app\\dashboard\\article\\index.js",
+      "file": "\\test\\app\\dashboard\\article\\index.js",
+      "beforeHooks": [],
+      "afterHooks": [],
+      "tests": [],
+      "suites": [
+        {
+          "uuid": "3f52e145-12c4-4125-bd0c-ad57e35de063",
+          "title": "Booking",
+          "fullFile": "D:\\allproject\\alkademik\\research-unit-test-bacatarot\\test\\app\\dashboard\\article\\index.js",
+          "file": "\\test\\app\\dashboard\\article\\index.js",
+          "beforeHooks": [],
+          "afterHooks": [
+            {
+              "title": "\"after all\" hook in \"Booking\"",
+              "fullTitle": "Booking \"after all\" hook in \"Booking\"",
+              "timedOut": false,
+              "duration": 0,
+              "state": null,
+              "speed": null,
+              "pass": false,
+              "fail": false,
+              "pending": false,
+              "context": null,
+              "code": "",
+              "err": {},
+              "uuid": "86a652da-d8e2-43b6-ad1e-ed9f5716af3c",
+              "parentUUID": "3f52e145-12c4-4125-bd0c-ad57e35de063",
+              "isHook": true,
+              "skipped": false
+            },
+            {
+              "title": "\"after each\" hook in \"Booking\"",
+              "fullTitle": "Booking \"after each\" hook in \"Booking\"",
+              "timedOut": false,
+              "duration": 3387,
+              "state": null,
+              "speed": null,
+              "pass": false,
+              "fail": false,
+              "pending": false,
+              "context": null,
+              "code": "",
+              "err": {},
+              "uuid": "033520fa-5f3f-4867-9e91-c8a5f7583f00",
+              "parentUUID": "3f52e145-12c4-4125-bd0c-ad57e35de063",
+              "isHook": true,
+              "skipped": false
+            }
+          ],
+          "tests": [
+            {
+              "title": "Reader - Create an article from browser firefox",
+              "fullTitle": "Booking Reader - Create an article from browser firefox",
+              "timedOut": false,
+              "duration": 53783,
+              "state": "passed",
+              "speed": "slow",
+              "pass": true,
+              "fail": false,
+              "pending": false,
+              "context": "[\n  {\n    \"title\": \"Expected Results\",\n    \"value\": \"- Successfully created a new article\"\n  },\n  {\n    \"title\": \"Performance Results\",\n    \"value\": \"Monday, July 10, 2023 6:25:35 PM\\n(Durasi waktu navigasi: 2 seconds)   \\n=====================================================================\\nWaktu Permintaan Pertama (fetchStart): (0) milliseconds ( 0 seconds )\\nWaktu Pencarian Nama Domain Dimulai (domainLookupStart): (13) milliseconds ( 0.013 seconds )\\nWaktu Pencarian Nama Domain Selesai (domainLookupEnd): (13) milliseconds ( 0.013 seconds )\\nWaktu Permintaan Dimulai (requestStart): (14) milliseconds ( 0.014 seconds )\\n=====================================================================\\nWaktu Respons Dimulai (responseStart): (20) milliseconds ( 0.02 seconds )\\nWaktu Respons Selesai (responseEnd): (21) milliseconds ( 0.021 seconds )\\nWaktu Memuat Dokumen (domLoading): (21) milliseconds ( 0.021 seconds )\\n=====================================================================\\nWaktu Event Unload Dimulai (unloadEventStart): (-1688988305522) milliseconds ( -1688988305.522 seconds )\\nWaktu Event Unload Selesai (unloadEventEnd): (-1688988305522) milliseconds ( -1688988305.522 seconds )\\n=====================================================================\\nWaktu Interaktif DOM (domInteractive): (1708) milliseconds ( 1.708 seconds )\\nWaktu Event DOMContentLoaded Dimulai (domContentLoadedEventStart): (1724) milliseconds ( 1.724 seconds )\\nWaktu Event DOMContentLoaded Selesai (domContentLoadedEventEnd): (1725) milliseconds ( 1.725 seconds )\\n=====================================================================\\nWaktu Dokumen Selesai Dimuat (domComplete): (1749) milliseconds ( 1.749 seconds )\\nWaktu Event Load Dimulai (loadEventStart): (1749) milliseconds ( 1.749 seconds )\\n=====================================================================\\n(timestamp loadEventEnd: 1688988307271)\\nWaktu Event Load Selesai (loadEventEnd): (1749) milliseconds ( 1.749 seconds )\\n            \"\n  },\n  {\n    \"title\": \"Screenshoot-Test-Results\",\n    \"value\": \"..\\\\..\\\\..\\\\..\\\\..\\\\testResults\\\\screenshoots\\\\app\\\\dashboard\\\\article\\\\index\\\\1-[passed].png\"\n  }\n]",
+              "code": "",
+              "err": {},
+              "uuid": "693e328a-4d53-4010-b496-a1d59b253027",
+              "parentUUID": "3f52e145-12c4-4125-bd0c-ad57e35de063",
+              "isHook": false,
+              "skipped": false
+            },
+            {
+              "title": "Reader - Editor toolbar article from browser firefox",
+              "fullTitle": "Booking Reader - Editor toolbar article from browser firefox",
+              "timedOut": false,
+              "duration": 0,
+              "state": "pending",
+              "speed": null,
+              "pass": false,
+              "fail": false,
+              "pending": true,
+              "context": null,
+              "code": "",
+              "err": {},
+              "uuid": "0e4aee6c-922f-4a70-aefa-e6d062c66087",
+              "parentUUID": "3f52e145-12c4-4125-bd0c-ad57e35de063",
+              "isHook": false,
+              "skipped": false
+            },
+            {
+              "title": "Reader - Create an article from browser chrome",
+              "fullTitle": "Booking Reader - Create an article from browser chrome",
+              "timedOut": false,
+              "duration": 31393,
+              "state": "passed",
+              "speed": "slow",
+              "pass": true,
+              "fail": false,
+              "pending": false,
+              "context": "[\n  {\n    \"title\": \"Expected Results\",\n    \"value\": \"- Successfully created a new article\"\n  },\n  {\n    \"title\": \"Performance Results\",\n    \"value\": \"Monday, July 10, 2023 6:26:11 PM\\n(Durasi waktu navigasi: 41 seconds)   \\n=====================================================================\\nWaktu Permintaan Pertama (fetchStart): (2) milliseconds ( 0.002 seconds )\\nWaktu Pencarian Nama Domain Dimulai (domainLookupStart): (2) milliseconds ( 0.002 seconds )\\nWaktu Pencarian Nama Domain Selesai (domainLookupEnd): (2) milliseconds ( 0.002 seconds )\\nWaktu Permintaan Dimulai (requestStart): (5) milliseconds ( 0.005 seconds )\\n=====================================================================\\nWaktu Respons Dimulai (responseStart): (7) milliseconds ( 0.007 seconds )\\nWaktu Respons Selesai (responseEnd): (8) milliseconds ( 0.008 seconds )\\nWaktu Memuat Dokumen (domLoading): (11) milliseconds ( 0.011 seconds )\\n=====================================================================\\nWaktu Event Unload Dimulai (unloadEventStart): (-1688988340601) milliseconds ( -1688988340.601 seconds )\\nWaktu Event Unload Selesai (unloadEventEnd): (-1688988340601) milliseconds ( -1688988340.601 seconds )\\n=====================================================================\\nWaktu Interaktif DOM (domInteractive): (1621) milliseconds ( 1.621 seconds )\\nWaktu Event DOMContentLoaded Dimulai (domContentLoadedEventStart): (1621) milliseconds ( 1.621 seconds )\\nWaktu Event DOMContentLoaded Selesai (domContentLoadedEventEnd): (1621) milliseconds ( 1.621 seconds )\\n=====================================================================\\nWaktu Dokumen Selesai Dimuat (domComplete): (1640) milliseconds ( 1.64 seconds )\\nWaktu Event Load Dimulai (loadEventStart): (1640) milliseconds ( 1.64 seconds )\\n=====================================================================\\n(timestamp loadEventEnd: 1688988342241)\\nWaktu Event Load Selesai (loadEventEnd): (1640) milliseconds ( 1.64 seconds )\\n            \"\n  },\n  {\n    \"title\": \"Screenshoot-Test-Results\",\n    \"value\": \"..\\\\..\\\\..\\\\..\\\\..\\\\testResults\\\\screenshoots\\\\app\\\\dashboard\\\\article\\\\index\\\\3-[passed].png\"\n  }\n]",
+              "code": "",
+              "err": {},
+              "uuid": "2913d09d-1d2b-4e82-9158-5ecc9ec27003",
+              "parentUUID": "3f52e145-12c4-4125-bd0c-ad57e35de063",
+              "isHook": false,
+              "skipped": false
+            },
+            {
+              "title": "Reader - Editor toolbar article from browser chrome",
+              "fullTitle": "Booking Reader - Editor toolbar article from browser chrome",
+              "timedOut": false,
+              "duration": 0,
+              "state": "pending",
+              "speed": null,
+              "pass": false,
+              "fail": false,
+              "pending": true,
+              "context": null,
+              "code": "",
+              "err": {},
+              "uuid": "3d0569b9-af62-4782-9f3f-eb8b3233c63f",
+              "parentUUID": "3f52e145-12c4-4125-bd0c-ad57e35de063",
+              "isHook": false,
+              "skipped": false
+            }
+          ],
+          "suites": [],
+          "passes": [
+            "693e328a-4d53-4010-b496-a1d59b253027",
+            "2913d09d-1d2b-4e82-9158-5ecc9ec27003"
+          ],
+          "failures": [],
+          "pending": [
+            "0e4aee6c-922f-4a70-aefa-e6d062c66087",
+            "3d0569b9-af62-4782-9f3f-eb8b3233c63f"
+          ],
+          "skipped": [],
+          "duration": 85176,
+          "root": false,
+          "rootEmpty": false,
+          "_timeout": 0
+        }
+      ],
+      "passes": [],
+      "failures": [],
+      "pending": [],
+      "skipped": [],
+      "duration": 0,
+      "root": true,
+      "rootEmpty": true,
+      "_timeout": 0
+    }
+  ],
+  "meta": {
+    "mocha": {
+      "version": "10.2.0"
+    },
+    "mochawesome": {
+      "options": {
+        "quiet": false,
+        "reportFilename": "app/dashboard/article/[status]-index-report",
+        "saveHtml": true,
+        "saveJson": true,
+        "consoleReporter": "spec",
+        "useInlineDiffs": false,
+        "code": false
+      },
+      "version": "7.1.3"
+    },
+    "marge": {
+      "options": {
+        "code": "false",
+        "cdn": "true",
+        "charts": "true",
+        "reportDir": "testResults/reports",
+        "reportFilename": "app/dashboard/article/[status]-index-report",
+        "reportPageTitle": "Laporan-Harian-Testing"
+      },
+      "version": "6.2.0"
+    }
+  }
+}
