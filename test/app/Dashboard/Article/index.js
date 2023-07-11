@@ -124,17 +124,6 @@ Waktu Event Load Selesai (loadEventEnd): (${performanceTiming.loadEventEnd - nav
 
                             // Aksi sleep
                             await driver.sleep(3000);
-                            // Aksi menunggu response halaman ter-load semua
-                            await driver.wait(async function () {
-                                const isNetworkIdle = await driver.executeScript(function () {
-                                const performanceEntries = window.performance.getEntriesByType('resource');
-                                return performanceEntries.every(function (entry) {
-                                    return entry.responseEnd > 0;
-                                });
-                                });
-                            
-                                return isNetworkIdle;
-                            }); 
 
                         } catch (error) {
                             expect.fail(error);
@@ -184,7 +173,7 @@ Waktu Event Load Selesai (loadEventEnd): (${performanceTiming.loadEventEnd - nav
                                 await driver.findElement(By.css('textarea.title-inpt')).getAttribute('value'),
                                 await driver.findElement(By.css('.editor__content .ProseMirror p')).getAttribute('innerText'),
                             ]).then(results => results.every(value => value != ''));
-                            await thrownAnError('Input form create article is invalid', !isAllFilled);
+                            await thrownAnError('Input form create article is empty', !isAllFilled);
                             
                             // Aksi Sleep
                             await driver.sleep(3000);
@@ -209,12 +198,12 @@ Waktu Event Load Selesai (loadEventEnd): (${performanceTiming.loadEventEnd - nav
                                 }
                             }
                             
-                            // Aksi Sleep
-                            await driver.sleep(3000);
+                            // Aksi sleep
+                            await driver.sleep(5000);
 
                             // Expect results and add custom message for addtional description
                             customMessages = [
-                                findArticle.length > 0 ? 'Successfully created a new article' : 'Failed to create a new article'
+                                findArticle.length > 0 ? 'Successfully created a new article ✅' : 'Failed to create a new article ❌'
                             ]
                             expect(findArticle.length).to.greaterThan(0);
                             
@@ -225,7 +214,7 @@ Waktu Event Load Selesai (loadEventEnd): (${performanceTiming.loadEventEnd - nav
 
                     });
 
-                    it.skip(`Reader - Editor toolbar article from browser ${browser}`, async () => {
+                    it(`Reader - Editor toolbar bold article from browser ${browser}`, async () => {
 
                         try {
 
@@ -239,10 +228,808 @@ Waktu Event Load Selesai (loadEventEnd): (${performanceTiming.loadEventEnd - nav
                             // Aksi Sleep
                             await driver.sleep(3000);
 
+                            // Aksi mengklik menu tab artikel
+                            await driver.executeScript(`return document.querySelectorAll("ul.navbar-nav li.nav-item a a")[1].click()`);
+                            
+                            // Aksi Sleep
+                            await driver.sleep(3000);
+
+                            // Aksi klik tombol 'Tambah Artikel'
+                            await driver.executeScript(`return document.querySelector('button#outline-button').click()`);
+                            
+                            // Aksi Sleep
+                            await driver.sleep(3000);
+
+                            // Aksi fill the form of article
+                            let title = faker.lorem.words();
+                            let description = faker.lorem.sentence();
+                            await driver.sleep(1000);
+                            await driver.findElement(By.css('textarea.title-inpt')).sendKeys(title);
+                            await driver.executeScript(`return document.querySelector('.editor__content .ProseMirror p').textContent = "${description}"`);
+                            // Aksi Sleep
+                            await driver.sleep(3000);
+                            let isAllFilled = await Promise.all([
+                                await driver.findElement(By.css('textarea.title-inpt')).getAttribute('value'),
+                                await driver.findElement(By.css('.editor__content .ProseMirror p')).getAttribute('innerText'),
+                            ]).then(results => results.every(value => value != ''));
+                            await thrownAnError('Input form create article is empty', !isAllFilled);
+                            
+                            // Aksi Sleep
+                            await driver.sleep(3000);
+
+                            if(isAllFilled) {
+
+                                let clickable = await driver.findElement(By.css(".editor__content .ProseMirror"));
+                                let action = await driver.actions({async: true});
+                                await action.move({origin: await clickable}).press().perform();
+                                await driver.sleep(2000);
+                                await driver.executeScript(`return document.execCommand('selectAll', false, null);`);
+                                // Aksi Sleep
+                                await driver.sleep(3000);
+                                await driver.executeScript(`return document.querySelectorAll('.editor-control .menubar .menubar__button')[0].click()`);
+                                await driver.sleep(2000);
+                                clickable = await driver.findElement(By.css(".editor__content .ProseMirror"));
+                                action = await driver.actions({async: true});
+                                await action.move({origin: await clickable}).press().perform();
+                            }
+
+                            // Aksi Sleep
+                            await driver.sleep(3000);
+
+                            // Expect results and add custom message for addtional description
+                            let descriptionArticle = await driver.executeScript(`return document.querySelector('.editor__content .ProseMirror').innerHTML;`);
+                            customMessages = [
+                                descriptionArticle.includes('strong') ? 'Successfully use bold of editor toolbar in description article ✅' : 'Failed to use bold of editor toolbar in description article ❌'
+                            ]
+                            expect(descriptionArticle.includes('strong')).to.equal(true);
+
                         } catch (error) {
                             expect.fail(error);
                         }
 
+                    });
+                    
+                    it(`Reader - Editor toolbar italic article from browser ${browser}`, async () => {
+
+                        try {
+
+                            // Aksi masuk ke dalam halaman browser
+                            driver = await goToApp(browser, appHost);
+                            await driver.manage().window().maximize();
+
+                            // Aksi menunggu mengisi form login untuk melakukan authentication
+                            await loginToApp(driver, user, browser, appHost);
+
+                            // Aksi Sleep
+                            await driver.sleep(3000);
+
+                            // Aksi mengklik menu tab artikel
+                            await driver.executeScript(`return document.querySelectorAll("ul.navbar-nav li.nav-item a a")[1].click()`);
+                            
+                            // Aksi Sleep
+                            await driver.sleep(3000);
+
+                            // Aksi klik tombol 'Tambah Artikel'
+                            await driver.executeScript(`return document.querySelector('button#outline-button').click()`);
+                            
+                            // Aksi Sleep
+                            await driver.sleep(3000);
+
+                            // Aksi fill the form of article
+                            let title = faker.lorem.words();
+                            let description = faker.lorem.sentence();
+                            await driver.sleep(1000);
+                            await driver.findElement(By.css('textarea.title-inpt')).sendKeys(title);
+                            await driver.executeScript(`return document.querySelector('.editor__content .ProseMirror p').textContent = "${description}"`);
+                            // Aksi Sleep
+                            await driver.sleep(3000);
+                            let isAllFilled = await Promise.all([
+                                await driver.findElement(By.css('textarea.title-inpt')).getAttribute('value'),
+                                await driver.findElement(By.css('.editor__content .ProseMirror p')).getAttribute('innerText'),
+                            ]).then(results => results.every(value => value != ''));
+                            await thrownAnError('Input form create article is empty', !isAllFilled);
+                            
+                            // Aksi Sleep
+                            await driver.sleep(3000);
+
+                            if(isAllFilled) {
+
+                                let clickable = await driver.findElement(By.css(".editor__content .ProseMirror"));
+                                let action = await driver.actions({async: true});
+                                await action.move({origin: await clickable}).press().perform();
+                                await driver.sleep(2000);
+                                await driver.executeScript(`return document.execCommand('selectAll', false, null);`);
+                                // Aksi Sleep
+                                await driver.sleep(3000);
+                                await driver.executeScript(`return document.querySelectorAll('.editor-control .menubar .menubar__button')[1].click()`);
+                                await driver.sleep(2000);
+                                clickable = await driver.findElement(By.css(".editor__content .ProseMirror"));
+                                action = await driver.actions({async: true});
+                                await action.move({origin: await clickable}).press().perform();
+                            }
+
+                            // Aksi Sleep
+                            await driver.sleep(3000);
+
+                            // Expect results and add custom message for addtional description
+                            let descriptionArticle = await driver.executeScript(`return document.querySelector('.editor__content .ProseMirror').innerHTML;`);
+                            customMessages = [
+                                descriptionArticle.includes('em') ? 'Successfully use italic of editor toolbar in description article' : 'Failed use italic of editor toolbar in description article'
+                            ]
+                            expect(descriptionArticle.includes('em')).to.equal(true);
+
+                        } catch (error) {
+                            expect.fail(error);
+                        }
+
+                    });
+                    
+                    it(`Reader - Editor toolbar underline article from browser ${browser}`, async () => {
+
+                        try {
+
+                            // Aksi masuk ke dalam halaman browser
+                            driver = await goToApp(browser, appHost);
+                            await driver.manage().window().maximize();
+
+                            // Aksi menunggu mengisi form login untuk melakukan authentication
+                            await loginToApp(driver, user, browser, appHost);
+
+                            // Aksi Sleep
+                            await driver.sleep(3000);
+
+                            // Aksi mengklik menu tab artikel
+                            await driver.executeScript(`return document.querySelectorAll("ul.navbar-nav li.nav-item a a")[1].click()`);
+                            
+                            // Aksi Sleep
+                            await driver.sleep(3000);
+
+                            // Aksi klik tombol 'Tambah Artikel'
+                            await driver.executeScript(`return document.querySelector('button#outline-button').click()`);
+                            
+                            // Aksi Sleep
+                            await driver.sleep(3000);
+
+                            // Aksi fill the form of article
+                            let title = faker.lorem.words();
+                            let description = faker.lorem.sentence();
+                            await driver.sleep(1000);
+                            await driver.findElement(By.css('textarea.title-inpt')).sendKeys(title);
+                            await driver.executeScript(`return document.querySelector('.editor__content .ProseMirror p').textContent = "${description}"`);
+                            // Aksi Sleep
+                            await driver.sleep(3000);
+                            let isAllFilled = await Promise.all([
+                                await driver.findElement(By.css('textarea.title-inpt')).getAttribute('value'),
+                                await driver.findElement(By.css('.editor__content .ProseMirror p')).getAttribute('innerText'),
+                            ]).then(results => results.every(value => value != ''));
+                            await thrownAnError('Input form create article is empty', !isAllFilled);
+                            
+                            // Aksi Sleep
+                            await driver.sleep(3000);
+
+                            if(isAllFilled) {
+
+                                let clickable = await driver.findElement(By.css(".editor__content .ProseMirror"));
+                                let action = await driver.actions({async: true});
+                                await action.move({origin: await clickable}).press().perform();
+                                await driver.sleep(2000);
+                                await driver.executeScript(`return document.execCommand('selectAll', false, null);`);
+                                // Aksi Sleep
+                                await driver.sleep(3000);
+                                await driver.executeScript(`return document.querySelectorAll('.editor-control .menubar .menubar__button')[2].click()`);
+                                await driver.sleep(2000);
+                                clickable = await driver.findElement(By.css(".editor__content .ProseMirror"));
+                                action = await driver.actions({async: true});
+                                await action.move({origin: await clickable}).press().perform();
+                            }
+
+                            // Aksi Sleep
+                            await driver.sleep(3000);
+
+                            // Expect results and add custom message for addtional description
+                            let descriptionArticle = await driver.executeScript(`return document.querySelector('.editor__content .ProseMirror').innerHTML;`);
+                            customMessages = [
+                                descriptionArticle.includes("<u>") ? 'Successfully use underline of editor toolbar in description article' : 'Failed use underline of editor toolbar in description article'
+                            ]
+                            expect(descriptionArticle.includes("<u>")).to.equal(true);
+
+                        } catch (error) {
+                            expect.fail(error);
+                        }
+
+                    });
+                    
+                    it(`Reader - Editor toolbar heading one article from browser ${browser}`, async () => {
+
+                        try {
+
+                            // Aksi masuk ke dalam halaman browser
+                            driver = await goToApp(browser, appHost);
+                            await driver.manage().window().maximize();
+
+                            // Aksi menunggu mengisi form login untuk melakukan authentication
+                            await loginToApp(driver, user, browser, appHost);
+
+                            // Aksi Sleep
+                            await driver.sleep(3000);
+
+                            // Aksi mengklik menu tab artikel
+                            await driver.executeScript(`return document.querySelectorAll("ul.navbar-nav li.nav-item a a")[1].click()`);
+                            
+                            // Aksi Sleep
+                            await driver.sleep(3000);
+
+                            // Aksi klik tombol 'Tambah Artikel'
+                            await driver.executeScript(`return document.querySelector('button#outline-button').click()`);
+                            
+                            // Aksi Sleep
+                            await driver.sleep(3000);
+
+                            // Aksi fill the form of article
+                            let title = faker.lorem.words();
+                            let description = faker.lorem.sentence();
+                            await driver.sleep(1000);
+                            await driver.findElement(By.css('textarea.title-inpt')).sendKeys(title);
+                            await driver.executeScript(`return document.querySelector('.editor__content .ProseMirror p').textContent = "${description}"`);
+                            // Aksi Sleep
+                            await driver.sleep(3000);
+                            let isAllFilled = await Promise.all([
+                                await driver.findElement(By.css('textarea.title-inpt')).getAttribute('value'),
+                                await driver.findElement(By.css('.editor__content .ProseMirror p')).getAttribute('innerText'),
+                            ]).then(results => results.every(value => value != ''));
+                            await thrownAnError('Input form create article is empty', !isAllFilled);
+                            
+                            // Aksi Sleep
+                            await driver.sleep(3000);
+
+                            if(isAllFilled) {
+
+                                let clickable = await driver.findElement(By.css(".editor__content .ProseMirror"));
+                                let action = await driver.actions({async: true});
+                                await action.move({origin: await clickable}).press().perform();
+                                await driver.sleep(2000);
+                                await driver.executeScript(`return document.execCommand('selectAll', false, null);`);
+                                // Aksi Sleep
+                                await driver.sleep(3000);
+                                await driver.executeScript(`return document.querySelectorAll('.editor-control .menubar .menubar__button')[3].click()`);
+                                await driver.sleep(2000);
+                                clickable = await driver.findElement(By.css(".editor__content .ProseMirror"));
+                                action = await driver.actions({async: true});
+                                await action.move({origin: await clickable}).press().perform();
+                            }
+
+                            // Aksi Sleep
+                            await driver.sleep(3000);
+
+                            // Expect results and add custom message for addtional description
+                            let descriptionArticle = await driver.executeScript(`return document.querySelector('.editor__content .ProseMirror').innerHTML;`);
+                            customMessages = [
+                                descriptionArticle.includes("<h1>") ? 'Successfully use heading one of editor toolbar in description article' : 'Failed use heading one of editor toolbar in description article'
+                            ]
+                            expect(descriptionArticle.includes("<h1>")).to.equal(true);
+
+                        } catch (error) {
+                            expect.fail(error);
+                        }
+
+                    });
+                    
+                    it(`Reader - Editor toolbar heading two article from browser ${browser}`, async () => {
+
+                        try {
+
+                            // Aksi masuk ke dalam halaman browser
+                            driver = await goToApp(browser, appHost);
+                            await driver.manage().window().maximize();
+
+                            // Aksi menunggu mengisi form login untuk melakukan authentication
+                            await loginToApp(driver, user, browser, appHost);
+
+                            // Aksi Sleep
+                            await driver.sleep(3000);
+
+                            // Aksi mengklik menu tab artikel
+                            await driver.executeScript(`return document.querySelectorAll("ul.navbar-nav li.nav-item a a")[1].click()`);
+                            
+                            // Aksi Sleep
+                            await driver.sleep(3000);
+
+                            // Aksi klik tombol 'Tambah Artikel'
+                            await driver.executeScript(`return document.querySelector('button#outline-button').click()`);
+                            
+                            // Aksi Sleep
+                            await driver.sleep(3000);
+
+                            // Aksi fill the form of article
+                            let title = faker.lorem.words();
+                            let description = faker.lorem.sentence();
+                            await driver.sleep(1000);
+                            await driver.findElement(By.css('textarea.title-inpt')).sendKeys(title);
+                            await driver.executeScript(`return document.querySelector('.editor__content .ProseMirror p').textContent = "${description}"`);
+                            // Aksi Sleep
+                            await driver.sleep(3000);
+                            let isAllFilled = await Promise.all([
+                                await driver.findElement(By.css('textarea.title-inpt')).getAttribute('value'),
+                                await driver.findElement(By.css('.editor__content .ProseMirror p')).getAttribute('innerText'),
+                            ]).then(results => results.every(value => value != ''));
+                            await thrownAnError('Input form create article is empty', !isAllFilled);
+                            
+                            // Aksi Sleep
+                            await driver.sleep(3000);
+
+                            if(isAllFilled) {
+
+                                let clickable = await driver.findElement(By.css(".editor__content .ProseMirror"));
+                                let action = await driver.actions({async: true});
+                                await action.move({origin: await clickable}).press().perform();
+                                await driver.sleep(2000);
+                                await driver.executeScript(`return document.execCommand('selectAll', false, null);`);
+                                // Aksi Sleep
+                                await driver.sleep(3000);
+                                await driver.executeScript(`return document.querySelectorAll('.editor-control .menubar .menubar__button')[4].click()`);
+                                await driver.sleep(2000);
+                                clickable = await driver.findElement(By.css(".editor__content .ProseMirror"));
+                                action = await driver.actions({async: true});
+                                await action.move({origin: await clickable}).press().perform();
+                            }
+
+                            // Aksi Sleep
+                            await driver.sleep(3000);
+
+                            // Expect results and add custom message for addtional description
+                            let descriptionArticle = await driver.executeScript(`return document.querySelector('.editor__content .ProseMirror').innerHTML;`);
+                            customMessages = [
+                                descriptionArticle.includes('<h2>') ? 'Successfully use heading two of editor toolbar in description article' : 'Failed use heading two of editor toolbar in description article'
+                            ]
+                            expect(descriptionArticle.includes('<h2>')).to.equal(true);
+
+                        } catch (error) {
+                            expect.fail(error);
+                        }
+
+                    });
+                    
+                    it(`Reader - Editor toolbar heading three article from browser ${browser}`, async () => {
+
+                        try {
+
+                            // Aksi masuk ke dalam halaman browser
+                            driver = await goToApp(browser, appHost);
+                            await driver.manage().window().maximize();
+
+                            // Aksi menunggu mengisi form login untuk melakukan authentication
+                            await loginToApp(driver, user, browser, appHost);
+
+                            // Aksi Sleep
+                            await driver.sleep(3000);
+
+                            // Aksi mengklik menu tab artikel
+                            await driver.executeScript(`return document.querySelectorAll("ul.navbar-nav li.nav-item a a")[1].click()`);
+                            
+                            // Aksi Sleep
+                            await driver.sleep(3000);
+
+                            // Aksi klik tombol 'Tambah Artikel'
+                            await driver.executeScript(`return document.querySelector('button#outline-button').click()`);
+                            
+                            // Aksi Sleep
+                            await driver.sleep(3000);
+
+                            // Aksi fill the form of article
+                            let title = faker.lorem.words();
+                            let description = faker.lorem.sentence();
+                            await driver.sleep(1000);
+                            await driver.findElement(By.css('textarea.title-inpt')).sendKeys(title);
+                            await driver.executeScript(`return document.querySelector('.editor__content .ProseMirror p').textContent = "${description}"`);
+                            // Aksi Sleep
+                            await driver.sleep(3000);
+                            let isAllFilled = await Promise.all([
+                                await driver.findElement(By.css('textarea.title-inpt')).getAttribute('value'),
+                                await driver.findElement(By.css('.editor__content .ProseMirror p')).getAttribute('innerText'),
+                            ]).then(results => results.every(value => value != ''));
+                            await thrownAnError('Input form create article is empty', !isAllFilled);
+                            
+                            // Aksi Sleep
+                            await driver.sleep(3000);
+
+                            if(isAllFilled) {
+
+                                let clickable = await driver.findElement(By.css(".editor__content .ProseMirror"));
+                                let action = await driver.actions({async: true});
+                                await action.move({origin: await clickable}).press().perform();
+                                await driver.sleep(2000);
+                                await driver.executeScript(`return document.execCommand('selectAll', false, null);`);
+                                // Aksi Sleep
+                                await driver.sleep(3000);
+                                await driver.executeScript(`return document.querySelectorAll('.editor-control .menubar .menubar__button')[5].click()`);
+                                await driver.sleep(2000);
+                                clickable = await driver.findElement(By.css(".editor__content .ProseMirror"));
+                                action = await driver.actions({async: true});
+                                await action.move({origin: await clickable}).press().perform();
+                            }
+
+                            // Aksi Sleep
+                            await driver.sleep(3000);
+
+                            // Expect results and add custom message for addtional description
+                            let descriptionArticle = await driver.executeScript(`return document.querySelector('.editor__content .ProseMirror').innerHTML;`);
+                            customMessages = [
+                                descriptionArticle.includes("<h3>") ? 'Successfully use heading three of editor toolbar in description article' : 'Failed use heading three of editor toolbar in description article'
+                            ]
+                            expect(descriptionArticle.includes("<h3>")).to.equal(true);
+
+                        } catch (error) {
+                            expect.fail(error);
+                        }
+
+                    });
+                    
+                    it(`Reader - Editor toolbar list article from browser ${browser}`, async () => {
+
+                        try {
+
+                            // Aksi masuk ke dalam halaman browser
+                            driver = await goToApp(browser, appHost);
+                            await driver.manage().window().maximize();
+
+                            // Aksi menunggu mengisi form login untuk melakukan authentication
+                            await loginToApp(driver, user, browser, appHost);
+
+                            // Aksi Sleep
+                            await driver.sleep(3000);
+
+                            // Aksi mengklik menu tab artikel
+                            await driver.executeScript(`return document.querySelectorAll("ul.navbar-nav li.nav-item a a")[1].click()`);
+                            
+                            // Aksi Sleep
+                            await driver.sleep(3000);
+
+                            // Aksi klik tombol 'Tambah Artikel'
+                            await driver.executeScript(`return document.querySelector('button#outline-button').click()`);
+                            
+                            // Aksi Sleep
+                            await driver.sleep(3000);
+
+                            // Aksi fill the form of article
+                            let title = faker.lorem.words();
+                            let description = faker.lorem.sentence();
+                            await driver.sleep(1000);
+                            await driver.findElement(By.css('textarea.title-inpt')).sendKeys(title);
+                            await driver.executeScript(`return document.querySelector('.editor__content .ProseMirror p').textContent = "${description}"`);
+                            // Aksi Sleep
+                            await driver.sleep(3000);
+                            let isAllFilled = await Promise.all([
+                                await driver.findElement(By.css('textarea.title-inpt')).getAttribute('value'),
+                                await driver.findElement(By.css('.editor__content .ProseMirror p')).getAttribute('innerText'),
+                            ]).then(results => results.every(value => value != ''));
+                            await thrownAnError('Input form create article is empty', !isAllFilled);
+                            
+                            // Aksi Sleep
+                            await driver.sleep(3000);
+
+                            if(isAllFilled) {
+
+                                let clickable = await driver.findElement(By.css(".editor__content .ProseMirror"));
+                                let action = await driver.actions({async: true});
+                                await action.move({origin: await clickable}).press().perform();
+                                await driver.sleep(2000);
+                                await driver.executeScript(`return document.execCommand('selectAll', false, null);`);
+                                // Aksi Sleep
+                                await driver.sleep(3000);
+                                await driver.executeScript(`return document.querySelectorAll('.editor-control .menubar .menubar__button')[6].click()`);
+                                await driver.sleep(2000);
+                                clickable = await driver.findElement(By.css(".editor__content .ProseMirror"));
+                                action = await driver.actions({async: true});
+                                await action.move({origin: await clickable}).press().perform();
+                            }
+
+                            // Aksi Sleep
+                            await driver.sleep(3000);
+
+                            // Expect results and add custom message for addtional description
+                            let descriptionArticle = await driver.executeScript(`return document.querySelector('.editor__content .ProseMirror').innerHTML;`);
+                            customMessages = [
+                                descriptionArticle.includes("<ul>") ? 'Successfully use list of editor toolbar in description article' : 'Failed use list of editor toolbar in description article'
+                            ]
+                            expect(descriptionArticle.includes("<ul>")).to.equal(true);
+
+                        } catch (error) {
+                            expect.fail(error);
+                        }
+
+                    });
+                    
+                    it(`Reader - Editor toolbar quote article from browser ${browser}`, async () => {
+
+                        try {
+
+                            // Aksi masuk ke dalam halaman browser
+                            driver = await goToApp(browser, appHost);
+                            await driver.manage().window().maximize();
+
+                            // Aksi menunggu mengisi form login untuk melakukan authentication
+                            await loginToApp(driver, user, browser, appHost);
+
+                            // Aksi Sleep
+                            await driver.sleep(3000);
+
+                            // Aksi mengklik menu tab artikel
+                            await driver.executeScript(`return document.querySelectorAll("ul.navbar-nav li.nav-item a a")[1].click()`);
+                            
+                            // Aksi Sleep
+                            await driver.sleep(3000);
+
+                            // Aksi klik tombol 'Tambah Artikel'
+                            await driver.executeScript(`return document.querySelector('button#outline-button').click()`);
+                            
+                            // Aksi Sleep
+                            await driver.sleep(3000);
+
+                            // Aksi fill the form of article
+                            let title = faker.lorem.words();
+                            let description = faker.lorem.sentence();
+                            await driver.sleep(1000);
+                            await driver.findElement(By.css('textarea.title-inpt')).sendKeys(title);
+                            await driver.executeScript(`return document.querySelector('.editor__content .ProseMirror p').textContent = "${description}"`);
+                            // Aksi Sleep
+                            await driver.sleep(3000);
+                            let isAllFilled = await Promise.all([
+                                await driver.findElement(By.css('textarea.title-inpt')).getAttribute('value'),
+                                await driver.findElement(By.css('.editor__content .ProseMirror p')).getAttribute('innerText'),
+                            ]).then(results => results.every(value => value != ''));
+                            await thrownAnError('Input form create article is empty', !isAllFilled);
+                            
+                            // Aksi Sleep
+                            await driver.sleep(3000);
+
+                            if(isAllFilled) {
+
+                                let clickable = await driver.findElement(By.css(".editor__content .ProseMirror"));
+                                let action = await driver.actions({async: true});
+                                await action.move({origin: await clickable}).press().perform();
+                                await driver.sleep(2000);
+                                await driver.executeScript(`return document.execCommand('selectAll', false, null);`);
+                                // Aksi Sleep
+                                await driver.sleep(3000);
+                                await driver.executeScript(`return document.querySelectorAll('.editor-control .menubar .menubar__button')[7].click()`);
+                                await driver.sleep(2000);
+                                clickable = await driver.findElement(By.css(".editor__content .ProseMirror"));
+                                action = await driver.actions({async: true});
+                                await action.move({origin: await clickable}).press().perform();
+                            }
+
+                            // Aksi Sleep
+                            await driver.sleep(3000);
+
+                            // Expect results and add custom message for addtional description
+                            let descriptionArticle = await driver.executeScript(`return document.querySelector('.editor__content .ProseMirror').innerHTML;`);
+                            customMessages = [
+                                descriptionArticle.includes("<blockquote>") ? 'Successfully use quote of editor toolbar in description article' : 'Failed use quote of editor toolbar in description article'
+                            ]
+                            expect(descriptionArticle.includes("<blockquote>")).to.equal(true);
+
+                        } catch (error) {
+                            expect.fail(error);
+                        }
+
+                    });
+                    
+                    it(`Reader - Editor toolbar image article from browser ${browser}`, async () => {
+
+                        try {
+
+                            // Aksi masuk ke dalam halaman browser
+                            driver = await goToApp(browser, appHost);
+                            await driver.manage().window().maximize();
+
+                            // Aksi menunggu mengisi form login untuk melakukan authentication
+                            await loginToApp(driver, user, browser, appHost);
+
+                            // Aksi Sleep
+                            await driver.sleep(3000);
+
+                            // Aksi mengklik menu tab artikel
+                            await driver.executeScript(`return document.querySelectorAll("ul.navbar-nav li.nav-item a a")[1].click()`);
+                            
+                            // Aksi Sleep
+                            await driver.sleep(3000);
+
+                            // Aksi klik tombol 'Tambah Artikel'
+                            await driver.executeScript(`return document.querySelector('button#outline-button').click()`);
+                            
+                            // Aksi Sleep
+                            await driver.sleep(3000);
+
+                            // Aksi fill the form of article
+                            let title = faker.lorem.words();
+                            let description = faker.lorem.sentence();
+                            await driver.sleep(1000);
+                            await driver.findElement(By.css('textarea.title-inpt')).sendKeys(title);
+                            await driver.executeScript(`return document.querySelector('.editor__content .ProseMirror p').textContent = "${description}"`);
+                            // Aksi Sleep
+                            await driver.sleep(3000);
+                            let isAllFilled = await Promise.all([
+                                await driver.findElement(By.css('textarea.title-inpt')).getAttribute('value'),
+                                await driver.findElement(By.css('.editor__content .ProseMirror p')).getAttribute('innerText'),
+                            ]).then(results => results.every(value => value != ''));
+                            await thrownAnError('Input form create article is empty', !isAllFilled);
+                            
+                            // Aksi Sleep
+                            await driver.sleep(3000);
+
+                            if(isAllFilled) {
+                                // Aksi upload file image
+                                await driver.findElement(By.css('input[type=file].file-input')).sendKeys(path.resolve('./resources/images/profile.png'))
+                            }
+
+                            // Aksi Sleep
+                            await driver.sleep(3000);
+
+                            // Expect results and add custom message for addtional description
+                            let articleImageInput = await driver.findElement(By.css('.article-img-input'));
+                            customMessages = [
+                                await articleImageInput.isDisplayed() ? 'Successfully use image of editor toolbar in description article' : 'Failed use image of editor toolbar in description article'
+                            ]
+                            expect(await articleImageInput.isDisplayed()).to.equal(true);
+
+                        } catch (error) {
+                            expect.fail(error);
+                        }
+
+                    });
+                    
+                    it(`Reader - Editor toolbar undo article from browser ${browser}`, async () => {
+
+                        try {
+
+                            // Aksi masuk ke dalam halaman browser
+                            driver = await goToApp(browser, appHost);
+                            await driver.manage().window().maximize();
+
+                            // Aksi menunggu mengisi form login untuk melakukan authentication
+                            await loginToApp(driver, user, browser, appHost);
+
+                            // Aksi Sleep
+                            await driver.sleep(3000);
+
+                            // Aksi mengklik menu tab artikel
+                            await driver.executeScript(`return document.querySelectorAll("ul.navbar-nav li.nav-item a a")[1].click()`);
+                            
+                            // Aksi Sleep
+                            await driver.sleep(3000);
+
+                            // Aksi klik tombol 'Tambah Artikel'
+                            await driver.executeScript(`return document.querySelector('button#outline-button').click()`);
+                            
+                            // Aksi Sleep
+                            await driver.sleep(3000);
+
+                            // Aksi fill the form of article
+                            let oldTextDescription = await driver.executeScript(`return document.querySelector('.editor__content .ProseMirror').innerHTML`);
+                            let title = faker.lorem.words();
+                            let description = faker.lorem.sentence();
+                            await driver.sleep(1000);
+                            await driver.findElement(By.css('textarea.title-inpt')).sendKeys(title);
+                            await driver.executeScript(`return document.querySelector('.editor__content .ProseMirror p').textContent = "${description}"`);
+                            // Aksi Sleep
+                            await driver.sleep(3000);
+                            let isAllFilled = await Promise.all([
+                                await driver.findElement(By.css('textarea.title-inpt')).getAttribute('value'),
+                                await driver.findElement(By.css('.editor__content .ProseMirror p')).getAttribute('innerText'),
+                            ]).then(results => results.every(value => value != ''));
+                            await thrownAnError('Input form create article is empty', !isAllFilled);
+                            
+                            // Aksi Sleep
+                            await driver.sleep(3000);
+
+                            if(isAllFilled) {
+
+                                let clickable = await driver.findElement(By.css(".editor__content .ProseMirror"));
+                                let action = await driver.actions({async: true});
+                                await action.move({origin: await clickable}).press().perform();
+                                await driver.sleep(2000);
+                                await driver.executeScript(`return document.execCommand('selectAll', false, null);`);
+                                // Aksi Sleep
+                                await driver.sleep(3000);
+                                await driver.executeScript(`return document.querySelectorAll('.editor-control .menubar .menubar__button')[9].click()`);
+                                await driver.sleep(2000);
+                                clickable = await driver.findElement(By.css(".editor__content .ProseMirror"));
+                                action = await driver.actions({async: true});
+                                await action.move({origin: await clickable}).press().perform();
+                            }
+
+                            // Aksi Sleep
+                            await driver.sleep(3000);
+
+                            // Expect results and add custom message for addtional description
+                            let undoTextDescription = await driver.executeScript(`return document.querySelector('.editor__content .ProseMirror').innerHTML;`);
+                            customMessages = [
+                                await oldTextDescription === await undoTextDescription ? 'Successfully use undo of editor toolbar in description article' : 'Failed use undo of editor toolbar in description article'
+                            ]
+                            expect(await oldTextDescription === undoTextDescription).to.equal(true);
+
+                        } catch (error) {
+                            expect.fail(error);
+                        }
+
+                    });
+                    
+                    it(`Reader - Editor toolbar redo article from browser ${browser}`, async () => {
+
+                        try {
+
+                            // Aksi masuk ke dalam halaman browser
+                            driver = await goToApp(browser, appHost);
+                            await driver.manage().window().maximize();
+
+                            // Aksi menunggu mengisi form login untuk melakukan authentication
+                            await loginToApp(driver, user, browser, appHost);
+
+                            // Aksi Sleep
+                            await driver.sleep(3000);
+
+                            // Aksi mengklik menu tab artikel
+                            await driver.executeScript(`return document.querySelectorAll("ul.navbar-nav li.nav-item a a")[1].click()`);
+                            
+                            // Aksi Sleep
+                            await driver.sleep(3000);
+
+                            // Aksi klik tombol 'Tambah Artikel'
+                            await driver.executeScript(`return document.querySelector('button#outline-button').click()`);
+                            
+                            // Aksi Sleep
+                            await driver.sleep(3000);
+
+                            // Aksi fill the form of article
+                            let oldTextDescription = await driver.executeScript(`return document.querySelector('.editor__content .ProseMirror').innerHTML`);
+                            let title = faker.lorem.words();
+                            let description = faker.lorem.sentence();
+                            await driver.sleep(1000);
+                            await driver.findElement(By.css('textarea.title-inpt')).sendKeys(title);
+                            await driver.executeScript(`return document.querySelector('.editor__content .ProseMirror p').textContent = "${description}"`);
+                            // Aksi Sleep
+                            await driver.sleep(3000);
+                            let isAllFilled = await Promise.all([
+                                await driver.findElement(By.css('textarea.title-inpt')).getAttribute('value'),
+                                await driver.findElement(By.css('.editor__content .ProseMirror p')).getAttribute('innerText'),
+                            ]).then(results => results.every(value => value != ''));
+                            await thrownAnError('Input form create article is empty', !isAllFilled);
+                            
+                            // Aksi Sleep
+                            await driver.sleep(3000);
+
+                            if(isAllFilled) {
+
+                                let clickable = await driver.findElement(By.css(".editor__content .ProseMirror"));
+                                let action = await driver.actions({async: true});
+                                await action.move({origin: await clickable}).press().perform();
+                                await driver.sleep(2000);
+                                await driver.executeScript(`return document.execCommand('selectAll', false, null);`);
+                                // Aksi Sleep
+                                await driver.sleep(3000);
+                                oldTextDescription = await driver.executeScript(`return document.querySelector('.editor__content .ProseMirror').innerHTML`);
+                                await driver.executeScript(`return document.querySelectorAll('.editor-control .menubar .menubar__button')[9].click()`);
+                                await driver.sleep(2000);
+                                await driver.executeScript(`return document.querySelectorAll('.editor-control .menubar .menubar__button')[10].click()`);
+                                await driver.sleep(2000);
+                                clickable = await driver.findElement(By.css(".editor__content .ProseMirror"));
+                                action = await driver.actions({async: true});
+                                await action.move({origin: await clickable}).press().perform();
+                            }
+
+                            // Aksi Sleep
+                            await driver.sleep(3000);
+
+                            // Expect results and add custom message for addtional description
+                            let redoTextDescription = await driver.executeScript(`return document.querySelector('.editor__content .ProseMirror').innerHTML;`);
+                            customMessages = [
+                                await oldTextDescription === await redoTextDescription ? 'Successfully use redo of editor toolbar in description article' : 'Failed use redo of editor toolbar in description article'
+                            ]
+                            expect(await oldTextDescription === await redoTextDescription).to.equal(true);
+
+                        } catch (error) {
+                            expect.fail(error);
+                        }
 
                     });
                     
@@ -277,7 +1064,7 @@ Waktu Event Load Selesai (loadEventEnd): (${performanceTiming.loadEventEnd - nav
                             // Expect results and add custom message for addtional description
                             let currentUrl = await driver.getCurrentUrl();
                             customMessages = [
-                                currentUrl.includes('view?') ? 'Successfully directed to details article' : 'Failed to find details article'
+                                currentUrl.includes('view?') ? 'Successfully directed to details article ✅' : 'Failed to find details article ❌'
                             ];
                             expect(currentUrl.includes('view?')).to.equal(true);
 
