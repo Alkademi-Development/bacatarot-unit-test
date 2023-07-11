@@ -336,6 +336,121 @@ Waktu Event Load Selesai (loadEventEnd): (${performanceTiming.loadEventEnd - nav
 
 
                     });
+                    
+                    it(`User - Forgot Password from browser ${browser}`, async () => {
+
+                        try {
+                            // Aksi masuk ke dalam halaman browser
+                            driver = await goToApp(browser, appHost);
+                            await driver.manage().window().maximize();
+
+                            // Aksi klik masuk untuk menuju ke halaman login/authentication
+                            let modalContent = await driver.executeScript(`return document.querySelector('.modal-content')`);
+                            await driver.sleep(3000);
+                            if(await modalContent?.isDisplayed()) {
+                                await driver.wait(until.elementLocated(By.css('.modal-content')));              
+                                await driver.findElement(By.css(".modal-content header button.close")).click();
+                            }
+
+                            await driver.sleep(3000);
+
+                            // Aksi mengklik button login 
+                            await driver.findElement(By.css("button.btn-login")).click();
+
+                            // Aksi menunggu halaman authentication
+                            await driver.wait(until.elementLocated(By.id("auth")));
+
+                            // Aksi sleep
+                            await driver.sleep(3000);
+
+                            // Aksi mengklik button Lupa Password
+                            await driver.executeScript(`return document.querySelector("button.forget-password").click();`);
+
+                            // Aksi sleep
+                            await driver.sleep(3000);
+
+                            // Aksi Input Data Akun 
+                            await driver.findElement(By.css(`input#email`)).sendKeys(user.email, Key.RETURN);
+                            await driver.sleep(3000);
+                            await driver.executeScript(`return document.querySelector('button[type=submit]').click();`);
+
+                            // Aksi menunggu halaman mengirim link reset password berhasil di kirim
+                            await driver.sleep(10000);
+                            await driver.wait(until.elementLocated(By.css('form a')));
+
+                            // Expect results and add custom message for addtional description
+                            let linkGmail = await driver.executeScript(`return document.querySelector("form a").href`);
+                            customMessages = [
+                                linkGmail.includes('mail.google.com') ? 'Successfully sent the link of reset password ✅' : 'Failed to send link reset password ❌'
+                            ];
+                            expect(linkGmail.includes('mail.google.com')).to.equal(true);
+
+                        } catch (error) {
+                            expect.fail(error);
+                        }
+
+                    });
+                    
+                    it(`User - Resend Reset Password from browser ${browser}`, async () => {
+
+                        try {
+                            // Aksi masuk ke dalam halaman browser
+                            driver = await goToApp(browser, appHost);
+                            await driver.manage().window().maximize();
+
+                            // Aksi klik masuk untuk menuju ke halaman login/authentication
+                            let modalContent = await driver.executeScript(`return document.querySelector('.modal-content')`);
+                            await driver.sleep(3000);
+                            if(await modalContent?.isDisplayed()) {
+                                await driver.wait(until.elementLocated(By.css('.modal-content')));              
+                                await driver.findElement(By.css(".modal-content header button.close")).click();
+                            }
+
+                            await driver.sleep(3000);
+
+                            // Aksi mengklik button login 
+                            await driver.findElement(By.css("button.btn-login")).click();
+
+                            // Aksi menunggu halaman authentication
+                            await driver.wait(until.elementLocated(By.id("auth")));
+
+                            // Aksi sleep
+                            await driver.sleep(3000);
+
+                            // Aksi mengklik button Lupa Password
+                            await driver.executeScript(`return document.querySelector("button.forget-password").click();`);
+
+                            // Aksi sleep
+                            await driver.sleep(3000);
+
+                            // Aksi Input Data Akun 
+                            await driver.findElement(By.css(`input#email`)).sendKeys(user.email, Key.RETURN);
+                            await driver.sleep(3000);
+                            await driver.executeScript(`return document.querySelector('button[type=submit]').click();`);
+
+                            // Aksi menunggu halaman mengirim link reset password berhasil di kirim
+                            await driver.sleep(10000);
+                            await driver.wait(until.elementLocated(By.css('form a')));
+
+                            // Aksi mengklik button resend reset password
+                            await driver.executeScript(`return document.querySelector('button[type=submit].orange-active').click();`);
+
+                            // Aksi menunggu halaman mengirim link reset password berhasil di kirim
+                            await driver.sleep(10000);
+                            await driver.wait(until.elementLocated(By.css('form a')));
+
+                            // Expect results and add custom message for addtional description
+                            let linkGmail = await driver.executeScript(`return document.querySelector("form a").href`);
+                            customMessages = [
+                                linkGmail.includes('mail.google.com') ? 'Successfully sent the link of reset password ✅' : 'Failed to send link reset password ❌'
+                            ];
+                            expect(linkGmail.includes('mail.google.com')).to.equal(true);
+
+                        } catch (error) {
+                            expect.fail(error);
+                        }
+
+                    });
 
                     break;
                 

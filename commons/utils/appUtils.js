@@ -1,9 +1,10 @@
 import { Builder, By, Key, until } from 'selenium-webdriver';
-import { captureConsoleErrors } from '#root/commons/utils/generalUtils';
-import { captureAlertError } from '#root/commons/utils/generalUtils';
+import firefox from 'selenium-webdriver/firefox.js';
+import chrome from 'selenium-webdriver/chrome.js';
+import edge from 'selenium-webdriver/edge.js';
+import safari from 'selenium-webdriver/safari.js';
 
 const goToApp = async (browser, appHost, version) => {
-
     let driver = new Builder()
         .forBrowser(browser)
         .build();
