@@ -1,5 +1,5 @@
 import readline from 'readline';
-
+import { environment } from '#root/api/app-token';
 
 export const rl = readline.createInterface({
   input: process.stdin,
