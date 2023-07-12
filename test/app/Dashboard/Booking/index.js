@@ -186,7 +186,7 @@ Waktu Event Load Selesai (loadEventEnd): (${performanceTiming.loadEventEnd - nav
                             await driver.executeScript(`return document.querySelector(".action-container button.custom-button").click()`);
                             
                             // Aksi sleep
-                            await driver.sleep(5000);
+                            await driver.sleep(8000);
                             
                             // Aksi pindah ke halaman payment midtrans
                             const originalWindow = await driver.getWindowHandle();
@@ -304,7 +304,7 @@ Waktu Event Load Selesai (loadEventEnd): (${performanceTiming.loadEventEnd - nav
                             await driver.executeScript(`return document.querySelector(".action-container button.custom-button").click()`);
                             
                             // Aksi sleep
-                            await driver.sleep(5000);
+                            await driver.sleep(8000);
                             
                             // Aksi pindah ke halaman payment midtrans
                             const originalWindow = await driver.getWindowHandle();
@@ -341,8 +341,8 @@ Waktu Event Load Selesai (loadEventEnd): (${performanceTiming.loadEventEnd - nav
                         }
 
                     });
-
-                    it.skip(`User - Check more details about payment after booked the reader from browser ${browser}`, async () => {
+                    
+                    it.skip(`User - Booking Reader as a user without using voucher by use payment method 'QRIS' or etc from browser ${browser}`, async () => {
 
                         try {
                             driver = await goToApp(browser, appHost);
@@ -353,15 +353,107 @@ Waktu Event Load Selesai (loadEventEnd): (${performanceTiming.loadEventEnd - nav
 
                             // Aksi sleep
                             await driver.sleep(3000);
+
+                            // Aksi mem-booking salah satu reader
+                            let readerList = await driver.executeScript(`return document.querySelectorAll("#user-list")`);
+                            await thrownAnError('Reader is empty', await readerList.length === 0);
+                            let randomIndexReader = faker.number.int({ min: 0, max: await readerList.length - 1 });
+                            await driver.sleep(1000);
+                            await driver.executeScript(`return document.querySelectorAll('#user-list')[${randomIndexReader}].querySelector('.action-btn').click()`);
+
+                            // Aksi sleep
+                            await driver.sleep(3000);
+                            
+                            // Aksi memilih salah satu paket booking
+                            let packageList = await driver.executeScript(`return document.querySelectorAll("#user-list")`);
+                            await thrownAnError('Package is empty', await packageList.length === 0);
+                            let randomIndexPackage = faker.number.int({ min: 0, max: await packageList.length - 1 });
+                            await driver.executeScript(`return document.querySelectorAll(".modal-body .duration-card")[${randomIndexPackage}].click()`);
+                            await driver.sleep(2000);
+                            await driver.executeScript(`return document.querySelector(".modal-body .submit-btn button").click()`);
+                            
+                            // Aksi sleep
+                            await driver.sleep(3000);
+
+                            // Aksi memilih salah satu jadwal konsultasi pada booking
+                            let activeDays = await driver.executeScript(`return document.querySelectorAll('.modal-body span.day:not(.disabled,.blank,.sun,.sat)')`)
+                            // await thrownAnError('There are no active days', await activeDays.length === 0);
+                            let randomIndexDay = faker.number.int({ min: 0, max: await activeDays.length - 1 });
+                            await driver.executeScript(`return document.querySelectorAll('.modal-body span.day:not(.disabled,.blank,.sun,.sat)')[${randomIndexDay}].click()`);
+                            await driver.sleep(2000);
+                            await driver.executeScript(`return document.querySelectorAll('.modal-body .time-picker-header .time-option')[0].click()`);
+                            await driver.sleep(2000);
+                            
+                            // Aksi memilih salah satu hour time pada booking
+                            let hourTime = await driver.executeScript(`return document.querySelectorAll(".modal-body .time-picker .hour-card:not(.disable)")`);
+                            let indexTimePickerHeader = 1;
+                            async function searchHourTime() {
+                                if(await hourTime.length === 0) {
+                                    await thrownAnError('All hours time is empty or disable', indexTimePickerHeader > await driver.executeScript(`return document.querySelectorAll('.modal-body .time-picker-header .time-option').length`));
+                                    await driver.executeScript(`return document.querySelectorAll('.modal-body .time-picker-header .time-option')[${indexTimePickerHeader}].click()`);
+                                    await driver.sleep(2000);
+                                    hourTime = await driver.executeScript(`return document.querySelectorAll(".modal-body .time-picker .hour-card:not(.disable)")`);
+                                    indexTimePickerHeader++;
+                                    await searchHourTime();
+                                } else {
+                                    await driver.sleep(2000);
+                                    await driver.executeScript(`return document.querySelectorAll('.modal-body .time-picker .hour-card:not(.disable)')[0].click()`);
+                                }
+                            }
+                            await searchHourTime();
+
+                            // Aksi sleep
+                            await driver.sleep(3000);
+
+                            // Aksi klik button next
+                            await driver.executeScript(`return document.querySelector('.modal-body .submit-btn button').click()`);
+                            
+                            // Aksi sleep
+                            await driver.sleep(3000);
+
+                            // Aksi klik button 'Pilih Pembayaran'
+                            await driver.executeScript(`return document.querySelector(".action-container button.custom-button").click()`);
+                            
+                            // Aksi sleep
+                            await driver.sleep(8000);
+                            
+                            // Aksi pindah ke halaman payment midtrans
+                            const originalWindow = await driver.getWindowHandle();
+                            const windows = await driver.getAllWindowHandles();
+                            windows.forEach(async handle => {
+                                if (handle !== originalWindow) {
+                                    await driver.switchTo().window(handle);
+                                }
+                            });
+                            await driver.wait(
+                                async () => (await driver.getAllWindowHandles()).length === 2,
+                                10000
+                            );
+
+                            // Aksi menunggu card payment methods
+                            await driver.wait(until.elementLocated(By.css('.page-container')));
+                            await driver.sleep(1000);
+
+                            // Aksi memilih metode pembayaran virtual account
+                            await driver.executeScript(`return document.querySelectorAll(".list-payment-logo")[2].click()`);
+                            
+                            // Aksi sleep
+                            await driver.sleep(3000);
+
+                            // Expect results and add custom message for addtional description
+                            let qrImage = await driver.findElement(By.css(".qr-wrapper img.qr-image"));
+                            customMessages = [
+                                await qrImage.isDisplayed() ? 'Successfully get the qr code or image for pay the booking ✅' : 'Failed to get the the qr code or image for pay the booking ❌'
+                            ];
+                            expect(await qrImage.isDisplayed()).to.equal(true);
 
                         } catch (error) {
                             expect.fail(error);
                         }
 
-
                     });
                     
-                    it.skip(`User - Use the voucher when booking a reader from browser ${browser}`, async () => {
+                    it(`User - Use the voucher when booking a reader from browser ${browser}`, async () => {
 
                         try {
                             driver = await goToApp(browser, appHost);
@@ -372,6 +464,253 @@ Waktu Event Load Selesai (loadEventEnd): (${performanceTiming.loadEventEnd - nav
 
                             // Aksi sleep
                             await driver.sleep(3000);
+
+                            // Aksi mem-booking salah satu reader
+                            let readerList = await driver.executeScript(`return document.querySelectorAll("#user-list")`);
+                            await thrownAnError('Reader is empty', await readerList.length === 0);
+                            let randomIndexReader = faker.number.int({ min: 0, max: await readerList.length - 1 });
+                            await driver.sleep(1000);
+                            await driver.executeScript(`return document.querySelectorAll('#user-list')[${randomIndexReader}].querySelector('.action-btn').click()`);
+
+                            // Aksi sleep
+                            await driver.sleep(3000);
+                            
+                            // Aksi memilih salah satu paket booking
+                            let packageList = await driver.executeScript(`return document.querySelectorAll("#user-list")`);
+                            await thrownAnError('Package is empty', await packageList.length === 0);
+                            let randomIndexPackage = faker.number.int({ min: 0, max: await packageList.length - 1 });
+                            await driver.executeScript(`return document.querySelectorAll(".modal-body .duration-card")[${randomIndexPackage}].click()`);
+                            await driver.sleep(2000);
+                            await driver.executeScript(`return document.querySelector(".modal-body .submit-btn button").click()`);
+                            
+                            // Aksi sleep
+                            await driver.sleep(3000);
+
+                            // Aksi memilih salah satu jadwal konsultasi pada booking
+                            let activeDays = await driver.executeScript(`return document.querySelectorAll('.modal-body span.day:not(.disabled,.blank,.sun,.sat)')`)
+                            // await thrownAnError('There are no active days', await activeDays.length === 0);
+                            let randomIndexDay = faker.number.int({ min: 0, max: await activeDays.length - 1 });
+                            await driver.executeScript(`return document.querySelectorAll('.modal-body span.day:not(.disabled,.blank,.sun,.sat)')[${randomIndexDay}].click()`);
+                            await driver.sleep(2000);
+                            await driver.executeScript(`return document.querySelectorAll('.modal-body .time-picker-header .time-option')[0].click()`);
+                            await driver.sleep(2000);
+                            
+                            // Aksi memilih salah satu hour time pada booking
+                            let hourTime = await driver.executeScript(`return document.querySelectorAll(".modal-body .time-picker .hour-card:not(.disable)")`);
+                            let indexTimePickerHeader = 1;
+                            async function searchHourTime() {
+                                if(await hourTime.length === 0) {
+                                    await thrownAnError('All hours time is empty or disable', indexTimePickerHeader > await driver.executeScript(`return document.querySelectorAll('.modal-body .time-picker-header .time-option').length`));
+                                    await driver.executeScript(`return document.querySelectorAll('.modal-body .time-picker-header .time-option')[${indexTimePickerHeader}].click()`);
+                                    await driver.sleep(2000);
+                                    hourTime = await driver.executeScript(`return document.querySelectorAll(".modal-body .time-picker .hour-card:not(.disable)")`);
+                                    indexTimePickerHeader++;
+                                    await searchHourTime();
+                                } else {
+                                    await driver.sleep(2000);
+                                    await driver.executeScript(`return document.querySelectorAll('.modal-body .time-picker .hour-card:not(.disable)')[0].click()`);
+                                }
+                            }
+                            await searchHourTime();
+
+                            // Aksi sleep
+                            await driver.sleep(3000);
+
+                            // Aksi klik button next
+                            await driver.executeScript(`return document.querySelector('.modal-body .submit-btn button').click()`);
+                            
+                            // Aksi sleep
+                            await driver.sleep(3000);
+
+                            // Aksi klik button 'Pilih Voucher'
+                            await driver.executeScript(`return document.querySelector("#summary .card img[alt=discount]").click()`);
+                            
+                            // Aksi sleep
+                            await driver.sleep(3000);
+
+                            // Aksi memilih salah satu voucher yang tersedia
+                            let voucherCard = await driver.executeScript(`return document.querySelectorAll("#voucher-card")`);
+                            // await thrownAnError('Voucher is empty', await voucherCard.length === 0);
+                            // let randomIndexVoucher = faker.number.int({ min: 0, max: await voucherCard.length - 1 });
+                            await driver.sleep(2000);
+                            if(await voucherCard.length === 0) {
+                                await driver.findElement(By.css('.wrapper form input[name=search]')).sendKeys('KEXOTL');
+                                await driver.sleep(3000);
+                            }
+                            await driver.executeScript(`return document.querySelectorAll("#voucher-card")[0].querySelector('button.action-btn').click()`);
+                            
+                            // Aksi sleep
+                            await driver.sleep(3000);
+
+                            // Aksi mengecek potongan harga setelah menggunakan voucher
+                            let priceConsultation = await driver.executeScript(`return parseInt(document.querySelectorAll(".modal-body #summary .card")[2].querySelector('div h5.text-right').innerText.replace('Rp', ''))`);
+                            let priceDiscount = await driver.executeScript(`return parseInt(document.querySelectorAll(".modal-body #summary .card")[2].querySelector('div .row').nextElementSibling.querySelector('h5.text-right').innerText.replace('- Rp', ''))`);
+                            let totalPrice = await driver.executeScript(`return parseInt(document.querySelector('.action-container button.custom-button div h5').innerText.replace('Rp', ''))`)
+                            await driver.sleep(1000);
+                            await driver.executeScript(`return document.querySelector(".action-container button.custom-button").click()`);
+
+                            // Aksi sleep
+                            await driver.sleep(3000);
+
+                            // Expect results and add custom message for addtional description
+                            // let isDiscountSummary = await driver.executeScript(`return document.querySelectorAll(".card h5 > strong")[document.querySelectorAll(".card h5 > strong").length - 1].textContent.includes('Rp0')`);
+                            // let isDiscountAction = await driver.executeScript(`return document.querySelectorAll(".action-container button.custom-button h5")[document.querySelectorAll(".action-container button.custom-button h5").length - 1].textContent.includes('Rp0')`);
+                            let totalDiscount = (priceConsultation / priceDiscount) * 100;
+                            customMessages = [
+                                priceConsultation - priceDiscount === totalPrice ? `Successfully get a discount ${totalDiscount}% ✅` : 'Failed to get a discount ❌'
+                            ];
+                            expect(priceConsultation - priceDiscount === totalPrice).to.equal(true);
+
+                        } catch (error) {
+                            expect.fail(error);
+                        }
+
+                    });
+                    
+                    it(`User - See more the details about the voucher when booking the reader from browser ${browser}`, async () => {
+
+                        try {
+                            driver = await goToApp(browser, appHost);
+                            await driver.manage().window().maximize();
+
+                            // Aksi menunggu mengisi form login untuk melakukan authentication
+                            await loginToApp(driver, user, browser, appHost);
+
+                            // Aksi sleep
+                            await driver.sleep(3000);
+
+                            // Aksi mem-booking salah satu reader
+                            let readerList = await driver.executeScript(`return document.querySelectorAll("#user-list")`);
+                            await thrownAnError('Reader is empty', await readerList.length === 0);
+                            let randomIndexReader = faker.number.int({ min: 0, max: await readerList.length - 1 });
+                            await driver.sleep(1000);
+                            await driver.executeScript(`return document.querySelectorAll('#user-list')[${randomIndexReader}].querySelector('.action-btn').click()`);
+
+                            // Aksi sleep
+                            await driver.sleep(3000);
+                            
+                            // Aksi memilih salah satu paket booking
+                            let packageList = await driver.executeScript(`return document.querySelectorAll("#user-list")`);
+                            await thrownAnError('Package is empty', await packageList.length === 0);
+                            let randomIndexPackage = faker.number.int({ min: 0, max: await packageList.length - 1 });
+                            await driver.executeScript(`return document.querySelectorAll(".modal-body .duration-card")[${randomIndexPackage}].click()`);
+                            await driver.sleep(2000);
+                            await driver.executeScript(`return document.querySelector(".modal-body .submit-btn button").click()`);
+                            
+                            // Aksi sleep
+                            await driver.sleep(3000);
+
+                            // Aksi memilih salah satu jadwal konsultasi pada booking
+                            let activeDays = await driver.executeScript(`return document.querySelectorAll('.modal-body span.day:not(.disabled,.blank,.sun,.sat)')`)
+                            // await thrownAnError('There are no active days', await activeDays.length === 0);
+                            let randomIndexDay = faker.number.int({ min: 0, max: await activeDays.length - 1 });
+                            await driver.executeScript(`return document.querySelectorAll('.modal-body span.day:not(.disabled,.blank,.sun,.sat)')[${randomIndexDay}].click()`);
+                            await driver.sleep(2000);
+                            await driver.executeScript(`return document.querySelectorAll('.modal-body .time-picker-header .time-option')[0].click()`);
+                            await driver.sleep(2000);
+                            
+                            // Aksi memilih salah satu hour time pada booking
+                            let hourTime = await driver.executeScript(`return document.querySelectorAll(".modal-body .time-picker .hour-card:not(.disable)")`);
+                            let indexTimePickerHeader = 1;
+                            async function searchHourTime() {
+                                if(await hourTime.length === 0) {
+                                    await thrownAnError('All hours time is empty or disable', indexTimePickerHeader > await driver.executeScript(`return document.querySelectorAll('.modal-body .time-picker-header .time-option').length`));
+                                    await driver.executeScript(`return document.querySelectorAll('.modal-body .time-picker-header .time-option')[${indexTimePickerHeader}].click()`);
+                                    await driver.sleep(2000);
+                                    hourTime = await driver.executeScript(`return document.querySelectorAll(".modal-body .time-picker .hour-card:not(.disable)")`);
+                                    indexTimePickerHeader++;
+                                    await searchHourTime();
+                                } else {
+                                    await driver.sleep(2000);
+                                    await driver.executeScript(`return document.querySelectorAll('.modal-body .time-picker .hour-card:not(.disable)')[0].click()`);
+                                }
+                            }
+                            await searchHourTime();
+
+                            // Aksi sleep
+                            await driver.sleep(3000);
+
+                            // Aksi klik button next
+                            await driver.executeScript(`return document.querySelector('.modal-body .submit-btn button').click()`);
+                            
+                            // Aksi sleep
+                            await driver.sleep(3000);
+
+                            // Aksi klik button 'Pilih Voucher'
+                            await driver.executeScript(`return document.querySelector("#summary .card img[alt=discount]").click()`);
+                            
+                            // Aksi sleep
+                            await driver.sleep(3000);
+
+                            // Aksi memilih salah satu voucher yang tersedia
+                            let voucherCard = await driver.executeScript(`return document.querySelectorAll("#voucher-card")`);
+                            // await thrownAnError('Voucher is empty', await voucherCard.length === 0);
+                            // let randomIndexVoucher = faker.number.int({ min: 0, max: await voucherCard.length - 1 });
+                            await driver.sleep(2000);
+                            if(await voucherCard.length === 0) {
+                                await driver.findElement(By.css('.wrapper form input[name=search]')).sendKeys('KEXOTL');
+                                await driver.sleep(3000);
+                            }
+                            await driver.executeScript(`return document.querySelectorAll("#voucher-card")[0].querySelector('p.detail').click()`);
+                            
+                            // Aksi sleep
+                            await driver.sleep(3000);
+
+                            // Expect results and add custom message for addtional description
+                            let detailsVoucher = await driver.executeScript(`return document.querySelector(".modal-body .detail-voucher")`);
+                            customMessages = [
+                                await detailsVoucher.isDisplayed() ? 'Successfully get the details information about the voucher ✅' : 'Failed to get the details information about the voucher ❌'
+                            ];
+                            expect(await detailsVoucher.isDisplayed()).to.equal(true);
+
+                        } catch (error) {
+                            expect.fail(error);
+                        }
+
+                    });
+
+                    it(`User - Check more details about payment after booked the reader from browser ${browser}`, async () => {
+
+                        try {
+                            driver = await goToApp(browser, appHost);
+                            await driver.manage().window().maximize();
+
+                            // Aksi menunggu mengisi form login untuk melakukan authentication
+                            await loginToApp(driver, user, browser, appHost);
+
+                            // Aksi sleep
+                            await driver.sleep(3000);
+
+                            // Aksi klik menu tab notification
+                            await driver.executeScript(`return document.querySelectorAll('ul.navbar-nav li.nav-item a a')[2].click();`);
+
+                            // Aksi sleep
+                            await driver.sleep(3000);
+
+                            // Aksi klik menu tab payment
+                            await driver.executeScript(`return document.querySelectorAll(".notification-wrapper .tab-title")[1].click()`);
+                            let spinnerLocator = By.className('v-spinner');
+                            await driver.wait(until.elementLocated(spinnerLocator));
+                            await driver.wait(until.stalenessOf(driver.findElement(spinnerLocator)));
+
+                            // Aksi Sleep
+                            await driver.sleep(3000);
+
+                            // Aksi seleksi salah satu card notification payment untuk melihat rincian lebih detail nya
+                            let notifications = await driver.executeScript(`return Array.from(document.querySelectorAll('#notification-card h1')).filter(value => value.innerText == 'Menunggu pembayaran')`);
+                            await thrownAnError('Notification payment is empty', await notifications.length === 0);
+                            await driver.sleep(1000);
+                            await driver.executeScript(`return document.querySelectorAll('#notification-card')[0].querySelector('button.action-btn').click()`);
+
+                            // Aksi sleep 
+                            await driver.sleep(3000);
+
+                            // Expect results and add custom message for addtional description
+                            let summaryPayment = await driver.findElement(By.id('summary'));
+                            customMessages = [
+                                await summaryPayment.isDisplayed() ? 'Successfully directed into appropriate payment method when ordered before ✅' : 'Failed to see more details about payment ❌'
+                            ]
+                            expect(await summaryPayment.isDisplayed()).to.equal(true);
 
                         } catch (error) {
                             expect.fail(error);
@@ -383,9 +722,59 @@ Waktu Event Load Selesai (loadEventEnd): (${performanceTiming.loadEventEnd - nav
                     break;
 
                 case 2:
-                    it.skip(`Reader - Accept the request of consultation from browser ${browser}`, async () => {
+                    it(`Reader - Accept the request of consultation from browser ${browser}`, async () => {
 
                         try {
+                            driver = await goToApp(browser, appHost);
+                            await driver.manage().window().maximize();
+
+                            // Aksi menunggu mengisi form login untuk melakukan authentication
+                            await loginToApp(driver, user, browser, appHost);
+
+                            // Aksi sleep
+                            await driver.sleep(3000);
+                            
+                            // Aksi klik menu tab notification
+                            await driver.executeScript(`return document.querySelectorAll('ul.navbar-nav li.nav-item a a')[2].click();`);
+
+                            // Aksi sleep
+                            await driver.sleep(3000);
+
+                            // Aksi klik tab request
+                            await driver.executeScript(`return document.querySelectorAll(".notification-wrapper h1.tab-title")[1].click()`);
+                            let spinnerLocator = By.className('v-spinner');
+                            await driver.wait(until.elementLocated(spinnerLocator));
+                            await driver.wait(until.stalenessOf(driver.findElement(spinnerLocator)));
+                                                        
+                            // Aksi sleep
+                            await driver.sleep(3000);
+
+                            // Aksi memilih salah satu request yang tersedia
+                            let notificationCard = await driver.executeScript(`return document.querySelectorAll('#notification-card')`);
+                            await thrownAnError('Request of consultation is empty', await notificationCard.length === 0);
+                            let randomIndexNotification = faker.number.int({ min: 0, max: await notificationCard.length - 1 });
+                            await driver.sleep(1000);
+                            let specializationConsultation = await driver.executeScript(`return document.querySelectorAll('#notification-card')[${randomIndexNotification}].querySelector('.specialization').innerText`);
+                            await driver.executeScript(`return document.querySelectorAll("#notification-card")[${randomIndexNotification}].querySelector(".action-container .acc").click()`);
+                            
+                            // Aksi sleep
+                            await driver.sleep(3000);
+                            
+                            // Aksi klik tab umum
+                            await driver.executeScript(`return document.querySelectorAll(".notification-wrapper h1.tab-title")[0].click()`);
+                            spinnerLocator = By.className('v-spinner');
+                            await driver.wait(until.elementLocated(spinnerLocator));
+                            await driver.wait(until.stalenessOf(driver.findElement(spinnerLocator)));
+
+                            // Aksi sleep
+                            await driver.sleep(3000);
+
+                            // Aksi mengecek request consultation yang telah di terima sebelumnya
+                            let acceptedConsultation = await driver.executeScript(`return Array.from(document.querySelectorAll('#notification-card .specialization')).filter(value => value.innerText === "${specializationConsultation}")`);
+                            customMessages = [
+                                await acceptedConsultation.length > 0 ? "The session of consultation successfully accepted ✅" : "The session of consultation failed to accept ❌"
+                            ]
+                            expect(await acceptedConsultation.length > 0).to.equal(true);
 
                         } catch (error) {
                             expect.fail(error);
@@ -394,9 +783,117 @@ Waktu Event Load Selesai (loadEventEnd): (${performanceTiming.loadEventEnd - nav
 
                     });
                     
-                    it.skip(`Reader - Decline the request of consultation from browser ${browser}`, async () => {
+                    it(`Reader - Decline the request of consultation from browser ${browser}`, async () => {
 
                         try {
+                            driver = await goToApp(browser, appHost);
+                            await driver.manage().window().maximize();
+
+                            // Aksi menunggu mengisi form login untuk melakukan authentication
+                            await loginToApp(driver, user, browser, appHost);
+
+                            // Aksi sleep
+                            await driver.sleep(3000);
+                            
+                            // Aksi klik menu tab notification
+                            await driver.executeScript(`return document.querySelectorAll('ul.navbar-nav li.nav-item a a')[2].click();`);
+
+                            // Aksi sleep
+                            await driver.sleep(3000);
+
+                            // Aksi klik tab request
+                            await driver.executeScript(`return document.querySelectorAll(".notification-wrapper h1.tab-title")[1].click()`);
+                            let spinnerLocator = By.className('v-spinner');
+                            await driver.wait(until.elementLocated(spinnerLocator));
+                            await driver.wait(until.stalenessOf(driver.findElement(spinnerLocator)));
+                            
+                            // Aksi sleep
+                            await driver.sleep(3000);
+
+                            // Aksi memilih salah satu request yang tersedia
+                            let notificationCard = await driver.executeScript(`return document.querySelectorAll('#notification-card')`);
+                            await thrownAnError('Request of consultation is empty', await notificationCard.length === 0);
+                            let randomIndexNotification = faker.number.int({ min: 0, max: await notificationCard.length - 1 });
+                            await driver.sleep(1000);
+                            let specializationConsultation = await driver.executeScript(`return document.querySelectorAll('#notification-card')[${randomIndexNotification}].querySelector('.specialization').innerText`);
+                            await driver.executeScript(`return document.querySelectorAll("#notification-card")[${randomIndexNotification}].querySelector(".action-container .reject").click()`);
+                            
+                            // Aksi sleep
+                            await driver.sleep(3000);
+
+                            // Aksi mengisi form reject the consultation
+                            await driver.executeScript(`return document.querySelector(".custom-radio input[type=radio]").checked = true`)
+                            await driver.sleep(1000);
+                            await driver.findElement(By.css('.modal-body .my-card textarea#my-textarea')).sendKeys(faker.lorem.sentences());
+                            await driver.sleep(2000);
+                            await driver.executeScript(`return document.querySelector('.modal-body .action-container button.approve').click()`);
+                            await driver.sleep(2000);
+                            await driver.executeScript(`return document.querySelectorAll('.agreement-modal .wrapper .option p')[1].click()`);
+                            
+                            // Aksi sleep
+                            await driver.sleep(3000);
+                            
+                            // Aksi klik tab umum
+                            await driver.executeScript(`return document.querySelectorAll(".notification-wrapper h1.tab-title")[0].click()`);
+                            spinnerLocator = By.className('v-spinner');
+                            await driver.wait(until.elementLocated(spinnerLocator));
+                            await driver.wait(until.stalenessOf(driver.findElement(spinnerLocator)));
+
+                            // Aksi sleep
+                            await driver.sleep(3000);
+
+                            // Aksi mengecek request consultation yang telah di terima sebelumnya
+                            let rejectedConsultation = await driver.executeScript(`return Array.from(document.querySelectorAll('#notification-card .specialization')).filter(value => value.innerText === "${specializationConsultation}")`);
+                            customMessages = [
+                                await rejectedConsultation.length > 0 ? "The session of consultation successfully rejected ✅" : "The session of consultation failed to reject ❌"
+                            ]
+                            expect(await rejectedConsultation.length > 0).to.equal(true);
+
+                        } catch (error) {
+                            expect.fail(error);
+                        }
+
+
+                    });
+                    
+                    it(`Reader - See the details of request consultation from browser ${browser}`, async () => {
+
+                        try {
+                            driver = await goToApp(browser, appHost);
+                            await driver.manage().window().maximize();
+
+                            // Aksi menunggu mengisi form login untuk melakukan authentication
+                            await loginToApp(driver, user, browser, appHost);
+
+                            // Aksi sleep
+                            await driver.sleep(3000);
+                            
+                            // Aksi klik menu tab notification
+                            await driver.executeScript(`return document.querySelectorAll('ul.navbar-nav li.nav-item a a')[2].click();`);
+
+                            // Aksi sleep
+                            await driver.sleep(3000);
+
+                            // Aksi klik tab request
+                            await driver.executeScript(`return document.querySelectorAll(".notification-wrapper h1.tab-title")[1].click()`);
+                            
+                            // Aksi sleep
+                            await driver.sleep(3000);
+
+                            // Aksi memilih salah satu request yang tersedia
+                            let notificationCard = await driver.executeScript(`return document.querySelectorAll('#notification-card')`);
+                            await thrownAnError('Request of consultation is empty', await notificationCard.length === 0);
+                            await driver.executeScript(`return document.querySelectorAll('#notification-card')[0].querySelector('.btn-detail').click();`);
+                            
+                            // Aksi sleep
+                            await driver.sleep(3000);
+
+                            // Expect results and add custom message for addtional description
+                            let bookingDetails = await driver.findElement(By.css('.booking-detail'));
+                            customMessages = [
+                                await bookingDetails.isDisplayed() ? 'Successfully get the details information about request consultation of user ✅' : 'Failed to get the details information about request of user ❌'
+                            ]
+                            expect(await bookingDetails.isDisplayed()).to.equal(true);
 
                         } catch (error) {
                             expect.fail(error);
