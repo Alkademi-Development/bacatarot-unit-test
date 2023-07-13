@@ -30,7 +30,7 @@ const loginToApp = async (driver, user, browser, appHost) => {
 
     // Aksi klik masuk untuk menuju ke halaman login/authentication
     let modalContent = await driver.executeScript(`return document.querySelector('.modal-content')`);
-    await driver.sleep(3000);
+    await driver.sleep(4000);
     if(await modalContent?.isDisplayed()) {
         await driver.wait(until.elementLocated(By.css('.modal-content')));              
         await driver.findElement(By.css(".modal-content header button.close")).click();

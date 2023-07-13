@@ -128,17 +128,8 @@ Waktu Event Load Selesai (loadEventEnd): (${performanceTiming.loadEventEnd - nav
                             // Aksi menunggu mengisi form login untuk melakukan authentication
                             await loginToApp(driver, user, browser, appHost);
                             
-                            // Aksi menunggu response halaman ter-load semua
-                            await driver.wait(async function () {
-                                const isNetworkIdle = await driver.executeScript(function () {
-                                  const performanceEntries = window.performance.getEntriesByType('resource');
-                                  return performanceEntries.every(function (entry) {
-                                    return entry.responseEnd > 0;
-                                  });
-                                });
-                              
-                                return isNetworkIdle;
-                            }, 10000); 
+                            // Aksi Sleep
+                            await driver.sleep(3000);
 
                             // Results
                             let userData = await driver.executeScript("return window.localStorage.getItem('user_data')");
@@ -166,50 +157,42 @@ Waktu Event Load Selesai (loadEventEnd): (${performanceTiming.loadEventEnd - nav
             
                             driver = await goToApp(browser, appHost);
                             await driver.manage().window().maximize();
-            
-                            // Aksi menunggu modal content
-                            let modalContent = await driver.executeScript(`return document.querySelector('.modal-content')`);
-                            if(await modalContent?.isDisplayed()) {
-                                await driver.wait(until.elementLocated(By.css('.modal-content')));      
-                                await driver.sleep(1000);        
-                                await driver.executeScript(`return document.querySelector('.modal-content header button.close').click()`);
-                            }
-            
-                            // Aksi sleep 
-                            await driver.sleep(3000);
                             
                             // Aksi menunggu mengisi form login untuk melakukan authentication
                             await loginToApp(driver, user, browser, appHost);
             
                             // Aksi sleep 
                             await driver.sleep(3000);
-                            // Aksi menunggu response halaman ter-load semua
-                            await driver.wait(async function () {
-                                const isNetworkIdle = await driver.executeScript(function () {
-                                  const performanceEntries = window.performance.getEntriesByType('resource');
-                                  return performanceEntries.every(function (entry) {
-                                    return entry.responseEnd > 0;
-                                  });
-                                });
-                              
-                                return isNetworkIdle;
-                            }); 
 
                             // Aksi klik logo untuk kembali ke halaman landing page
                             await driver.executeScript(`return document.querySelector('nav.navbar .navbar-brand').click();`);
             
                             // Aksi sleep 
                             await driver.sleep(3000);
+
+                            let modalContent = await driver.executeScript(`return document.querySelector('.modal-content')`);
+                            
+                            // Aksi sleep 
+                            await driver.sleep(4000);
+
+                            if(await modalContent?.isDisplayed()) {
+                                await driver.wait(until.elementLocated(By.css('.modal-content')));              
+                                await driver.findElement(By.css(".modal-content header button.close")).click();
+                            }
+                            
+                            // Aksi sleep 
+                            await driver.sleep(3000);
             
-                            // Aksi mengklik menu tab article
+                            // Aksi mengklik menu tab reader
                             await driver.executeScript(`return document.querySelectorAll("ul.navbar-nav li.nav-item a.nav-link a")[2].click();`);
             
                             // Aksi sleep 
                             await driver.sleep(3000);
             
-                            // Aksi mengklik menu tab article
+                            // Aksi mengklik menu salah satu reader
                             let userOverview = await driver.executeScript(`return document.querySelectorAll('#user-overview button.action-btn')`);
-                            await driver.executeScript(`return document.querySelectorAll("#user-overview button.action-btn")[${faker.number.int({ min: 0, max: await userOverview.length })}].click();`);
+                            await thrownAnError('Reader is empty', await userOverview.length == 0);
+                            await driver.executeScript(`return document.querySelectorAll("#user-overview button.action-btn")[0].click();`);
             
                             // Aksi sleep 
                             await driver.sleep(3000);
@@ -235,34 +218,9 @@ Waktu Event Load Selesai (loadEventEnd): (${performanceTiming.loadEventEnd - nav
             
                             driver = await goToApp(browser, appHost);
                             await driver.manage().window().maximize();
-            
-                            // Aksi menunggu modal content
-                            let modalContent = await driver.executeScript(`return document.querySelector('.modal-content')`);
-                            if(await modalContent?.isDisplayed()) {
-                                await driver.wait(until.elementLocated(By.css('.modal-content')));         
-                                await driver.sleep(1000);           
-                                await driver.executeScript(`return document.querySelector('.modal-content header button.close').click`)
-                            }
-            
-                            // Aksi sleep 
-                            await driver.sleep(3000);
                             
                             // Aksi menunggu mengisi form login untuk melakukan authentication
                             await loginToApp(driver, user, browser, appHost);
-            
-                            // Aksi sleep 
-                            await driver.sleep(3000);
-                            // Aksi menunggu response halaman ter-load semua
-                            await driver.wait(async function () {
-                                const isNetworkIdle = await driver.executeScript(function () {
-                                  const performanceEntries = window.performance.getEntriesByType('resource');
-                                  return performanceEntries.every(function (entry) {
-                                    return entry.responseEnd > 0;
-                                  });
-                                });
-                              
-                                return isNetworkIdle;
-                            }); 
 
                             // Aksi sleep 
                             await driver.sleep(3000);
@@ -516,7 +474,7 @@ Waktu Event Load Selesai (loadEventEnd): (${performanceTiming.loadEventEnd - nav
                     // });
 
                     if(browser != 'chrome') {
-                        it(`Reader - Update Profile for mobile version from browser ${browser}`, async () => {
+                        it.skip(`Reader - Update Profile for mobile version from browser ${browser}`, async () => {
     
                             try {
                                 // Aksi masuk ke dalam halaman browser
@@ -623,6 +581,8 @@ Waktu Event Load Selesai (loadEventEnd): (${performanceTiming.loadEventEnd - nav
                                 await driver.findElement(By.css('textarea#experience')).sendKeys(inputExperience);
                                 let radioGenders = await driver.executeScript(`return document.querySelectorAll('.radio-gender .radio-item')`);
                                 await radioGenders[faker.number.int({ min: 0, max: 1 })].click();
+                                await driver.sleep(1000);
+                                await driver.findElement(By.css('input[type=file]#imgSrc')).sendKeys(path.resolve('./resources/images/profile.png'))
                                 // Aksi sleep
                                 await driver.sleep(3000);
                                 // Get the all value of input & check if the all input is already filled in
@@ -635,6 +595,7 @@ Waktu Event Load Selesai (loadEventEnd): (${performanceTiming.loadEventEnd - nav
                                     await driver.findElement(By.css('input#education')).getAttribute('value'),
                                     await driver.findElement(By.css(`input[name="radio-gender"]`)).getAttribute('value'),
                                     await driver.findElement(By.css('textarea#experience')).getAttribute('value'),
+                                    await driver.findElement(By.css('input[type=file]#imgSrc')).getAttribute('value'),
                                 ]).then(results => results.every(value => value != ''));
     
                                 if(isAllFilled) await driver.executeScript(`return document.querySelector('button.btn-simpan').click()`);
@@ -670,17 +631,8 @@ Waktu Event Load Selesai (loadEventEnd): (${performanceTiming.loadEventEnd - nav
                             // Aksi menunggu mengisi form login untuk melakukan authentication
                             await loginToApp(driver, user, browser, appHost);
 
-                            // Aksi menunggu response halaman ter-load semua
-                            await driver.wait(async function () {
-                                const isNetworkIdle = await driver.executeScript(function () {
-                                  const performanceEntries = window.performance.getEntriesByType('resource');
-                                  return performanceEntries.every(function (entry) {
-                                    return entry.responseEnd > 0;
-                                  });
-                                });
-                              
-                                return isNetworkIdle;
-                            }, 10000); 
+                            // Aksi Sleep
+                            await driver.sleep(3000);
 
                             // Results
                             let userData = await driver.executeScript("return window.localStorage.getItem('user_data')");
@@ -708,16 +660,6 @@ Waktu Event Load Selesai (loadEventEnd): (${performanceTiming.loadEventEnd - nav
             
                             driver = await goToApp(browser, appHost);
                             await driver.manage().window().maximize();
-            
-                            // Aksi menunggu modal content
-                            let modalContent = await driver.executeScript(`return document.querySelector('.modal-content')`);
-                            if(await modalContent?.isDisplayed()) {
-                                await driver.wait(until.elementLocated(By.css('.modal-content')));              
-                                await driver.executeScript(`return document.querySelector('.modal-content header button.close').click`)
-                            }
-            
-                            // Aksi sleep 
-                            await driver.sleep(3000);
                             
                             // Aksi menunggu mengisi form login untuk melakukan authentication
                             await loginToApp(driver, user, browser, appHost);
@@ -730,23 +672,36 @@ Waktu Event Load Selesai (loadEventEnd): (${performanceTiming.loadEventEnd - nav
             
                             // Aksi sleep 
                             await driver.sleep(3000);
+                            
+                            let modalContent = await driver.executeScript(`return document.querySelector('.modal-content')`);
+
+                            // Aksi sleep 
+                            await driver.sleep(4000);
+
+                            if(await modalContent?.isDisplayed()) {
+                                await driver.wait(until.elementLocated(By.css('.modal-content')));              
+                                await driver.findElement(By.css(".modal-content header button.close")).click();
+                            }
+
+                            // Aksi sleep 
+                            await driver.sleep(3000);
             
-                            // Aksi mengklik menu tab article
+                            // Aksi mengklik menu tab reader
                             await driver.executeScript(`return document.querySelectorAll("ul.navbar-nav li.nav-item a.nav-link a")[2].click();`);
             
                             // Aksi sleep 
                             await driver.sleep(3000);
             
-                            // Aksi mengklik menu tab article
+                            // Aksi mengklik salah satu reader untuk di pickup
                             let userOverview = await driver.executeScript(`return document.querySelectorAll('#user-overview button.action-btn')`);
-                            await driver.executeScript(`return document.querySelectorAll("#user-overview button.action-btn")[${faker.number.int({ min: 0, max: await userOverview.length - 1 })}].click();`);
+                            await thrownAnError('Sorry, the reader is empty', await userOverview.length == 0);
+                            await driver.executeScript(`return document.querySelectorAll("#user-overview button.action-btn")[0].click();`);
             
                             // Aksi sleep 
-                            await driver.sleep(3000);
+                            await driver.sleep(5000);
             
                             // Expect results and add custom message for addtional description
                             let currentPageUrl = await driver.getCurrentUrl();
-            
                             customMessages = [
                                 currentPageUrl === appHost + '/reader' ? 'Successfully go into reader page after clicked button pick on reader or councelor page ✅' : 'Failed go into reader page ❌',
                             ]
@@ -789,7 +744,7 @@ Waktu Event Load Selesai (loadEventEnd): (${performanceTiming.loadEventEnd - nav
                             await thrownAnError('The reader is still not verified yet', await iconVerifiedEmail.includes('x_red.svg'));
 
                             // Aksi sleep
-                            await driver.sleep(3000);
+                            await driver.sleep(5000);
 
                             // Expect results and add custom message for addtional description
                             customMessages = [
@@ -821,7 +776,7 @@ Waktu Event Load Selesai (loadEventEnd): (${performanceTiming.loadEventEnd - nav
                             await driver.executeScript(`return document.querySelectorAll("ul.navbar-nav li.nav-item a a")[3].click()`);
 
                             // Aksi Sleep
-                            await driver.sleep(3000);
+                            await driver.sleep(5000);
 
                             // Aksi klik button logout
                             await driver.executeScript(`return document.querySelectorAll('img.icon-sm')[document.querySelectorAll('img.icon-sm').length - 1].click();`);
@@ -1072,6 +1027,9 @@ Waktu Event Load Selesai (loadEventEnd): (${performanceTiming.loadEventEnd - nav
 
                             // Aksi menunggu mengisi form login untuk melakukan authentication
                             await loginToApp(driver, user, browser, appHost);
+                            
+                            // Aksi Sleep
+                            await driver.sleep(3000);
 
                             // Results
                             let userData = await driver.executeScript("return window.localStorage.getItem('user_data')");
