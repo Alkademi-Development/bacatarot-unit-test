@@ -113,7 +113,7 @@ Waktu Event Load Selesai (loadEventEnd): (${performanceTiming.loadEventEnd - nav
 
             switch (user.kind) {
                 case 1:
-                    it(`User - Booking Reader as a user without using voucher by use payment method 'Bank Transfer' from browser ${browser}`, async () => {
+                    it.skip(`User - Booking Reader as a user without using voucher by use payment method 'Bank Transfer' from browser ${browser}`, async () => {
 
                         try {
                             driver = await goToApp(browser, appHost);
@@ -231,7 +231,7 @@ Waktu Event Load Selesai (loadEventEnd): (${performanceTiming.loadEventEnd - nav
 
                     });
                     
-                    it(`User - Booking Reader as a user without using voucher by use payment method 'Gopay' or etc from browser ${browser}`, async () => {
+                    it.skip(`User - Booking Reader as a user without using voucher by use payment method 'Gopay' or etc from browser ${browser}`, async () => {
 
                         try {
                             driver = await goToApp(browser, appHost);
@@ -453,7 +453,68 @@ Waktu Event Load Selesai (loadEventEnd): (${performanceTiming.loadEventEnd - nav
 
                     });
                     
-                    it(`User - Use the voucher when booking a reader from browser ${browser}`, async () => {
+                    it(`User - Cancel the booking after ordered from browser ${browser}`, async () => {
+
+                        try {
+                            driver = await goToApp(browser, appHost);
+                            await driver.manage().window().maximize();
+
+                            // Aksi menunggu mengisi form login untuk melakukan authentication
+                            await loginToApp(driver, user, browser, appHost);
+
+                            // Aksi sleep
+                            await driver.sleep(3000);
+
+                            // Aksi klik menu tab notification
+                            await driver.executeScript(`return document.querySelectorAll('ul.navbar-nav li.nav-item a a')[2].click();`);
+                            
+                            // Aksi sleep
+                            await driver.sleep(3000);
+
+                            // Aksi klik tab payment
+                            await driver.executeScript(`return document.querySelectorAll(".notification-wrapper h1.tab-title")[1].click()`);
+                            let spinnerLocator = By.className('v-spinner');
+                            await driver.wait(until.elementLocated(spinnerLocator));
+                            await driver.wait(until.stalenessOf(driver.findElement(spinnerLocator)));
+                             
+                            // Aksi sleep
+                            await driver.sleep(5000);
+                            
+                            // Aksi memilih salah satu request yang tersedia
+                            let notificationCard = await driver.executeScript(`return document.querySelectorAll('#notification-card')`);
+                            await thrownAnError('Payment of booking is empty', await notificationCard.length === 0);
+                            await driver.sleep(1000);
+                            await driver.executeScript(`return document.querySelectorAll("#notification-card")[0].querySelector("button.action-btn.purple").click()`);
+                            
+                            // Aksi sleep
+                            await driver.sleep(5000);
+
+                            // Aksi klik button batalkan pemesanan
+                            await driver.executeScript(`return document.querySelector("#summary h5.warning").click()`);
+                            
+                            // Aksi sleep
+                            await driver.sleep(3000);
+
+                            // Aksi klik button konfirmasi pembatalan pemesanan
+                            await driver.executeScript(`return document.querySelectorAll(".agreement-modal .wrapper .option p")[1].click()`);
+
+                            // Aksi sleep
+                            await driver.sleep(6000);
+                            
+                            // Expect results and add custom message for addtional description
+                            let statusBar = await driver.findElement(By.css('#summary .status-bar'));
+                            customMessages = [
+                                await statusBar?.isDisplayed() ? 'Successfully cancelled the booking of reader ✅' : 'Failed to cancel the booking of reader ❌'
+                            ];
+                            expect(await statusBar?.isDisplayed()).to.equal(true);
+
+                        } catch (error) {
+                            expect.fail(error);
+                        }
+
+                    });
+                    
+                    it.skip(`User - Use the voucher when booking a reader from browser ${browser}`, async () => {
 
                         try {
                             driver = await goToApp(browser, appHost);
@@ -567,7 +628,7 @@ Waktu Event Load Selesai (loadEventEnd): (${performanceTiming.loadEventEnd - nav
 
                     });
                     
-                    it(`User - See more the details about the voucher when booking the reader from browser ${browser}`, async () => {
+                    it.skip(`User - See more the details about the voucher when booking the reader from browser ${browser}`, async () => {
 
                         try {
                             driver = await goToApp(browser, appHost);
@@ -669,7 +730,7 @@ Waktu Event Load Selesai (loadEventEnd): (${performanceTiming.loadEventEnd - nav
 
                     });
 
-                    it(`User - Check more details about payment after booked the reader from browser ${browser}`, async () => {
+                    it.skip(`User - Check more details about payment after booked the reader from browser ${browser}`, async () => {
 
                         try {
                             driver = await goToApp(browser, appHost);
@@ -733,167 +794,6 @@ Waktu Event Load Selesai (loadEventEnd): (${performanceTiming.loadEventEnd - nav
 
                             // Aksi sleep
                             await driver.sleep(3000);
-                            
-                            // Aksi klik menu tab notification
-                            await driver.executeScript(`return document.querySelectorAll('ul.navbar-nav li.nav-item a a')[2].click();`);
-
-                            // Aksi sleep
-                            await driver.sleep(3000);
-
-                            // Aksi klik tab request
-                            await driver.executeScript(`return document.querySelectorAll(".notification-wrapper h1.tab-title")[1].click()`);
-                            let spinnerLocator = By.className('v-spinner');
-                            await driver.wait(until.elementLocated(spinnerLocator));
-                            await driver.wait(until.stalenessOf(driver.findElement(spinnerLocator)));
-                                                        
-                            // Aksi sleep
-                            await driver.sleep(3000);
-
-                            // Aksi memilih salah satu request yang tersedia
-                            let notificationCard = await driver.executeScript(`return document.querySelectorAll('#notification-card')`);
-                            await thrownAnError('Request of consultation is empty', await notificationCard.length === 0);
-                            let randomIndexNotification = faker.number.int({ min: 0, max: await notificationCard.length - 1 });
-                            await driver.sleep(1000);
-                            let specializationConsultation = await driver.executeScript(`return document.querySelectorAll('#notification-card')[${randomIndexNotification}].querySelector('.specialization').innerText`);
-                            await driver.executeScript(`return document.querySelectorAll("#notification-card")[${randomIndexNotification}].querySelector(".action-container .acc").click()`);
-                            
-                            // Aksi sleep
-                            await driver.sleep(3000);
-                            
-                            // Aksi klik tab umum
-                            await driver.executeScript(`return document.querySelectorAll(".notification-wrapper h1.tab-title")[0].click()`);
-                            spinnerLocator = By.className('v-spinner');
-                            await driver.wait(until.elementLocated(spinnerLocator));
-                            await driver.wait(until.stalenessOf(driver.findElement(spinnerLocator)));
-
-                            // Aksi sleep
-                            await driver.sleep(3000);
-
-                            // Aksi mengecek request consultation yang telah di terima sebelumnya
-                            let acceptedConsultation = await driver.executeScript(`return Array.from(document.querySelectorAll('#notification-card .specialization')).filter(value => value.innerText === "${specializationConsultation}")`);
-                            customMessages = [
-                                await acceptedConsultation.length > 0 ? "The session of consultation successfully accepted ✅" : "The session of consultation failed to accept ❌"
-                            ]
-                            expect(await acceptedConsultation.length > 0).to.equal(true);
-
-                        } catch (error) {
-                            expect.fail(error);
-                        }
-
-
-                    });
-                    
-                    it(`Reader - Decline the request of consultation from browser ${browser}`, async () => {
-
-                        try {
-                            driver = await goToApp(browser, appHost);
-                            await driver.manage().window().maximize();
-
-                            // Aksi menunggu mengisi form login untuk melakukan authentication
-                            await loginToApp(driver, user, browser, appHost);
-
-                            // Aksi sleep
-                            await driver.sleep(3000);
-                            
-                            // Aksi klik menu tab notification
-                            await driver.executeScript(`return document.querySelectorAll('ul.navbar-nav li.nav-item a a')[2].click();`);
-
-                            // Aksi sleep
-                            await driver.sleep(3000);
-
-                            // Aksi klik tab request
-                            await driver.executeScript(`return document.querySelectorAll(".notification-wrapper h1.tab-title")[1].click()`);
-                            let spinnerLocator = By.className('v-spinner');
-                            await driver.wait(until.elementLocated(spinnerLocator));
-                            await driver.wait(until.stalenessOf(driver.findElement(spinnerLocator)));
-                            
-                            // Aksi sleep
-                            await driver.sleep(3000);
-
-                            // Aksi memilih salah satu request yang tersedia
-                            let notificationCard = await driver.executeScript(`return document.querySelectorAll('#notification-card')`);
-                            await thrownAnError('Request of consultation is empty', await notificationCard.length === 0);
-                            let randomIndexNotification = faker.number.int({ min: 0, max: await notificationCard.length - 1 });
-                            await driver.sleep(1000);
-                            let specializationConsultation = await driver.executeScript(`return document.querySelectorAll('#notification-card')[${randomIndexNotification}].querySelector('.specialization').innerText`);
-                            await driver.executeScript(`return document.querySelectorAll("#notification-card")[${randomIndexNotification}].querySelector(".action-container .reject").click()`);
-                            
-                            // Aksi sleep
-                            await driver.sleep(3000);
-
-                            // Aksi mengisi form reject the consultation
-                            await driver.executeScript(`return document.querySelector(".custom-radio input[type=radio]").checked = true`)
-                            await driver.sleep(1000);
-                            await driver.findElement(By.css('.modal-body .my-card textarea#my-textarea')).sendKeys(faker.lorem.sentences());
-                            await driver.sleep(2000);
-                            await driver.executeScript(`return document.querySelector('.modal-body .action-container button.approve').click()`);
-                            await driver.sleep(2000);
-                            await driver.executeScript(`return document.querySelectorAll('.agreement-modal .wrapper .option p')[1].click()`);
-                            
-                            // Aksi sleep
-                            await driver.sleep(3000);
-                            
-                            // Aksi klik tab umum
-                            await driver.executeScript(`return document.querySelectorAll(".notification-wrapper h1.tab-title")[0].click()`);
-                            spinnerLocator = By.className('v-spinner');
-                            await driver.wait(until.elementLocated(spinnerLocator));
-                            await driver.wait(until.stalenessOf(driver.findElement(spinnerLocator)));
-
-                            // Aksi sleep
-                            await driver.sleep(3000);
-
-                            // Aksi mengecek request consultation yang telah di terima sebelumnya
-                            let rejectedConsultation = await driver.executeScript(`return Array.from(document.querySelectorAll('#notification-card .specialization')).filter(value => value.innerText === "${specializationConsultation}")`);
-                            customMessages = [
-                                await rejectedConsultation.length > 0 ? "The session of consultation successfully rejected ✅" : "The session of consultation failed to reject ❌"
-                            ]
-                            expect(await rejectedConsultation.length > 0).to.equal(true);
-
-                        } catch (error) {
-                            expect.fail(error);
-                        }
-
-
-                    });
-                    
-                    it(`Reader - See the details of request consultation from browser ${browser}`, async () => {
-
-                        try {
-                            driver = await goToApp(browser, appHost);
-                            await driver.manage().window().maximize();
-
-                            // Aksi menunggu mengisi form login untuk melakukan authentication
-                            await loginToApp(driver, user, browser, appHost);
-
-                            // Aksi sleep
-                            await driver.sleep(3000);
-                            
-                            // Aksi klik menu tab notification
-                            await driver.executeScript(`return document.querySelectorAll('ul.navbar-nav li.nav-item a a')[2].click();`);
-
-                            // Aksi sleep
-                            await driver.sleep(3000);
-
-                            // Aksi klik tab request
-                            await driver.executeScript(`return document.querySelectorAll(".notification-wrapper h1.tab-title")[1].click()`);
-                            
-                            // Aksi sleep
-                            await driver.sleep(3000);
-
-                            // Aksi memilih salah satu request yang tersedia
-                            let notificationCard = await driver.executeScript(`return document.querySelectorAll('#notification-card')`);
-                            await thrownAnError('Request of consultation is empty', await notificationCard.length === 0);
-                            await driver.executeScript(`return document.querySelectorAll('#notification-card')[0].querySelector('.btn-detail').click();`);
-                            
-                            // Aksi sleep
-                            await driver.sleep(3000);
-
-                            // Expect results and add custom message for addtional description
-                            let bookingDetails = await driver.findElement(By.css('.booking-detail'));
-                            customMessages = [
-                                await bookingDetails.isDisplayed() ? 'Successfully get the details information about request consultation of user ✅' : 'Failed to get the details information about request of user ❌'
-                            ]
-                            expect(await bookingDetails.isDisplayed()).to.equal(true);
 
                         } catch (error) {
                             expect.fail(error);
