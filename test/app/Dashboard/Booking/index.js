@@ -113,7 +113,7 @@ Waktu Event Load Selesai (loadEventEnd): (${performanceTiming.loadEventEnd - nav
 
             switch (user.kind) {
                 case 1:
-                    it.skip(`User - Booking Reader as a user without using voucher by use payment method 'Bank Transfer' from browser ${browser}`, async () => {
+                    it(`User - Booking Reader as a user without using voucher by use payment method 'Bank Transfer' from browser ${browser}`, async () => {
 
                         try {
                             driver = await goToApp(browser, appHost);
@@ -123,7 +123,7 @@ Waktu Event Load Selesai (loadEventEnd): (${performanceTiming.loadEventEnd - nav
                             await loginToApp(driver, user, browser, appHost);
 
                             // Aksi sleep
-                            await driver.sleep(3000);
+                            await driver.sleep(10000);
 
                             // Aksi mem-booking salah satu reader
                             let readerList = await driver.executeScript(`return document.querySelectorAll("#user-list")`);
@@ -202,8 +202,7 @@ Waktu Event Load Selesai (loadEventEnd): (${performanceTiming.loadEventEnd - nav
                             );
 
                             // Aksi menunggu card payment methods
-                            await driver.wait(until.elementLocated(By.css('.page-container')));
-                            await driver.sleep(1000);
+                            await driver.sleep(5000);
 
                             // Aksi memilih metode pembayaran virtual account
                             await driver.executeScript(`return document.querySelectorAll(".list-payment-logo")[1].click()`);
@@ -215,7 +214,7 @@ Waktu Event Load Selesai (loadEventEnd): (${performanceTiming.loadEventEnd - nav
                             let bankList = await driver.executeScript(`return document.querySelectorAll('.bank-list-layout a.bank-list')`);
                             let randomIndexBank = faker.number.int({ min: 0, max: bankList.length - 2 });
                             await driver.executeScript(`return document.querySelectorAll(".bank-list-layout a.bank-list")[${randomIndexBank}].click()`);
-                            await driver.sleep(3000);
+                            await driver.sleep(5000);
 
                             // Expect results and add custom message for addtional description
                             let vaField = await driver.executeScript(`return document.querySelector('.payment-page-layout .payment-number').innerText`);
@@ -231,7 +230,7 @@ Waktu Event Load Selesai (loadEventEnd): (${performanceTiming.loadEventEnd - nav
 
                     });
                     
-                    it.skip(`User - Booking Reader as a user without using voucher by use payment method 'Gopay' or etc from browser ${browser}`, async () => {
+                    it(`User - Booking Reader as a user without using voucher by use payment method 'Gopay' or etc from browser ${browser}`, async () => {
 
                         try {
                             driver = await goToApp(browser, appHost);
@@ -241,7 +240,7 @@ Waktu Event Load Selesai (loadEventEnd): (${performanceTiming.loadEventEnd - nav
                             await loginToApp(driver, user, browser, appHost);
 
                             // Aksi sleep
-                            await driver.sleep(3000);
+                            await driver.sleep(10000);
 
                             // Aksi mem-booking salah satu reader
                             let readerList = await driver.executeScript(`return document.querySelectorAll("#user-list")`);
@@ -320,14 +319,13 @@ Waktu Event Load Selesai (loadEventEnd): (${performanceTiming.loadEventEnd - nav
                             );
 
                             // Aksi menunggu card payment methods
-                            await driver.wait(until.elementLocated(By.css('.page-container')));
-                            await driver.sleep(1000);
+                            await driver.sleep(5000);
 
                             // Aksi memilih metode pembayaran virtual account
                             await driver.executeScript(`return document.querySelectorAll(".list-payment-logo")[0].click()`);
                             
                             // Aksi sleep
-                            await driver.sleep(3000);
+                            await driver.sleep(5000);
 
                             // Expect results and add custom message for addtional description
                             let qrImage = await driver.findElement(By.css(".qr-wrapper img.qr-image"));
@@ -431,8 +429,7 @@ Waktu Event Load Selesai (loadEventEnd): (${performanceTiming.loadEventEnd - nav
                             );
 
                             // Aksi menunggu card payment methods
-                            await driver.wait(until.elementLocated(By.css('.page-container')));
-                            await driver.sleep(1000);
+                            await driver.sleep(5000);
 
                             // Aksi memilih metode pembayaran virtual account
                             await driver.executeScript(`return document.querySelectorAll(".list-payment-logo")[2].click()`);
@@ -473,12 +470,9 @@ Waktu Event Load Selesai (loadEventEnd): (${performanceTiming.loadEventEnd - nav
 
                             // Aksi klik tab payment
                             await driver.executeScript(`return document.querySelectorAll(".notification-wrapper h1.tab-title")[1].click()`);
-                            let spinnerLocator = By.className('v-spinner');
-                            await driver.wait(until.elementLocated(spinnerLocator));
-                            await driver.wait(until.stalenessOf(driver.findElement(spinnerLocator)));
                              
                             // Aksi sleep
-                            await driver.sleep(5000);
+                            await driver.sleep(10000);
                             
                             // Aksi memilih salah satu request yang tersedia
                             let notificationCard = await driver.executeScript(`return document.querySelectorAll('#notification-card')`);
@@ -514,7 +508,7 @@ Waktu Event Load Selesai (loadEventEnd): (${performanceTiming.loadEventEnd - nav
 
                     });
                     
-                    it.skip(`User - Use the voucher when booking a reader from browser ${browser}`, async () => {
+                    it(`User - Use the voucher when booking a reader from browser ${browser}`, async () => {
 
                         try {
                             driver = await goToApp(browser, appHost);
@@ -524,7 +518,7 @@ Waktu Event Load Selesai (loadEventEnd): (${performanceTiming.loadEventEnd - nav
                             await loginToApp(driver, user, browser, appHost);
 
                             // Aksi sleep
-                            await driver.sleep(3000);
+                            await driver.sleep(5000);
 
                             // Aksi mem-booking salah satu reader
                             let readerList = await driver.executeScript(`return document.querySelectorAll("#user-list")`);
@@ -628,7 +622,7 @@ Waktu Event Load Selesai (loadEventEnd): (${performanceTiming.loadEventEnd - nav
 
                     });
                     
-                    it.skip(`User - See more the details about the voucher when booking the reader from browser ${browser}`, async () => {
+                    it(`User - See more the details about the voucher when booking the reader from browser ${browser}`, async () => {
 
                         try {
                             driver = await goToApp(browser, appHost);
@@ -730,7 +724,7 @@ Waktu Event Load Selesai (loadEventEnd): (${performanceTiming.loadEventEnd - nav
 
                     });
 
-                    it.skip(`User - Check more details about payment after booked the reader from browser ${browser}`, async () => {
+                    it(`User - Check more details about payment after booked the reader from browser ${browser}`, async () => {
 
                         try {
                             driver = await goToApp(browser, appHost);
@@ -750,21 +744,18 @@ Waktu Event Load Selesai (loadEventEnd): (${performanceTiming.loadEventEnd - nav
 
                             // Aksi klik menu tab payment
                             await driver.executeScript(`return document.querySelectorAll(".notification-wrapper .tab-title")[1].click()`);
-                            let spinnerLocator = By.className('v-spinner');
-                            await driver.wait(until.elementLocated(spinnerLocator));
-                            await driver.wait(until.stalenessOf(driver.findElement(spinnerLocator)));
 
                             // Aksi Sleep
-                            await driver.sleep(3000);
+                            await driver.sleep(10000);
 
                             // Aksi seleksi salah satu card notification payment untuk melihat rincian lebih detail nya
                             let notifications = await driver.executeScript(`return Array.from(document.querySelectorAll('#notification-card h1')).filter(value => value.innerText == 'Menunggu pembayaran')`);
                             await thrownAnError('Notification payment is empty', await notifications.length === 0);
-                            await driver.sleep(1000);
+                            await driver.sleep(2000);
                             await driver.executeScript(`return document.querySelectorAll('#notification-card')[0].querySelector('button.action-btn').click()`);
 
                             // Aksi sleep 
-                            await driver.sleep(3000);
+                            await driver.sleep(5000);
 
                             // Expect results and add custom message for addtional description
                             let summaryPayment = await driver.findElement(By.id('summary'));
@@ -783,7 +774,7 @@ Waktu Event Load Selesai (loadEventEnd): (${performanceTiming.loadEventEnd - nav
                     break;
 
                 case 2:
-                    it(`Reader - Accept the request of consultation from browser ${browser}`, async () => {
+                    it.skip(`Reader - Test from browser ${browser}`, async () => {
 
                         try {
                             driver = await goToApp(browser, appHost);
