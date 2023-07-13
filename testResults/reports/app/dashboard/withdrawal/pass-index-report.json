@@ -28,14 +28,14 @@
       "suites": [
         {
           "uuid": "03b38067-3cf4-41dc-8cf9-34663dc0249e",
-          "title": "Booking",
+          "title": "Withdrawal",
           "fullFile": "D:\\allproject\\alkademik\\research-unit-test-bacatarot\\test\\app\\dashboard\\withdrawal\\index.js",
           "file": "\\test\\app\\dashboard\\withdrawal\\index.js",
           "beforeHooks": [],
           "afterHooks": [
             {
-              "title": "\"after all\" hook in \"Booking\"",
-              "fullTitle": "Booking \"after all\" hook in \"Booking\"",
+              "title": "\"after all\" hook in \"Withdrawal\"",
+              "fullTitle": "Withdrawal \"after all\" hook in \"Withdrawal\"",
               "timedOut": false,
               "duration": 1,
               "state": null,
@@ -52,8 +52,8 @@
               "skipped": false
             },
             {
-              "title": "\"after each\" hook in \"Booking\"",
-              "fullTitle": "Booking \"after each\" hook in \"Booking\"",
+              "title": "\"after each\" hook in \"Withdrawal\"",
+              "fullTitle": "Withdrawal \"after each\" hook in \"Withdrawal\"",
               "timedOut": false,
               "duration": 3362,
               "state": null,
@@ -73,7 +73,7 @@
           "tests": [
             {
               "title": "Reader - Withdrawal using bank transaction from browser firefox",
-              "fullTitle": "Booking Reader - Withdrawal using bank transaction from browser firefox",
+              "fullTitle": "Withdrawal Reader - Withdrawal using bank transaction from browser firefox",
               "timedOut": false,
               "duration": 62768,
               "state": "passed",
@@ -91,7 +91,7 @@
             },
             {
               "title": "Reader - Withdrawal using digital wallet from browser firefox",
-              "fullTitle": "Booking Reader - Withdrawal using digital wallet from browser firefox",
+              "fullTitle": "Withdrawal Reader - Withdrawal using digital wallet from browser firefox",
               "timedOut": false,
               "duration": 60496,
               "state": "passed",
@@ -109,7 +109,7 @@
             },
             {
               "title": "Reader - Details of withdrawal from browser firefox",
-              "fullTitle": "Booking Reader - Details of withdrawal from browser firefox",
+              "fullTitle": "Withdrawal Reader - Details of withdrawal from browser firefox",
               "timedOut": false,
               "duration": 28255,
               "state": "passed",
@@ -127,7 +127,7 @@
             },
             {
               "title": "Reader - Button CTA customer service from browser firefox",
-              "fullTitle": "Booking Reader - Button CTA customer service from browser firefox",
+              "fullTitle": "Withdrawal Reader - Button CTA customer service from browser firefox",
               "timedOut": false,
               "duration": 41423,
               "state": "passed",
@@ -145,7 +145,7 @@
             },
             {
               "title": "Reader - Withdrawal using bank transaction from browser chrome",
-              "fullTitle": "Booking Reader - Withdrawal using bank transaction from browser chrome",
+              "fullTitle": "Withdrawal Reader - Withdrawal using bank transaction from browser chrome",
               "timedOut": false,
               "duration": 60546,
               "state": "passed",
@@ -163,7 +163,7 @@
             },
             {
               "title": "Reader - Withdrawal using digital wallet from browser chrome",
-              "fullTitle": "Booking Reader - Withdrawal using digital wallet from browser chrome",
+              "fullTitle": "Withdrawal Reader - Withdrawal using digital wallet from browser chrome",
               "timedOut": false,
               "duration": 60372,
               "state": "passed",
@@ -181,7 +181,7 @@
             },
             {
               "title": "Reader - Details of withdrawal from browser chrome",
-              "fullTitle": "Booking Reader - Details of withdrawal from browser chrome",
+              "fullTitle": "Withdrawal Reader - Details of withdrawal from browser chrome",
               "timedOut": false,
               "duration": 27313,
               "state": "passed",
@@ -199,7 +199,7 @@
             },
             {
               "title": "Reader - Button CTA customer service from browser chrome",
-              "fullTitle": "Booking Reader - Button CTA customer service from browser chrome",
+              "fullTitle": "Withdrawal Reader - Button CTA customer service from browser chrome",
               "timedOut": false,
               "duration": 40247,
               "state": "passed",
