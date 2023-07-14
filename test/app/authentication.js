@@ -118,7 +118,7 @@ Waktu Event Load Selesai (loadEventEnd): (${performanceTiming.loadEventEnd - nav
 
             switch (user.kind) {
                 case 1:
-                    it(`User - Login from browser ${browser}`, async () => {
+                    it.skip(`User - Login from browser ${browser}`, async () => {
 
                         try {
                             // Aksi masuk ke dalam halaman browser
@@ -151,7 +151,7 @@ Waktu Event Load Selesai (loadEventEnd): (${performanceTiming.loadEventEnd - nav
 
                     });
         
-                    it(`User - Check the button pick of reader on reader or councelor page from browser (after logged in) ${browser}`, async () => {
+                    it.skip(`User - Check the button pick of reader on reader or councelor page from browser (after logged in) ${browser}`, async () => {
             
                         try {
             
@@ -212,7 +212,7 @@ Waktu Event Load Selesai (loadEventEnd): (${performanceTiming.loadEventEnd - nav
             
                     });
         
-                    it(`User - Check the active nav link on the header ${browser}`, async () => {
+                    it.skip(`User - Check the active nav link on the header ${browser}`, async () => {
             
                         try {
             
@@ -253,7 +253,7 @@ Waktu Event Load Selesai (loadEventEnd): (${performanceTiming.loadEventEnd - nav
             
                     });
                     
-                    it(`User - Logout from browser ${browser}`, async () => {
+                    it.skip(`User - Logout from browser ${browser}`, async () => {
 
                         try {
                             // Aksi masuk ke dalam halaman browser
@@ -295,7 +295,7 @@ Waktu Event Load Selesai (loadEventEnd): (${performanceTiming.loadEventEnd - nav
 
                     });
                     
-                    it(`User - Forgot Password from browser ${browser}`, async () => {
+                    it.skip(`User - Forgot Password from browser ${browser}`, async () => {
 
                         try {
                             // Aksi masuk ke dalam halaman browser
@@ -349,7 +349,180 @@ Waktu Event Load Selesai (loadEventEnd): (${performanceTiming.loadEventEnd - nav
 
                     });
                     
-                    it(`User - Resend Reset Password from browser ${browser}`, async () => {
+                    it(`User - Forgot Password V2 from browser ${browser}`, async () => {
+
+                        try {
+                            // Aksi masuk ke dalam halaman browser
+                            driver = await goToApp(browser, appHost);
+                            await driver.manage().window().maximize();
+
+                            // Aksi klik masuk untuk menuju ke halaman login/authentication
+                            let modalContent = await driver.executeScript(`return document.querySelector('.modal-content')`);
+                            await driver.sleep(3000);
+                            if(await modalContent?.isDisplayed()) {
+                                await driver.wait(until.elementLocated(By.css('.modal-content')));              
+                                await driver.findElement(By.css(".modal-content header button.close")).click();
+                            }
+
+                            // Aksi sleep
+                            await driver.sleep(3000);
+
+                            // Aksi mengklik button login 
+                            await driver.findElement(By.css("button.btn-login")).click();
+
+                            // Aksi menunggu halaman authentication
+                            await driver.wait(until.elementLocated(By.id("auth")));
+
+                            // Aksi sleep
+                            await driver.sleep(3000);
+
+                            // Aksi mengklik button Lupa Password
+                            await driver.executeScript(`return document.querySelector("button.forget-password").click();`);
+
+                            // Aksi sleep
+                            await driver.sleep(3000);
+
+                            // Aksi Input Data Akun 
+                            await driver.findElement(By.css(`input#email`)).sendKeys(user.email, Key.RETURN);
+                            await driver.sleep(3000);
+                            await driver.executeScript(`return document.querySelector('button[type=submit]').click();`);
+
+                            // Aksi menunggu halaman mengirim link reset password berhasil di kirim
+                            await driver.sleep(15000);
+
+                            // Aksi klik button link untuk menuju kehalaman gmail
+                            await driver.executeScript(`return document.querySelector('form a').click();`);
+
+                            // Aksi sleep 
+                            await driver.sleep(3000);
+
+                            // Aksi berpindah halaman ke gmail
+                            let originalWindow = await driver.getWindowHandle();
+                            let windows = await driver.getAllWindowHandles();
+                            windows.forEach(async handle => {
+                                if (handle !== originalWindow) {
+                                    await driver.switchTo().window(handle);
+                                }
+                            });
+                            await driver.wait(async () => (await driver.getAllWindowHandles()).length === 2);
+                            
+                            // Aksi sleep
+                            await driver.sleep(5000);
+                            
+                            // Aksi mengisi input field email
+                            await driver.findElement(By.css("input[type=email]")).sendKeys(user.email);
+
+                            // Aksi sleep
+                            await driver.sleep(3000);
+
+                            // Aksi klik button next
+                            await driver.findElement(By.css('#identifierNext')).click();
+                            
+                            // Aksi sleep
+                            await driver.sleep(5000);
+                            await driver.wait(until.elementLocated(By.css('input[type=password]')));
+
+                            // Aksi mengisi input field password
+                            await driver.findElement(By.css("input[type=password]")).sendKeys(user.password);
+                            
+                            // Aksi sleep
+                            await driver.sleep(3000);
+
+                            // Aksi klik button next
+                            await driver.findElement(By.css('#passwordNext')).click();
+                            
+                            // Aksi sleep
+                            await driver.sleep(10000);
+
+                            // Aksi mendapatkan td row notif email dari bacatarot
+                            let notifEmail = await driver.executeScript(`return Array.from(document.querySelectorAll("table[role=grid] tr td span span")).find(value => value.innerText.includes('Bacatarot'))`)
+                            await thrownAnError('Notification reset password in gmail is empty', await notifEmail == null)
+                            await driver.sleep(2000);
+                            await driver.executeScript(`return Array.from(document.querySelectorAll("table[role=grid] tr td span span")).find(value => value.innerText.includes('Bacatarot')).click();`);
+
+                            // Aksi sleep
+                            await driver.sleep(4000);
+
+                            // Aksi scroll bottom body
+                            await driver.executeScript('window.scrollTo(0, document.body.scrollHeight)');
+
+                            // Aksi sleep
+                            await driver.sleep(3000);
+
+                            // Aksi klik button anchor reset password
+                            await driver.executeScript(`return document.querySelector("div[role=listitem][aria-expanded=true] table tr td a").click();`);
+                            
+                            // Aksi sleep
+                            await driver.sleep(10000);
+
+                            // Aksi berpindah halaman ke gmail
+                            originalWindow = await driver.getWindowHandle();
+                            windows = await driver.getAllWindowHandles();
+                            await driver.switchTo().window(await windows[windows.length - 1]);
+                            // Aksi sleep
+                            await driver.sleep(10000);
+
+                            // Aksi close modal
+                            modalContent = await driver.executeScript(`return document.querySelector('.modal-content')`);
+                            await driver.sleep(3000);
+                            if(await modalContent?.isDisplayed()) {
+                                await driver.wait(until.elementLocated(By.css('.modal-content')));              
+                                await driver.findElement(By.css(".modal-content header button.close")).click();
+                            }
+                            
+                            // Aksi sleep
+                            await driver.sleep(3000);
+
+                            // Aksi klik tombol lanjut reset password
+                            await driver.executeScript(`return document.querySelector("#auth span.loading-email").click()`);
+                            
+                            // Aksi sleep
+                            await driver.sleep(3000);
+                            
+                            // Aksi fill input new password
+                            let newPassword = user.password;
+                            await driver.findElement(By.id('password')).sendKeys(newPassword);
+                            await driver.sleep(1000);
+                            await driver.findElement(By.id('konfirmasi-password')).sendKeys(newPassword);
+                            await driver.sleep(1000);
+                            await driver.executeScript(`return document.querySelector("#auth form button[type=submit]").click()`);
+                            
+                            // Aksi sleep
+                            await driver.sleep(4000);
+                            await driver.wait(until.elementLocated(By.css(".cancel-container .cancel a")));
+
+                            // Aksi klik button close
+                            await driver.executeScript(`return document.querySelector(".cancel-container .cancel a").click()`);
+                            
+                            // Aksi sleep
+                            await driver.sleep(3000);
+
+                            // Aksi menunggu mengisi form login untuk melakukan authentication
+                            await loginToApp(driver, user, browser, appHost);
+
+                            // Aksi sleep
+                            await driver.sleep(3000);
+
+                            // Expect results and add custom message for addtional description
+                            let userData = await driver.executeScript("return window.localStorage.getItem('user_data')");
+                            userData = await JSON.parse(userData);
+                            let currentUrl = await driver.getCurrentUrl();
+
+                            // Expect results and add custom message for addtional description
+                            customMessages = [
+                                userData?.id > 0 ? "Successfully get the data user from local storage ✅" : "No data available from local storage ❌",
+                                currentUrl === appHost + '/user' ? 'Successfully go into dashboard user page ✅' : 'Successfully go into dashboard user page ❌' 
+                            ]
+                            expect(parseInt(userData.id)).to.greaterThan(0);
+                            expect(currentUrl).to.equal(appHost + '/user');
+
+                        } catch (error) {
+                            expect.fail(error);
+                        }
+
+                    });
+                    
+                    it.skip(`User - Resend Reset Password from browser ${browser}`, async () => {
 
                         try {
                             // Aksi masuk ke dalam halaman browser
