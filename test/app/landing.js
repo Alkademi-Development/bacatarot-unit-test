@@ -218,18 +218,21 @@ Waktu Event Load Selesai (loadEventEnd): (${performanceTiming.loadEventEnd - nav
                 await driver.executeScript(`return document.querySelectorAll("ul.navbar-nav li.nav-item a.nav-link a")[1].click();`);
 
                 // Aksi sleep 
-                await driver.sleep(5000);
+                await driver.sleep(6000);
 
                 // Aksi mengecek apakah article ada atau tidak
-                let emptyArticle = await driver.executeScript(`return document.querySelectorAll('p.text-white');`);
-                await thrownAnError(await emptyArticle[0].getAttribute('innerText'), await emptyArticle.length > 0);
+                let articleCard = await driver.executeScript(`return document.querySelectorAll('#article-card');`);
+                await thrownAnError('Sorry there is no article yet', await articleCard.length == 0);
+
+                // Aksi sleep 
+                await driver.sleep(3000);
 
                 // Expect results and add custom message for addtional description
                 let currentPageUrl = await driver.getCurrentUrl();
 
                 customMessages = [
                     currentPageUrl === appHost + '/article' ? 'Successfully go into article page ✅' : 'Failed go into article page ❌',
-                    emptyArticle.length === 0 ? 'There is an article on the page ✅' : 'There is no article on the page ❌'
+                    articleCard.length > 0 ? 'There is an article on the page ✅' : 'There is no article on the page ❌'
                 ]
                 expect(currentPageUrl).to.equal(appHost + '/article');
 

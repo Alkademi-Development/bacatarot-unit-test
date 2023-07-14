@@ -413,65 +413,6 @@ Waktu Event Load Selesai (loadEventEnd): (${performanceTiming.loadEventEnd - nav
                     break;
                 
                 case 2: 
-                    // Mobile Navigation
-                    // it(`Reader - Check the mobile navigation of mobile version from browser ${browser}`, async () => {
-
-                    //     try {
-                    //         // Aksi masuk ke dalam halaman browser
-                    //         driver = await goToApp(browser, appHost, 'mobile');
-
-                    //         // Aksi klik masuk untuk menuju ke halaman login/authentication
-                    //         let modalContent = await driver.executeScript(`return document.querySelector('.modal-content')`);
-                    //         if(await modalContent?.isDisplayed()) {
-                    //             await driver.wait(until.elementLocated(By.css('.modal-content')));              
-                    //             await driver.executeScript(`return document.querySelector('.modal-content header button.close').click`)
-                    //         }
-
-                    //         // Aksi mengklik button login 
-                    //         await driver.findElement(By.css("button.navbar-toggler")).click();
-                    //         await driver.sleep(1000);
-                    //         // Aksi mengecek dropdown navbar item ketika telah mengklik toggler button
-                    //         let dropdownNavbar = await driver.findElement(By.css("ul.navbar-nav"));
-                    //         await thrownAnError('Dropdown navbar item is not available', await dropdownNavbar.isDisplayed() === false);
-                    //         await driver.sleep(1000);
-                    //         await driver.executeScript(`return document.querySelectorAll('ul.navbar-nav li.nav-item a.nav-link a')[document.querySelectorAll('ul.navbar-nav li.nav-item a.nav-link a').length - 1].click();`);
-                    //         await driver.sleep(1000);
-
-                    //         // Aksi menunggu halaman authentication
-                    //         await driver.wait(until.elementLocated(By.id("auth")));
-
-                    //         // Aksi Input Data Akun 
-                    //         await driver.wait(until.elementLocated(By.css(`input#email`)));
-                    //         await driver.findElement(By.css(`input#email`)).sendKeys(user.email, Key.RETURN);
-                    //         await driver.findElement(By.css(`input#password`)).sendKeys(user.password, Key.RETURN);
-                    //         // Aksi sleep
-                    //         await driver.sleep(3000);
-                    //         // Aksi mengecek ada warning atau tidak pada saat submit login form
-                    //         let errorElement = await driver.executeScript(`return document.querySelectorAll('p.error');`)
-                    //         if (errorElement.length > 0) await thrownAnError(await driver.executeScript(`return document.querySelector('p.error').innerText;`), errorElement.length > 0);
-
-                    //         // Aksi menunggu masuk ke dashboard
-                    //         await driver.wait(until.elementLocated(By.id("mobile-navigation")));
-
-                    //         // Cek navigasi mobile
-                    //         let mobileNavigation = await driver.findElement(By.id("mobile-navigation"));
-                    //         await thrownAnError('Mobile navigation not found', await mobileNavigation.isDisplayed() === false);
-                            
-                    //         // Aksi sleep
-                    //         await driver.sleep(3000);
-
-                    //         // Expect results and add custom message for addtional description
-                    //         customMessages = [
-                    //             await mobileNavigation.isDisplayed() ? 'Mobile navigation is displayed or available ✅' : 'Mobile navigation is not displayed or available'
-                    //         ];
-                    //         expect(await mobileNavigation.isDisplayed()).to.equal(true);
-
-                    //     } catch (error) {
-                    //         expect.fail(error);
-                    //     }
-
-
-                    // });
 
                     if(browser != 'chrome') {
                         it.skip(`Reader - Update Profile for mobile version from browser ${browser}`, async () => {
