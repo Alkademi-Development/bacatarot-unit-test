@@ -129,7 +129,7 @@ Waktu Event Load Selesai (loadEventEnd): (${performanceTiming.loadEventEnd - nav
                             await loginToApp(driver, user, browser, appHost);
 
                             // Aksi sleep
-                            await driver.sleep(5000);
+                            await driver.sleep(10000);
 
                             // Aksi mengecek apakah reader tersedia atau tidak
                             let readerList = await driver.executeScript(`return document.querySelectorAll('#user-list h1.username')`);
@@ -182,6 +182,83 @@ Waktu Event Load Selesai (loadEventEnd): (${performanceTiming.loadEventEnd - nav
                                 findReader.length > 0 ? "Successfully got the results search of reader ✅" : "No results found for search reader ❌"
                             ];
                             expect(findReader.length).to.greaterThan(0);
+                        } catch (error) {
+                            expect.fail(error);
+                        }
+
+
+                    });
+                    
+                    it(`User - Check articles on dashboard page from browser ${browser}`, async () => {
+
+                        try {
+                            // Aksi masuk ke dalam halaman browser
+                            driver = await goToApp(browser, appHost);
+                            await driver.manage().window().maximize();
+
+                            // Aksi menunggu mengisi form login untuk melakukan authentication
+                            await loginToApp(driver, user, browser, appHost);
+                            
+                            // Aksi sleep
+                            await driver.sleep(5000);
+            
+                            // Aksi mengecek apakah ada article atau tidak di dashboard page user
+                            let articleCard = await driver.executeScript(`return document.querySelectorAll('#article-card');`);
+                            await thrownAnError('Sorry there is no article yet on dashboard page', await articleCard.length == 0);
+                            await driver.sleep(2000);
+                            
+                            // Expect results and add custom message for addtional description
+                            customMessages = [
+                                await articleCard.length > 0 ? 'There is an article on dashboard page ✅' : 'There is no article on dashboard page ❌'
+                            ]
+                            expect(await articleCard.length > 0).to.equal(true);
+                        } catch (error) {
+                            expect.fail(error);
+                        }
+
+
+                    });
+                    
+                    it(`User - Check the details of article on dashboard page from browser ${browser}`, async () => {
+
+                        try {
+                            // Aksi masuk ke dalam halaman browser
+                            driver = await goToApp(browser, appHost);
+                            await driver.manage().window().maximize();
+
+                            // Aksi menunggu mengisi form login untuk melakukan authentication
+                            await loginToApp(driver, user, browser, appHost);
+
+                            // Aksi sleep
+                            await driver.sleep(5000);
+
+                            // Aksi memilih salah satu artikel yang tersedia di dashboard user
+                            let articleCard = await driver.executeScript(`return document.querySelectorAll('#article-card')`);
+                            await thrownAnError('Article is empty', await articleCard.length == 0);
+                            await driver.sleep(1000);
+                            let randomIndexArticle = faker.number.int({ min: 0, max: await articleCard.length - 1 });
+                            await driver.sleep(1000);
+                            let article = await driver.executeScript(`return document.querySelectorAll("#article-card")[${randomIndexArticle}]`)
+                            let titleArticle = await driver.executeScript(`
+                                let articleCard = arguments[0];
+                                let h1Title = articleCard.querySelector(".desc h1");
+                                return h1Title.innerText;
+                            `, article)
+                            await driver.sleep(1000);
+                            await article.click();
+
+                            // Aksi sleep
+                            await driver.sleep(5000);
+            
+                            // Expect results and add custom message for addtional description
+                            let detailTitleArticle = await driver.executeScript(`return document.querySelector("#article-read .article-title").innerText`);
+                            await driver.sleep(3000);
+                            console.log(await titleArticle + '|' + await detailTitleArticle)
+                            customMessages = [
+                                await titleArticle === await detailTitleArticle ? 'Succesfully go into details article from dashboard page ✅' : 'Failed to go into details article from dashboard page ❌'
+                            ];
+                            expect(await titleArticle === await detailTitleArticle).to.equal(true);
+
                         } catch (error) {
                             expect.fail(error);
                         }
